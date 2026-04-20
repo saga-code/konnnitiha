@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structural Analysis: "Kaijuu ni Naritai" — Project SEKAI's Ultimate Pressure Test</title>
+    <title>Kaijuu ni Naritai: When 220 BPM Demands You Become the Monster | PJSK Analysis</title>
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -18,6 +18,24 @@
             font-family: 'Helvetica Neue', 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
             line-height: 1.9;
             padding: 2rem 1rem;
+        }
+
+        /* ===== PROGRESS BAR (NEW) ===== */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(42, 74, 106, 0.3);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, #ffd966, #ff6b6b);
+            width: 0%;
+            transition: width 0.1s ease;
         }
 
         /* ===== MAIN CONTAINER ===== */
@@ -55,6 +73,17 @@
 
         .reveal.delay-1 { transition-delay: 0.15s; }
         .reveal.delay-2 { transition-delay: 0.3s; }
+
+        /* ===== BPM-SYNCED PULSE (NEW) ===== */
+        @keyframes bpmPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); border-color: #ffd966; }
+            100% { transform: scale(1); }
+        }
+
+        .bpm-pulse {
+            animation: bpmPulse 1.09s infinite ease-in-out; /* 220 BPM = 1 beat ≈ 0.545s, two beats ≈ 1.09s */
+        }
 
         /* ===== TYPOGRAPHY ===== */
         h1 {
@@ -364,6 +393,13 @@
             transform: scale(0.95);
         }
 
+        /* ===== COUNT-UP NUMBER STYLING ===== */
+        .stat-number {
+            font-weight: 700;
+            color: #ffd966;
+            font-size: 1.2rem;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .blog-container {
@@ -392,49 +428,54 @@
     </style>
 </head>
 <body>
+
+    <!-- ===== PROGRESS BAR (NEW) ===== -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <div class="blog-container">
         
         <!-- ==================== TITLE & INTRO ==================== -->
-        <h1 class="reveal">🦖 "Kaijuu ni Naritai": When a Rhythm Game Chart Demands Transformation</h1>
+        <h1 class="reveal">🦖 220 BPM. Zero Respite. This Isn't a Chart—It's a Forced Transformation.</h1>
         
         <div class="post-meta reveal">
             <span>📅 2026.04.20</span>
             <span>✍️ PJSK Structural Analysis</span>
-            <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #ChartDesign</span>
+            <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #BPM220</span>
         </div>
 
         <!-- ==================== VISUAL GALLERY ==================== -->
         <div class="visual-gallery reveal delay-1">
             <div class="gallery-card">
-                <h5>🎨 Official Jacket Illustration</h5>
-                <p>Illustrated by <strong>KaraMel (からめる)</strong>. The artwork captures the track's raw energy—chaotic, aggressive, and unapologetically visceral.</p>
+                <h5>🎨 Official Jacket — KaraMel</h5>
+                <p>The illustration isn't decoration. It's the track's thesis statement rendered visually: chaos barely contained within a frame.</p>
                 <p>▶ <a href="https://w.atwiki.jp/hmiku/pages/68783.html" target="_blank" rel="noopener">View on Hatsune Miku Wiki</a></p>
                 <p>▶ <a href="https://linkco.re/4XhMBp7v" target="_blank" rel="noopener">Official Distribution (LinkCore)</a></p>
                 <p class="credit">Illustrator: KaraMel (からめる)</p>
             </div>
             <div class="gallery-card">
-                <h5>🎬 Official Music Video</h5>
+                <h5>🎬 Official MV — Watch Before Reading</h5>
                 <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="怪獣になりたい / Sakuzyo feat. 初音ミク 〖プロジェクトセカイChampionship 2025〗〖MV〗" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="怪獣になりたい / Sakuzyo feat. 初音ミク" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <p class="credit">Sakuzyo Official / Project SEKAI Championship 2025</p>
+                <p class="credit">Sakuzyo Official / PJSK Championship 2025</p>
             </div>
         </div>
 
         <!-- ==================== INTRO CONTINUED ==================== -->
-        <p class="reveal delay-2">Commissioned for the <strong>Project SEKAI Championship 2025</strong> finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" pushed difficulty standards to their limits across multiple tiers. BPM 220. 2 minutes and 5 seconds of sustained intensity. And a design philosophy made explicit by the composer: <strong>"Become a monster and destroy the falling notes."</strong></p>
+        <p class="reveal delay-2">Commissioned for the <strong>Project SEKAI Championship 2025</strong> finals and added <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" immediately set new benchmarks. <strong>Multiple difficulty tiers reportedly reached unprecedented levels</strong>—a rare occurrence in a game where power creep is carefully managed. BPM 220. 2 minutes and 5 seconds. And a composer's directive that leaves no room for passive listening: <strong>"Become a monster and destroy the falling notes."</strong></p>
         
-        <p class="reveal delay-2">Most players see the level number and stop there. This article examines the structural decisions that make the track work—and why they matter beyond the score screen.</p>
+        <p class="reveal delay-2">This article doesn't review the track. It dissects <em>why</em> it works—and what it demands from anyone who touches the chart.</p>
 
         <!-- ==================== MUSIC DATA ==================== -->
-        <div class="music-data reveal">
+        <div class="music-data reveal bpm-pulse">
             <h4>📋 Track Data: "Kaijuu ni Naritai" (I Want to Be a Monster)</h4>
             <ul>
-                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Sakuzyo (削除)</span></li>
-                <li><span class="data-label">Lyrics</span><span class="data-value">Sakuzyo(削除)</span></li>
+                <li><span class="data-label">Composer / Lyricist</span><span class="data-value">Sakuzyo (削除)</span></li>
                 <li><span class="data-label">BPM</span><span class="data-value">220</span></li>
                 <li><span class="data-label">Duration</span><span class="data-value">2:05</span></li>
-                <li><span class="data-label">Added to PJSK</span><span class="data-value">November 23, 2025 (Gift Song)</span></li>
+                <li><span class="data-label">PJSK Addition</span><span class="data-value">November 23, 2025 (Gift Song)</span></li>
                 <li><span class="data-label">Vocal</span><span class="data-value">Hatsune Miku</span></li>
                 <li><span class="data-label">Jacket Illustrator</span><span class="data-value">KaraMel (からめる)</span></li>
                 <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38</span></li>
@@ -443,101 +484,101 @@
 
         <!-- ==================== FAN ART SECTION ==================== -->
         <div class="highlight-box reveal">
-            <p>🎨 <strong>Fan Art Spotlight:</strong> The track has inspired over 70 illustrations on Pixiv under the tag <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84" target="_blank" rel="noopener">#怪獣になりたい</a>. Interpretations range from literal kaiju imagery to abstract expressions of internal collapse. <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84/artworks" target="_blank" rel="noopener">Browse the gallery →</a></p>
+            <p>🎨 <strong>Visual Impact:</strong> Over 70 illustrations on Pixiv under <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84" target="_blank" rel="noopener">#怪獣になりたい</a>. The interpretations vary—some literal kaiju, others abstract internal collapse. The common thread: no one draws this track as <em>gentle</em>. <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84/artworks" target="_blank" rel="noopener">Browse →</a></p>
         </div>
 
-        <!-- ==================== SECTION 1: BPM & DENSITY ==================== -->
-        <h2 class="reveal">📊 BPM 220: The Threshold of Consistent Execution</h2>
-        <p class="reveal">BPM alone doesn't determine difficulty. But 220 sits at a meaningful inflection point. At this tempo, <strong>16th notes arrive at approximately 14.7 inputs per second</strong>—approaching the documented upper threshold of consistent human execution (typically cited at 15-16 taps/sec for trained players). The chart doesn't just ask for speed; it asks for speed sustained across two minutes without degradation.</p>
+        <!-- ==================== SECTION 1: BPM & DENSITY (WITH COUNT-UP) ==================== -->
+        <h2 class="reveal">📊 BPM 220: The Threshold Where Reflex Replaces Thought</h2>
+        <p class="reveal">BPM alone doesn't make a chart hard. But 220 sits at a physiological inflection point. At this tempo, <strong>16th notes arrive at approximately <span class="stat-number" id="tapsPerSec">14.7</span> inputs per second</strong>. For context: most high-difficulty PJSK charts hover between 12-13 taps/sec at peak density. The documented upper threshold of consistent human execution sits around 15-16 taps/sec. This track doesn't just ask for speed—it asks for speed sustained across 125 seconds with <strong>almost no structural rests</strong>.</p>
         
         <div class="analysis-grid reveal">
             <div class="analysis-card">
                 <h5>📊 MASTER Lv.35</h5>
-                <p>Extremely high note density for its level. Sustained stamina demands, with alternating patterns that require consistent bilateral coordination.</p>
+                <p><strong>Note density widely cited as among the highest for its level.</strong> The chart demands sustained bilateral coordination—not bursts, but continuous streams that test stamina rather than pattern recognition.</p>
             </div>
             <div class="analysis-card">
                 <h5>📊 APPEND Lv.38</h5>
-                <p>Unprecedented density for a Project SEKAI chart. The combination of high-speed trills, cross-hand patterns, and chord streams creates a multi-vector difficulty profile—each element targeting a different aspect of technical execution.</p>
+                <p><strong>Unprecedented density for a Project SEKAI chart.</strong> High-speed trills, cross-hand patterns, and chord streams are layered simultaneously. Each element targets a different failure mode: finger independence, spatial recalibration, stamina collapse.</p>
             </div>
         </div>
 
-        <div class="highlight-box reveal">
-            <p>⚡ Sakuzyo's design brief: "I poured everything into this track. Players—become monsters and destroy the notes raining down on you." The chart doesn't merely test skill; it demands a temporary shift in how the player approaches the interface.</p>
+        <div class="highlight-box reveal bpm-pulse">
+            <p>⚡ Sakuzyo's design brief: "I poured everything into this track. Players—become monsters and destroy the notes raining down on you." The chart doesn't test you. It <strong>forces a temporary identity shift.</strong> You stop thinking and start reacting.</p>
         </div>
 
-        <!-- ==================== SECTION 2: MUSICAL STRUCTURE ==================== -->
-        <h2 class="reveal">🎼 Structural Breakdown: How the Composition Builds Pressure</h2>
-        <p class="reveal">The track's intensity isn't achieved through BPM alone. It's constructed through deliberate layering and rhythmic decisions.</p>
+        <!-- ==================== SECTION 2: STRUCTURAL BREAKDOWN ==================== -->
+        <h2 class="reveal">🎼 Structural Breakdown: Why You Can't Catch Your Breath</h2>
+        <p class="reveal">The track's intensity isn't just BPM. It's constructed through deliberate <strong>absence of negative space</strong>.</p>
         
         <div class="analysis-grid reveal">
             <div class="analysis-card">
-                <h5>🥁 Bass & Kick</h5>
-                <p>Four-on-the-floor kick pattern anchors the track, providing a relentless pulse. The bass frequencies are distorted and compressed, filling the low-end with sustained pressure rather than clean separation.</p>
+                <h5>🥁 Four-on-the-Floor Anchor</h5>
+                <p>The kick drum never relents. Distorted and compressed, it fills the low-end with sustained pressure rather than clean separation. <strong>There is no "reset" moment—the pulse continues underneath everything.</strong></p>
             </div>
             <div class="analysis-card">
-                <h5>🎹 Piano Arpeggios</h5>
-                <p>Rapid-fire arpeggios function as the primary melodic texture. The note density here directly informs the chart's stream patterns—the piano doesn't accompany the chart; the chart <em>translates</em> the piano into tactile input.</p>
+                <h5>🎹 Piano Arpeggios as Forced Reflex</h5>
+                <p>The rapid-fire arpeggios aren't melody; they're <strong>a continuous stream of 16th-note triggers</strong>. The chart directly translates this into note streams. This design forces reflexive rather than cognitive play—you don't read the pattern; you internalize the rhythm or fail.</p>
             </div>
         </div>
 
         <div class="analysis-grid reveal">
             <div class="analysis-card">
-                <h5>🔊 Synth Pads</h5>
-                <p>Layered in the mid-to-high range, these provide harmonic context and fill the space between rhythmic attacks. They create a sense of constant motion—there are almost no moments of true silence.</p>
+                <h5>🔊 Synth Pads: The Illusion of Space</h5>
+                <p>Mid-to-high range pads provide harmonic context but also create <strong>constant motion</strong>. There are almost no moments of true silence—the illusion of space prevents the player from mentally resetting.</p>
             </div>
             <div class="analysis-card">
-                <h5>📐 Rhythmic Pattern</h5>
-                <p>The track favors continuous 16th-note streams with occasional syncopated accents. There is little space for the player to reset; the density is sustained from introduction to finale.</p>
+                <h5>📐 Rhythmic Pattern: No Quarter</h5>
+                <p>The track favors <strong>continuous 16th-note streams with occasional syncopated accents</strong>. There are no extended breaks. The density is sustained from introduction to finale—the player is never given permission to rest.</p>
             </div>
         </div>
 
-        <!-- ==================== SECTION 3: LYRICS & PSYCHOLOGICAL RESONANCE ==================== -->
-        <h2 class="reveal">💥 The Lyrical Core: Ambivalence as Emotional Engine</h2>
-        <p class="reveal">The narrator—voiced by Hatsune Miku—exists in a state of unresolved contradiction.</p>
+        <!-- ==================== SECTION 3: WHY "MONSTER"? ==================== -->
+        <h2 class="reveal">💥 Why a Monster? Why Destruction?</h2>
+        <p class="reveal">The lyrical core isn't metaphor for its own sake.</p>
         
         <div class="quote-tweet reveal">
             "It's wrong, it's wrong, I don't want to live in a world like this, but…"<br>
             "It's wrong, it's wrong, yet still, I wish to remain myself."
         </div>
 
-        <p class="reveal">The desire to destroy coexists with the refusal to disappear. "I want to be a monster" isn't a power fantasy. It's the articulation of wanting to leave a mark on a world that offers no recognition. The narrator rejects the world while clinging to identity—a tension that doesn't resolve.</p>
+        <p class="reveal">The narrator exists in unresolved contradiction: rejecting the world while clinging to identity. "I want to be a monster" isn't power fantasy. It's the desperate articulation of <strong>wanting to leave a scar on something that refuses to acknowledge you exist</strong>. The monster is the only form of agency left when all other avenues are closed.</p>
 
-        <h2 class="reveal">🧠 Shadow Projection: The Monster as Repressed Self</h2>
-        <p class="reveal">From a Jungian framework, the "monster" functions as Shadow—the repository for aggression, need for acknowledgment, and aspects of self deemed unacceptable for social presentation. The track gives that Shadow a voice and a tempo. Playing the APPEND chart becomes a form of temporary embodiment: the physical exertion channels what the psyche keeps buried.</p>
+        <h2 class="reveal">🧠 Why 220 BPM Matches This</h2>
+        <p class="reveal">Tempo isn't arbitrary. 220 BPM sits at the edge of what the human motor system can process as "rhythm" rather than "noise." It feels <strong>urgent, dangerous, perpetually on the verge of collapse</strong>—exactly like the narrator's internal state. The chart doesn't illustrate this feeling. It <strong>forces you to inhabit it.</strong> When you play the APPEND chart, you aren't interpreting the monster. You are the monster, channeling suppressed aggression through your fingertips for exactly 125 seconds.</p>
 
         <!-- ==================== SECTION 4: CHART AS TRANSLATION ==================== -->
-        <h2 class="reveal">⌨️ Chart Design: Translating Sound into Demand</h2>
-        <p class="reveal">The APPEND chart doesn't merely follow the music—it interprets it. Three design principles are evident:</p>
+        <h2 class="reveal">⌨️ Chart Philosophy: Sound Becomes Demand</h2>
+        <p class="reveal">Three translation principles govern the APPEND chart:</p>
         
         <ul class="reveal">
-            <li><strong>Trill streams</strong> correspond to sustained piano arpeggios, testing finger independence under fatigue.</li>
-            <li><strong>Cross-hand patterns</strong> appear during transitional sections, forcing spatial recalibration mid-performance.</li>
-            <li><strong>Chord streams</strong> align with percussive accents, demanding simultaneous precision across multiple fingers.</li>
+            <li><strong>Trill streams → sustained piano arpeggios.</strong> Tests finger independence under accumulating fatigue.</li>
+            <li><strong>Cross-hand patterns → transitional sections.</strong> Forces spatial recalibration mid-performance, breaking muscle-memory autopilot.</li>
+            <li><strong>Chord streams → percussive accents.</strong> Demands simultaneous precision across multiple fingers at speed.</li>
         </ul>
 
-        <p class="reveal">The cumulative effect is a chart that doesn't just measure skill—it reshapes how the player interacts with the interface for the duration of the track.</p>
+        <p class="reveal">The cumulative effect is a chart that doesn't measure skill—it <strong>reshapes the player's relationship to the interface</strong> for the duration of the track. You don't play "Kaijuu ni Naritai." You survive it.</p>
 
         <hr class="reveal">
 
         <!-- ==================== CONCLUSION ==================== -->
-        <h2 class="reveal">✨ Conclusion</h2>
-        <p class="reveal">"Kaijuu ni Naritai" succeeds because its components align: the BPM sits at a physiologically meaningful threshold; the composition layers density without respite; the lyrics articulate a contradiction that resists easy resolution; and the chart translates all of this into a unified physical demand. It doesn't comfort. It validates.</p>
+        <h2 class="reveal">✨ What Remains After the Notes Stop</h2>
+        <p class="reveal">"Kaijuu ni Naritai" succeeds because every component aligns toward a single objective: <strong>eliminate the space between player and monster.</strong> BPM 220 pushes against physiological limits. The composition refuses to grant rest. The lyrics articulate a contradiction that refuses resolution. And the chart translates all of this into a unified physical demand. It doesn't comfort. It doesn't resolve. It validates—and for two minutes and five seconds, it lets you roar.</p>
 
         <!-- ==================== CTA ==================== -->
         <div class="comment-invite reveal">
-            <p>💬 If your interpretation differs, <strong>make your case.</strong></p>
-            <p>This analysis is a starting point, not a final word. Where's the gap?</p>
+            <p>💬 This analysis is a starting point—not a final word.</p>
+            <p>If you see a gap, <strong>exploit it.</strong> Where's the flaw?</p>
             <span class="btn-like">⚡ Challenge This Analysis ⚡</span>
         </div>
 
         <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Analysis over assertion.</p>
     </div>
 
-    <!-- ===== SCROLL REVEAL SCRIPT ===== -->
+    <!-- ===== SCROLL REVEAL + PROGRESS BAR + COUNT-UP SCRIPT ===== -->
     <script>
         (function() {
+            // 1. Scroll Reveal
             const elementsToReveal = document.querySelectorAll('.reveal');
-            
             if (elementsToReveal.length > 0) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -547,8 +588,45 @@
                         }
                     });
                 }, { threshold: 0.15 });
-
                 elementsToReveal.forEach(el => observer.observe(el));
+            }
+
+            // 2. Progress Bar
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (scrollTop / docHeight) * 100;
+                if (progressBar) progressBar.style.width = scrolled + '%';
+            });
+
+            // 3. Count-Up Animation for 14.7 taps/sec
+            const countElement = document.getElementById('tapsPerSec');
+            if (countElement) {
+                const targetValue = 14.7;
+                let currentValue = 0;
+                const duration = 1500;
+                const stepTime = 20;
+                const steps = duration / stepTime;
+                const increment = targetValue / steps;
+                
+                const countObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const timer = setInterval(() => {
+                                currentValue += increment;
+                                if (currentValue >= targetValue) {
+                                    countElement.textContent = targetValue.toFixed(1);
+                                    clearInterval(timer);
+                                } else {
+                                    countElement.textContent = currentValue.toFixed(1);
+                                }
+                            }, stepTime);
+                            countObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                countObserver.observe(countElement);
             }
         })();
     </script>

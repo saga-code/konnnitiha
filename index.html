@@ -258,6 +258,66 @@
             font-size: 0.95rem;
         }
 
+        /* ===== VISUAL GALLERY (NEW) ===== */
+        .visual-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-card {
+            background: #0f1a24;
+            border-radius: 18px;
+            padding: 1.5rem;
+            border: 1px solid #2e577a;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            border-color: #ffd966;
+        }
+
+        .gallery-card h5 {
+            color: #ffd966;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #3a688b;
+            padding-bottom: 0.5rem;
+        }
+
+        .gallery-card p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .gallery-card .credit {
+            color: #9bb7d4;
+            font-size: 0.85rem;
+            margin-top: 0.8rem;
+        }
+
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 1px solid #3a688b;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         hr {
             border: none;
             height: 1px;
@@ -325,6 +385,9 @@
             .analysis-grid {
                 grid-template-columns: 1fr;
             }
+            .visual-gallery {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -340,7 +403,26 @@
             <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #ChartDesign</span>
         </div>
 
-        <p class="reveal delay-1">Commissioned for the <strong>Project SEKAI Championship 2025</strong> finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" didn't just break records—it rewrote the definition of what a rhythm game chart can demand. Every single difficulty tier received a <strong>new maximum level</strong> upon release. That's not coincidence. That's a statement of intent. BPM 220. 2 minutes and 5 seconds of relentless assault. And a chart philosophy that Sakuzyo himself made explicit: <strong>"Become a monster and destroy the falling notes."</strong></p>
+        <!-- ==================== VISUAL GALLERY (NEW) ==================== -->
+        <div class="visual-gallery reveal delay-1">
+            <div class="gallery-card">
+                <h5>🎨 Official Jacket Illustration</h5>
+                <p>Illustrated by <strong>KaraMel (からめる)</strong>, the jacket art captures the raw, chaotic energy of the track—a perfect visual counterpart to Sakuzyo's sonic assault.</p>
+                <p>▶ <a href="https://w.atwiki.jp/hmiku/pages/68783.html" target="_blank" rel="noopener">View on Hatsune Miku Wiki</a></p>
+                <p>▶ <a href="https://linkco.re/4XhMBp7v" target="_blank" rel="noopener">View on LinkCore (Official Distribution)</a></p>
+                <p class="credit">Illustrator: KaraMel (からめる)</p>
+            </div>
+            <div class="gallery-card">
+                <h5>🎬 Official Music Video (YouTube)</h5>
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="怪獣になりたい / Sakuzyo feat. 初音ミク 〖プロジェクトセカイChampionship 2025〗〖MV〗" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="credit">Sakuzyo Official / Project SEKAI Championship 2025</p>
+            </div>
+        </div>
+
+        <!-- ==================== INTRO CONTINUED ==================== -->
+        <p class="reveal delay-2">Commissioned for the <strong>Project SEKAI Championship 2025</strong> finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" didn't just break records—it rewrote the definition of what a rhythm game chart can demand. Every single difficulty tier received a <strong>new maximum level</strong> upon release. That's not coincidence. That's a statement of intent. BPM 220. 2 minutes and 5 seconds of relentless assault. And a chart philosophy that Sakuzyo himself made explicit: <strong>"Become a monster and destroy the falling notes."</strong></p>
         
         <p class="reveal delay-2">Most players see the level number and assume it's just "the hardest chart." That's surface-level. Today we're breaking down exactly what makes this track a structural masterpiece—and why that matters.</p>
 
@@ -354,8 +436,14 @@
                 <li><span class="data-label">Duration</span><span class="data-value">2:05</span></li>
                 <li><span class="data-label">Added to PJSK</span><span class="data-value">November 23, 2025 (Gift Song)</span></li>
                 <li><span class="data-label">Vocal</span><span class="data-value">Hatsune Miku</span></li>
+                <li><span class="data-label">Jacket Illustrator</span><span class="data-value">KaraMel (からめる)</span></li>
                 <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38 (Current peak)</span></li>
             </ul>
+        </div>
+
+        <!-- ==================== FAN ART SECTION (NEW) ==================== -->
+        <div class="highlight-box reveal">
+            <p>🎨 <strong>Fan Art Spotlight:</strong> The track has inspired over 70 illustrations on Pixiv under the tag <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84" target="_blank" rel="noopener">#怪獣になりたい</a>. The visual interpretation of "wanting to be a monster" varies wildly—some depict literal kaiju, others capture the internal emotional devastation. <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84/artworks" target="_blank" rel="noopener">Browse the gallery →</a></p>
         </div>
 
         <!-- ==================== SECTION 1: NUMBERS ==================== -->

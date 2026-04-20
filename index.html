@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaijuu ni Naritai: When 220 BPM Demands You Become the Monster | PJSK Analysis</title>
+    <title>Kaijuu ni Naritai: 220 BPM Monster Analysis | PJSK</title>
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -20,22 +20,145 @@
             padding: 2rem 1rem;
         }
 
-        /* ===== PROGRESS BAR (NEW) ===== */
+        /* ===== MONSTER PROGRESS BAR (完全怪獣化) ===== */
         .progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: rgba(42, 74, 106, 0.3);
+            height: 24px; /* 高さを拡張して怪獣の顔を収容 */
+            background: transparent;
             z-index: 100;
+            pointer-events: none; /* クリックを透過 */
         }
 
-        .progress-bar {
-            height: 3px;
-            background: linear-gradient(90deg, #ffd966, #ff6b6b);
+        /* 背びれのトゲトゲ (背景) */
+        .spikes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 12px,
+                #2a4a6a 12px,
+                #1a2f3f 16px
+            );
+            opacity: 0.7;
+        }
+
+        /* 怪獣の口（プログレスバー本体） */
+        .monster-mouth {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 12px;
             width: 0%;
+            background: linear-gradient(90deg, #ff4d4d, #ffb347, #ffd966);
+            box-shadow: 0 0 12px #ff4d4d;
             transition: width 0.1s ease;
+            border-radius: 0 8px 8px 0;
+            border-right: 3px solid #ff6b6b;
+        }
+
+        /* 口の中のギザギザ（小さな歯） */
+        .monster-mouth::after {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                #0b0e14 0px,
+                #0b0e14 6px,
+                transparent 6px,
+                transparent 12px
+            );
+        }
+
+        /* 怪獣の目（左右に配置） */
+        .monster-eyes {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 100%;
+            height: 18px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            pointer-events: none;
+        }
+
+        .eye {
+            width: 24px;
+            height: 18px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(0,0,0,0.3);
+            border: 1px solid #222;
+        }
+
+        .pupil {
+            width: 10px;
+            height: 12px;
+            background: #0b0e14;
+            border-radius: 50%;
+            transition: transform 0.05s linear;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        /* 瞳孔の中に小さなハイライト */
+        .pupil::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        /* 怪獣の角（左右） */
+        .horn-left, .horn-right {
+            position: absolute;
+            top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 16px solid #4a6a8a;
+            filter: drop-shadow(0 2px 4px #000);
+        }
+
+        .horn-left {
+            left: 10px;
+            transform: rotate(-25deg);
+        }
+
+        .horn-right {
+            right: 10px;
+            transform: rotate(25deg);
+        }
+
+        /* BPM連動パルス (口がドクンドクン) */
+        @keyframes mouthPulse {
+            0% { box-shadow: 0 0 8px #ff4d4d; }
+            50% { box-shadow: 0 0 18px #ff8c00, 0 0 6px #ff4d4d; }
+            100% { box-shadow: 0 0 8px #ff4d4d; }
+        }
+
+        .monster-mouth.pulse {
+            animation: mouthPulse 1.09s infinite ease-in-out;
         }
 
         /* ===== MAIN CONTAINER ===== */
@@ -73,17 +196,6 @@
 
         .reveal.delay-1 { transition-delay: 0.15s; }
         .reveal.delay-2 { transition-delay: 0.3s; }
-
-        /* ===== BPM-SYNCED PULSE (NEW) ===== */
-        @keyframes bpmPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); border-color: #ffd966; }
-            100% { transform: scale(1); }
-        }
-
-        .bpm-pulse {
-            animation: bpmPulse 1.09s infinite ease-in-out; /* 220 BPM = 1 beat ≈ 0.545s, two beats ≈ 1.09s */
-        }
 
         /* ===== TYPOGRAPHY ===== */
         h1 {
@@ -393,7 +505,6 @@
             transform: scale(0.95);
         }
 
-        /* ===== COUNT-UP NUMBER STYLING ===== */
         .stat-number {
             font-weight: 700;
             color: #ffd966;
@@ -424,14 +535,38 @@
             .visual-gallery {
                 grid-template-columns: 1fr;
             }
+            .horn-left, .horn-right {
+                display: none; /* 画面が狭いときは角を隠す */
+            }
+            .monster-eyes {
+                padding: 0 5px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== PROGRESS BAR (NEW) ===== -->
+    <!-- ===== MONSTER PROGRESS BAR ===== -->
     <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+        <!-- 背びれのトゲトゲ -->
+        <div class="spikes"></div>
+        
+        <!-- 怪獣の角 -->
+        <div class="horn-left"></div>
+        <div class="horn-right"></div>
+
+        <!-- 怪獣の目 (左右) -->
+        <div class="monster-eyes">
+            <div class="eye">
+                <div class="pupil" id="pupilLeft"></div>
+            </div>
+            <div class="eye">
+                <div class="pupil" id="pupilRight"></div>
+            </div>
+        </div>
+
+        <!-- 怪獣の口（プログレスバー） -->
+        <div class="monster-mouth pulse" id="monsterMouth"></div>
     </div>
 
     <div class="blog-container">
@@ -487,7 +622,7 @@
             <p>🎨 <strong>Visual Impact:</strong> Over 70 illustrations on Pixiv under <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84" target="_blank" rel="noopener">#怪獣になりたい</a>. The interpretations vary—some literal kaiju, others abstract internal collapse. The common thread: no one draws this track as <em>gentle</em>. <a href="https://www.pixiv.net/tags/%E6%80%AA%E7%8D%A3%E3%81%AB%E3%81%AA%E3%82%8A%E3%81%9F%E3%81%84/artworks" target="_blank" rel="noopener">Browse →</a></p>
         </div>
 
-        <!-- ==================== SECTION 1: BPM & DENSITY (WITH COUNT-UP) ==================== -->
+        <!-- ==================== SECTION 1: BPM & DENSITY ==================== -->
         <h2 class="reveal">📊 BPM 220: The Threshold Where Reflex Replaces Thought</h2>
         <p class="reveal">BPM alone doesn't make a chart hard. But 220 sits at a physiological inflection point. At this tempo, <strong>16th notes arrive at approximately <span class="stat-number" id="tapsPerSec">14.7</span> inputs per second</strong>. For context: most high-difficulty PJSK charts hover between 12-13 taps/sec at peak density. The documented upper threshold of consistent human execution sits around 15-16 taps/sec. This track doesn't just ask for speed—it asks for speed sustained across 125 seconds with <strong>almost no structural rests</strong>.</p>
         
@@ -574,7 +709,7 @@
         <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Analysis over assertion.</p>
     </div>
 
-    <!-- ===== SCROLL REVEAL + PROGRESS BAR + COUNT-UP SCRIPT ===== -->
+    <!-- ===== SCROLL REVEAL + PROGRESS BAR + COUNT-UP + MONSTER EYES SCRIPT ===== -->
     <script>
         (function() {
             // 1. Scroll Reveal
@@ -591,14 +726,35 @@
                 elementsToReveal.forEach(el => observer.observe(el));
             }
 
-            // 2. Progress Bar
-            const progressBar = document.getElementById('progressBar');
-            window.addEventListener('scroll', () => {
+            // 2. Monster Progress Bar & Eyes
+            const monsterMouth = document.getElementById('monsterMouth');
+            const pupilLeft = document.getElementById('pupilLeft');
+            const pupilRight = document.getElementById('pupilRight');
+
+            function updateMonsterProgress() {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrolled = (scrollTop / docHeight) * 100;
-                if (progressBar) progressBar.style.width = scrolled + '%';
-            });
+                const scrolledPercent = (scrollTop / docHeight) * 100;
+                
+                // 口の幅更新
+                if (monsterMouth) {
+                    monsterMouth.style.width = scrolledPercent + '%';
+                }
+
+                // 目玉を動かす (瞳孔の移動量: 最大で左右に ±6px まで)
+                if (pupilLeft && pupilRight) {
+                    // スクロール割合を -0.5 ～ 0.5 の範囲に変換し、さらに倍率をかけて移動量を決める
+                    const offset = (scrolledPercent / 100) - 0.5; // -0.5 (0%) ～ 0.5 (100%)
+                    const moveX = offset * 14; // 最大 ±7px
+                    
+                    pupilLeft.style.transform = `translateX(${moveX}px)`;
+                    pupilRight.style.transform = `translateX(${moveX}px)`;
+                }
+            }
+
+            window.addEventListener('scroll', updateMonsterProgress);
+            window.addEventListener('resize', updateMonsterProgress);
+            updateMonsterProgress(); // 初期表示
 
             // 3. Count-Up Animation for 14.7 taps/sec
             const countElement = document.getElementById('tapsPerSec');
@@ -628,6 +784,8 @@
                 }, { threshold: 0.5 });
                 countObserver.observe(countElement);
             }
+
+            // 4. BPM連動パルスは既にCSSクラスで付与済み
         })();
     </script>
 </body>

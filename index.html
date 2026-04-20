@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brutal Analysis: "folern" & "Kaijuu ni Naritai" | PJSK Deep Dive</title>
+    <title>Structural Analysis: "folern" & "Kaijuu ni Naritai" | Project SEKAI Deep Dive</title>
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +19,6 @@
             padding: 2rem 1rem;
         }
 
-        /* ===== MAIN CONTAINER (Animation Ready) ===== */
         .blog-container {
             max-width: 780px;
             margin: 0 auto;
@@ -32,20 +30,15 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100, 180, 255, 0.1);
             border: 1px solid rgba(80, 160, 255, 0.15);
             
-            /* ① 静かな登場 */
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUpContent 0.8s ease forwards;
         }
 
         @keyframes fadeUpContent {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== SCROLL REVEAL BASE (⑤ スクロール連動) ===== */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -57,7 +50,9 @@
             transform: translateY(0);
         }
 
-        /* ===== TYPOGRAPHY ===== */
+        .reveal.delay-1 { transition-delay: 0.15s; }
+        .reveal.delay-2 { transition-delay: 0.3s; }
+
         h1 {
             font-size: 2.3rem;
             font-weight: 700;
@@ -67,7 +62,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            border-left: 6px solid #ffd966; /* アクセントカラー追加 */
+            border-left: 6px solid #ffd966;
             padding-left: 1.3rem;
         }
 
@@ -82,7 +77,6 @@
             overflow: hidden;
         }
 
-        /* ② 流れるライン演出 */
         h2::after {
             content: "";
             position: absolute;
@@ -92,12 +86,15 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #ffd966, transparent);
             animation: lineSlide 1.2s ease forwards;
+            animation-play-state: paused;
+        }
+
+        h2.show::after {
+            animation-play-state: running;
         }
 
         @keyframes lineSlide {
-            to {
-                left: 100%;
-            }
+            to { left: 100%; }
         }
 
         h3 {
@@ -107,7 +104,6 @@
             color: #aad0ff;
         }
 
-        /* ===== META ===== */
         .post-meta {
             display: flex;
             gap: 1.8rem;
@@ -124,7 +120,6 @@
             gap: 0.3rem;
         }
 
-        /* ===== BODY TEXT ===== */
         p {
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
@@ -136,7 +131,6 @@
             font-weight: 600;
         }
 
-        /* ===== HIGHLIGHT BOX ===== */
         .highlight-box {
             background: rgba(20, 50, 80, 0.5);
             border-left: 5px solid #ffd966;
@@ -150,7 +144,6 @@
             margin-bottom: 0;
         }
 
-        /* ===== MUSIC DATA CARD (③ 浮き上がり) ===== */
         .music-data {
             background: #0f1a24;
             border-radius: 18px;
@@ -158,9 +151,7 @@
             margin: 2rem 0;
             border: 1px solid #2e577a;
             box-shadow: 0 6px 0 #0a121c;
-            
-            /* インタラクション */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .music-data:hover {
@@ -201,7 +192,6 @@
             color: #e3ecf5;
         }
 
-        /* ===== LISTS ===== */
         ul, ol {
             margin: 1.2rem 0 1.8rem 1.8rem;
         }
@@ -223,7 +213,6 @@
             border-bottom: 1px solid #ffd966;
         }
 
-        /* ===== QUOTE STYLE ===== */
         .quote-tweet {
             background: #1b2a38;
             border-radius: 18px;
@@ -234,6 +223,33 @@
             color: #ddf0ff;
         }
 
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .analysis-card {
+            background: #0f1a24;
+            border-radius: 16px;
+            padding: 1.3rem;
+            border: 1px solid #2a4a6a;
+        }
+
+        .analysis-card h5 {
+            color: #ffd966;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #2a4a6a;
+            padding-bottom: 0.3rem;
+        }
+
+        .analysis-card p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
         hr {
             border: none;
             height: 1px;
@@ -241,7 +257,6 @@
             margin: 2.5rem 0;
         }
 
-        /* ===== COMMENT SECTION (CTA) ===== */
         .comment-invite {
             background: #0f1e2c;
             border-radius: 40px;
@@ -257,7 +272,6 @@
             color: #d3ecff;
         }
 
-        /* ④ ボタンは押したくなる挙動 */
         .btn-like {
             display: inline-block;
             background: #1c4463;
@@ -281,7 +295,6 @@
             transform: scale(0.95);
         }
 
-        /* ===== DIVIDER ===== */
         .section-divider {
             margin: 3.5rem 0 2rem;
             text-align: center;
@@ -297,7 +310,6 @@
             border: 1px solid #3d6e9b;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .blog-container {
                 padding: 1.8rem 1.2rem;
@@ -315,6 +327,9 @@
             .data-label {
                 width: 100%;
             }
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -322,131 +337,151 @@
     <div class="blog-container">
         
         <!-- ==================== SONG 1: folern ==================== -->
-        <!-- 導入を挑発型に書き直し -->
-        <h1>🎵 If you think "folern" is just a hard chart, you're embarrassingly shallow.</h1>
-        
-        <div class="post-meta">
-            <span>📅 2026.04.20</span>
-            <span>✍️ PJSK Analysis Lab</span>
-            <span>🏷️ #folern #CHUNITHM #Nuyuri #Analysis</span>
-        </div>
-
-        <p class="reveal">Let's cut the crap. "folern" isn't a song you just listen to. It's a track that **dismantles** your understanding of rhythm game music. Added to Project SEKAI in January 2024, this beast from Nuyuri doesn't hold your hand.</p>
-        
-        <p class="reveal">Most players get lost in the BPM 200 chaos. They miss the point entirely. Today, we're fixing that.</p>
-
-        <div class="music-data reveal">
-            <h4>📋 Cold Hard Data: "folern"</h4>
-            <ul>
-                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Nuyuri</span></li>
-                <li><span class="data-label">BPM</span><span class="data-value">200</span></li>
-                <li><span class="data-label">Duration</span><span class="data-value">approx. 2:21</span></li>
-                <li><span class="data-label">Added to PJSK</span><span class="data-value">January 2024 (Music Shop)</span></li>
-                <li><span class="data-label">Genre</span><span class="data-value">Other (Not Virtual Singer)</span></li>
-                <li><span class="data-label">Original Appearance</span><span class="data-value">CHUNITHM</span></li>
-            </ul>
-        </div>
-
-        <h2 class="reveal">🎧 The "Alien" That Invaded Project SEKAI</h2>
-        <p class="reveal">No 3DMV. No 2DMV. No Virtual Singer cover. Yet it dominates play counts. Why? Because it **forces** a reaction. The first time you hear it, you're not thinking "this is cool." You're thinking *"What the hell is that voice saying?"*</p>
-        
-        <div class="highlight-box reveal">
-            <p>⚡ First impression: BPM 200. Unrelenting piano. And a vocal track that sounds like it's from a language that doesn't exist. That's not a flaw. That's the weapon.</p>
-        </div>
-
-        <h2 class="reveal">🗣️ Stop Looking for Meaning. Start Feeling the Void.</h2>
-        <p class="reveal">Here's the truth that separates casual listeners from analysts: **There are no lyrics.** None. The voice is pure glossolalia—a fictional language. "Happy to be, turn to refrain" is a phantom. It's a sound designed to make your brain *search* for meaning that isn't there.</p>
-        
-        <div class="quote-tweet reveal">
-            "Happy to be, turn to refrain…"<br>
-            — This isn't poetry. It's psychological manipulation through phonetics.
-        </div>
-
-        <p class="reveal">This **void of meaning** is the point. Unbound by narrative, the music itself becomes the emotion. It forces your brain into a higher state of listening. This is what separates Nuyuri from someone just writing a "hard song."</p>
-
-        <h2 class="reveal">📖 The Hidden War: Sylvius vs. Astraea</h2>
-        <p class="reveal">Don't ignore the jacket art. **Sylvius**, the divine musician, locked in opposition to **Astraea** (from *Endmark ni Kibou to Namida wo Soete*). "folern" isn't a concert. It's a battlefield. The tension in those piano trills? That's the sound of a god fighting.</p>
-
-        <h2 class="reveal">⚙️ The Chart: Engineered Flow State</h2>
-        <p class="reveal">MASTER Lv.34. It doesn't just test your fingers; it tests your will. But unlike cheap "difficult" charts, this one respects the player. Every trill, every staircase is placed to keep you right on the edge of the **Flow State**—that sweet spot where skill and challenge are perfectly balanced. You fail, but you *know* why. And you hit retry.</p>
-
-        <hr class="reveal">
-
-        <h2 class="reveal">✨ The Verdict on "folern"</h2>
-        <p class="reveal">If you still think this is just a high-BPM track, you're playing with your eyes closed. "folern" is a masterclass in using ambiguity as a hook. It's cool because it refuses to explain itself.</p>
-
-        <!-- ===== SONG DIVIDER ===== -->
-        <div class="section-divider reveal">
-            <span>◆ You're Not Done Yet ◆</span>
-        </div>
-
-        <!-- ==================== SONG 2: Kaijuu ni Naritai ==================== -->
-        <h1 class="reveal">🦖 "Kaijuu ni Naritai" Doesn't Deliver a Message. It Punches You in the Throat.</h1>
+        <h1 class="reveal">🎵 If you think "folern" is just a high-BPM track, you're reducing a structurally complex composition to surface-level speed.</h1>
         
         <div class="post-meta reveal">
             <span>📅 2026.04.20</span>
             <span>✍️ PJSK Analysis Lab</span>
-            <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #ShadowWork</span>
+            <span>🏷️ #folern #CHUNITHM #Nuyuri #MusicStructure</span>
         </div>
 
-        <p class="reveal">Sakuzyo didn't write a "sad song." He wrote a scream for people who are too tired to scream anymore. BPM 220 isn't just speed; it's the pulse of a cornered animal. If you think the title "I Want to Be a Monster" is just edgy, you've never felt the weight of being invisible.</p>
+        <p class="reveal delay-1">Added to Project SEKAI on <strong>January 11, 2024</strong> as part of the "Geki! ChuMai" collaboration, "folern" isn't a track you casually listen to. Nuyuri composed it for SEGA's arcade game CHUNITHM in September 2019, and it's been ported to multiple rhythm games since. The piano-driven composition operates at <strong>BPM 200</strong>—that's roughly 3.33 beats per second. But speed isn't what makes this track interesting. It's what Nuyuri does with that speed.</p>
+        
+        <p class="reveal delay-2">Most players get buried in the note density and miss the structural design entirely. Today, we're fixing that.</p>
 
         <div class="music-data reveal">
-            <h4>📋 Cold Hard Data: "Kaijuu ni Naritai"</h4>
+            <h4>📋 Track Data: "folern" (読み：ふぉれん)</h4>
             <ul>
-                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Sakuzyo</span></li>
-                <li><span class="data-label">BPM</span><span class="data-value">220</span></li>
-                <li><span class="data-label">Duration</span><span class="data-value">approx. 2:18</span></li>
-                <li><span class="data-label">Added to PJSK</span><span class="data-value">August 2023 (Music Shop)</span></li>
-                <li><span class="data-label">Genre</span><span class="data-value">Other</span></li>
-                <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38 (Current Peak)</span></li>
+                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Nuyuri (ぬゆり)</span></li>
+                <li><span class="data-label">BPM</span><span class="data-value">200</span></li>
+                <li><span class="data-label">Duration</span><span class="data-value">2:21</span></li>
+                <li><span class="data-label">Added to PJSK</span><span class="data-value">January 11, 2024 (Music Shop / 10 cards)</span></li>
+                <li><span class="data-label">Genre</span><span class="data-value">Other (No Virtual Singer version)</span></li>
+                <li><span class="data-label">Original Appearance</span><span class="data-value">CHUNITHM (September 5, 2019)</span></li>
+                <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.35 / MASTER Lv.32</span></li>
             </ul>
         </div>
 
-        <h2 class="reveal">💥 The Contradiction of Existence</h2>
-        <p class="reveal">Read the "lyrics." It's not a story. It's a confession.</p>
-        
-        <div class="quote-tweet reveal">
-            "It's wrong, it's wrong, I don't want to live in a world like this, but..."<br>
-            "It's wrong, it's wrong, yet still, I wish to remain myself."
-        </div>
-
-        <p class="reveal">That's not logic. That's **ambivalence**. The narrator hates the world, hates themselves, yet clings to identity. "I want to be a monster" isn't about power. It's about the desperate wish to leave a scar on a world that wouldn't give you a single glance. **This song doesn't comfort you. It validates your pain.**</p>
-
-        <h2 class="reveal">🎬 The 2DMV: Catharsis by Proxy</h2>
-        <p class="reveal">The abstract animation shows destruction. But watch closely. The monster's eyes aren't wild; they're **tired**. This MV lets you, the player, experience the forbidden release of destruction without consequence. You're not watching a monster. You're watching your repressed shadow.</p>
-
-        <h2 class="reveal">⌨️ APPEND Lv.38: Forced Transformation</h2>
-        <p class="reveal">Let's talk about the real analysis. The APPEND chart isn't "hard." It's **hostile**. Lv.38 is the game's way of telling you: *"You want to understand this song? Then you have to suffer like it does."*</p>
+        <h2 class="reveal">🎧 The Chart: Pattern Recognition Disguised as Chaos</h2>
+        <p class="reveal">Let's start where most analyses stop: the chart itself. The MASTER chart (Lv.32) contains <strong>1,486 notes</strong> packed into 141 seconds. That's an average of 10.5 notes per second. But raw density isn't the point. The chart is characterized by three specific design elements: <strong>visual misdirection, rapid alternating patterns, and sheer note volume</strong>. The combination creates a specific type of difficulty—one where the mechanics themselves are straightforward, but recognition and adaptation take time.</p>
         
         <div class="highlight-box reveal">
-            <p>⚡ High-speed trills. Cross-hand contortions. Stamina-draining chord streams. The chart doesn't just test your skill; it breaks your posture. And when you finally **clear it**, the exhaustion isn't frustration. It's the catharsis of having survived the monster.</p>
+            <p>⚡ Chart philosophy: "The actions required are fundamentally simple. The difficulty comes from building pattern recognition through repetition—without developing bad muscle memory." This is Nuyuri's signature: making you practice, not panic.</p>
         </div>
 
-        <p class="reveal">This is where Sakuzyo's composition and the chart design achieve symbiosis. The music is the monster. The chart is you fighting it. Or becoming it.</p>
+        <p class="reveal">The APPEND chart at <strong>Lv.35 (1,794 notes)</strong> elevates this further. The note density increases, but more importantly, the alternating patterns become less predictable. This isn't a chart you sight-read. It's a chart you <strong>learn</strong>—through failure, through repetition, through gradual mastery of its internal logic.</p>
 
-        <h2 class="reveal">🧠 Why "Being a Monster" Resonates (Jungian Shadow)</h2>
-        <p class="reveal">Stop reading surface-level. Psychologically, this song is pure **Shadow Work**. The "monster" is the Jungian Shadow—the repressed aggression, the desire to be seen, the ugliness we hide to be "functional" in society. Sakuzyo gave that shadow a voice and a BPM of 220. That's why it feels good. You're finally acknowledging the part of you that wants to roar.</p>
+        <div class="analysis-grid reveal">
+            <div class="analysis-card">
+                <h5>📊 MASTER Lv.32 (1,486 notes)</h5>
+                <p>Rapid left-right alternating patterns. Visual misdirection through note placement. Simple in concept, demanding in execution. Builds pattern recognition.</p>
+            </div>
+            <div class="analysis-card">
+                <h5>📊 APPEND Lv.35 (1,794 notes)</h5>
+                <p>Higher density + less predictable alternation. Tests one-hand trill endurance and finger independence. Requires mastery, not just reaction.</p>
+            </div>
+        </div>
+
+        <h2 class="reveal">🗣️ The "Voice": Phonetic Architecture Without Semantic Anchors</h2>
+        <p class="reveal">Here's what actually happens in the track: midway through, something that sounds like a human voice emerges. But it's not singing words. It's using <strong>fictional language</strong>—phonetic structures designed to <em>feel</em> like language without carrying meaning. The phrase "Happy to be, turn to refrain" is a phantom. Your brain tries to parse it, finds nothing, and keeps searching.</p>
+        
+        <div class="quote-tweet reveal">
+            "Happy to be, turn to refrain…"<br>
+            — This isn't poetry in the conventional sense. It's <strong>phonetic architecture</strong>—a structure built to evoke emotion without relying on semantic meaning.
+        </div>
+
+        <p class="reveal">This is Nuyuri's weapon. By refusing to give you concrete lyrics, the music itself becomes the primary emotional carrier. You're not listening to a story. You're experiencing pure sonic texture—and your brain, desperate for meaning, projects whatever you're feeling onto the void. The ambiguity isn't a bug. It's the entire mechanism.</p>
+
+        <h2 class="reveal">📖 The Mythology: Sylvius vs. Astraea</h2>
+        <p class="reveal">The jacket art isn't decoration. It's lore. The figure depicted is <strong>Sylvius</strong>, a "musician" of divine lineage. He stands in opposition to <strong>Astraea</strong>—the goddess from "Endmark ni Kibou to Namida wo Soete," another CHUNITHM track. "folern" isn't just a standalone piece. It's a scene from a larger conflict. The tension in the piano? That's the sound of a god fighting. The relentless pace? That's the urgency of war.</p>
 
         <hr class="reveal">
 
-        <h2 class="reveal">✨ Conclusion: Embrace the Scar</h2>
-        <p class="reveal">"Kaijuu ni Naritai" won't fix you. It won't make you stronger. It just stands next to you in the dark and says, *"I get it."* And sometimes, that's more valuable than any solution.</p>
+        <h2 class="reveal">✨ The Verdict on "folern"</h2>
+        <p class="reveal">If you're still treating this as "just another hard chart," you're missing the point. "folern" is a masterclass in ambiguity as a hook, in pattern recognition disguised as chaos, in using what isn't there to make you feel what is. It doesn't explain itself. That's why it works.</p>
 
-        <!-- ===== GLOBAL CTA (REWRITTEN TO PROVOKE) ===== -->
+
+        <!-- ===== SONG DIVIDER ===== -->
+        <div class="section-divider reveal">
+            <span>◆ Structural Analysis Continues ◆</span>
+        </div>
+
+
+        <!-- ==================== SONG 2: Kaijuu ni Naritai ==================== -->
+        <h1 class="reveal">🦖 "Kaijuu ni Naritai" Isn't a Song. It's a Pressure Test Disguised as Music.</h1>
+        
+        <div class="post-meta reveal">
+            <span>📅 2026.04.20</span>
+            <span>✍️ PJSK Analysis Lab</span>
+            <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #ChartDesign</span>
+        </div>
+
+        <p class="reveal delay-1">Commissioned for the "Project SEKAI Championship 2025" finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" broke records on arrival. Every single difficulty tier—EASY, NORMAL, HARD, EXPERT, APPEND—received a <strong>new maximum level</strong> with this track. That's not coincidence. That's a statement. BPM 220, 2 minutes and 5 seconds of runtime, and a chart design philosophy that Sakuzyo himself spelled out: "Become a monster and destroy the falling notes."</p>
+
+        <div class="music-data reveal">
+            <h4>📋 Track Data: "Kaijuu ni Naritai" (I Want to Be a Monster)</h4>
+            <ul>
+                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Sakuzyo (削除)</span></li>
+                <li><span class="data-label">BPM</span><span class="data-value">220</span></li>
+                <li><span class="data-label">Duration</span><span class="data-value">2:05</span></li>
+                <li><span class="data-label">Added to PJSK</span><span class="data-value">November 23, 2025 (Gift Song)</span></li>
+                <li><span class="data-label">Genre</span><span class="data-value">Virtual Singer (Hatsune Miku)</span></li>
+                <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38 (Current peak)</span></li>
+                <li><span class="data-label">Lyrics</span><span class="data-value">Sakuzyo</span></li>
+            </ul>
+        </div>
+
+        <h2 class="reveal">📊 The Numbers: What "Highest Difficulty" Actually Means</h2>
+        <p class="reveal">Let's quantify what "record-breaking" looks like on a chart:</p>
+        
+        <div class="analysis-grid reveal">
+            <div class="analysis-card">
+                <h5>📊 MASTER Lv.35</h5>
+                <p><strong>1,900 notes</strong> across 125 seconds = <strong>15.2 notes/second</strong> average. BPM 220 = approximately 458 beats across the full track. This is stamina-draining, full-arm territory.</p>
+            </div>
+            <div class="analysis-card">
+                <h5>📊 APPEND Lv.38</h5>
+                <p><strong>2,800 notes</strong> across 125 seconds = <strong>22.4 notes/second</strong> average. 440 beats. ~6.4 notes per beat. This isn't a rhythm game chart. It's an endurance sport.</p>
+            </div>
+        </div>
+
+        <p class="reveal">But numbers alone don't capture what makes this chart brutal. The APPEND design layers multiple difficulty vectors simultaneously: high-speed trills that test finger independence, cross-hand patterns that force spatial recalibration mid-song, and chord streams that drain stamina over time. It's not just "hard." It's <strong>systematic</strong>. Every element is designed to break a different aspect of your technique.</p>
+
+        <div class="highlight-box reveal">
+            <p>⚡ Sakuzyo's design brief: "I poured everything into this track. Players—become monsters and destroy the notes raining down on you." The chart isn't testing you. It's <strong>demanding transformation.</strong></p>
+        </div>
+
+        <h2 class="reveal">💥 The Contradiction: Why "Being a Monster" Resonates</h2>
+        <p class="reveal">The narrator—voiced by Hatsune Miku—is a being on the edge. "It's wrong, it's wrong, I don't want to live in a world like this, but… / It's wrong, it's wrong, yet still, I wish to remain myself." This isn't a character arc. It's ambivalence crystallized. The desire to destroy coexists with the refusal to disappear. That contradiction—wanting to leave a scar on a world that ignored you, while clinging to identity—is what makes the track land.</p>
+        
+        <div class="quote-tweet reveal">
+            "It's wrong, it's wrong, I don't want to live in a world like this, but…"<br>
+            "It's wrong, it's wrong, yet still, I wish to remain myself."
+        </div>
+
+        <p class="reveal">This is Jungian Shadow work set to 220 BPM. The "monster" isn't about power. It's about acknowledging the part of yourself that wants to roar—the repressed aggression, the desire to be seen, the ugliness we bury to function. Sakuzyo gave that shadow a voice and a chart that forces you to embody it.</p>
+
+        <h2 class="reveal">⚙️ Structural Analysis: BPM 220 as Narrative Device</h2>
+        <p class="reveal">The tempo isn't arbitrary. BPM 220 sits at the upper edge of what human fingers can process as "rhythm" rather than "noise." It's fast enough to feel urgent, dangerous, on the verge of collapse—but just slow enough to remain playable. This is the musical equivalent of a monster barely contained. The composition uses <strong>dense piano arpeggios, distorted bass, and rapid-fire percussion</strong> to build a wall of sound that mirrors the narrator's internal state: overwhelming, chaotic, and straining against its own limits.</p>
+
+        <hr class="reveal">
+
+        <h2 class="reveal">✨ Conclusion: The Scar Remains</h2>
+        <p class="reveal">"Kaijuu ni Naritai" won't fix you. It won't make you stronger. What it does—through its chart design, its tempo, its lyrics—is stand next to you in the dark and validate the part of you that wants to destroy something. And for a track that demands <strong>2,800 notes</strong> of your fingers, that's more than enough.</p>
+
+
+        <!-- ===== GLOBAL CTA ===== -->
         <div class="comment-invite reveal">
-            <p>💬 If you think this analysis missed the point, prove it.</p>
-            <p>I'm not here for "nice post." I'm here for the counter-argument. What did I get wrong?</p>
+            <p>💬 If your interpretation is better, <strong>break this one.</strong></p>
+            <p>I didn't write this for agreement. I wrote it to be dismantled. Where's the flaw?</p>
             <span class="btn-like">⚡ Challenge This Analysis ⚡</span>
         </div>
 
-        <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit</p>
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Facts over feelings.</p>
     </div>
 
-    <!-- ===== ⑤ SCROLL REVEAL SCRIPT ===== -->
     <script>
         (function() {
-            // Intersection Observer for Scroll Reveal
             const elementsToReveal = document.querySelectorAll('.reveal');
             
             if (elementsToReveal.length > 0) {
@@ -454,17 +489,13 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('show');
-                            // Optional: unobserve after showing to save performance
                             observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.15 }); // Slightly earlier trigger
+                }, { threshold: 0.15 });
 
                 elementsToReveal.forEach(el => observer.observe(el));
             }
-
-            // Fallback: ensure any elements already visible on load get class if IntersectionObserver is slow
-            // But we'll just rely on the observer. Also, if JS disabled, no harm done.
         })();
     </script>
 </body>

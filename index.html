@@ -521,13 +521,22 @@
             border-bottom: none;
         }
 
-        .comparison-table {
-            margin: 2rem 0;
-        }
-
         .comparison-table td:first-child {
             font-weight: 600;
             color: #ffd966;
+        }
+
+        .objection-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 5px solid #ff6b6b;
+            padding: 1.5rem 1.8rem;
+            margin: 2rem 0;
+            border-radius: 0 12px 12px 0;
+            border: 1px solid #ff6b6b33;
+        }
+
+        .objection-box strong {
+            color: #ff6b6b;
         }
 
         @media (max-width: 600px) {
@@ -570,7 +579,6 @@
 </head>
 <body>
 
-    <!-- ===== MONSTER PROGRESS BAR ===== -->
     <div class="progress-container">
         <div class="spikes"></div>
         <div class="horn-left"></div>
@@ -600,7 +608,7 @@
             <div class="gallery-card">
                 <h5>🎨 Official Jacket — KaraMel</h5>
                 <p>Chaos barely contained. The visual establishes the core tension before a single note plays.</p>
-                <p>▶ <a href="https://w.atwiki.jp/hmiku/pages/68783.html" target="_blank" rel="noopener">Hatsune Miku Wiki</a></p>
+                <p>▶ <a href="https://ja.wikipedia.org/wiki/%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF" target="_blank" rel="noopener">View Hatsune Miku on Wikipedia</a></p>
                 <p>▶ <a href="https://linkco.re/4XhMBp7v" target="_blank" rel="noopener">Official Distribution</a></p>
                 <p class="credit">Illustrator: KaraMel</p>
             </div>
@@ -613,7 +621,7 @@
             </div>
         </div>
 
-        <p class="reveal delay-2">Released <strong>November 23, 2025</strong>, Sakuzyo's debut Project SEKAI track immediately set <strong>APPEND Lv.38</strong>—updating maximum levels across all five difficulties. But level numbers are trivial. What matters is the <strong>experience structure</strong> beneath them. This analysis does not describe difficulty. It dissects <strong>why this chart prevents recovery</strong>—and why that changes everything.</p>
+        <p class="reveal delay-2">Released <strong>November 23, 2025</strong>, Sakuzyo's debut Project SEKAI track immediately set <strong>APPEND Lv.38</strong>—updating maximum levels across all five difficulties. But level numbers are trivial. What matters is the <strong>experience structure</strong> beneath them. This analysis proposes a falsifiable hypothesis: Kaijuu is not merely "harder" than other high-tier charts; it is <strong>designed to eliminate recovery windows entirely</strong>, forcing a distinct cognitive processing mode. The claim is strong. The evidence follows.</p>
         
         <div class="music-data reveal">
             <h4>📋 Track Data: "Kaijuu ni Naritai"</h4>
@@ -626,138 +634,139 @@
             </ul>
         </div>
 
-        <!-- ==================== SECTION 1: EXPERIENCE STRUCTURE COMPARISON ==================== -->
-        <h2 class="reveal">📊 Beyond Specs: The Experience Structure of Collapse</h2>
-        <p class="reveal">Comparing BPM and note density is superficial. The meaningful difference lies in <strong>how players fail</strong>—and whether recovery is possible after the first mistake.</p>
+        <!-- ==================== SECTION 1: THREE CATEGORIES OF HIGH-TIER CHARTS ==================== -->
+        <h2 class="reveal">📊 Beyond Specs: Three Categories of Difficulty Design</h2>
+        <p class="reveal">Comparing BPM and note density alone is superficial. A more useful taxonomy classifies high-tier charts by their <strong>primary failure mechanism</strong>.</p>
         
-        <table class="reveal comparison-table">
+        <table class="reveal">
             <thead>
-                <tr><th>Track</th><th>BPM</th><th>APPEND</th><th>Error Chain</th><th>Visual Parsing</th><th>Recovery Window</th></tr>
+                <tr><th>Category</th><th>Example</th><th>BPM</th><th>APPEND Lv.</th><th>Failure Mechanism</th><th>Recovery Characteristic</th></tr>
             </thead>
             <tbody>
-                <tr><td>Kaijuu ni Naritai</td><td>220</td><td>38</td><td><strong>Immediate cascade</strong> — one miss triggers sector collapse</td><td>Collapses by 0:45; reflex-dominant thereafter</td><td><strong>None</strong> — density sustained across sections</td></tr>
-                <tr><td>Hatsune Miku no Shoushitsu</td><td>240</td><td>37</td><td>Localized — burst sections isolated</td><td>Maintainable with pattern memory</td><td>Between burst sections</td></tr>
-                <tr><td>Don't Fight the Music</td><td>200</td><td>37</td><td>Technical — miss punished but isolated</td><td>Largely maintainable</td><td>Between technical phrases</td></tr>
+                <tr><td><strong>Burst</strong></td><td>Hatsune Miku no Shoushitsu</td><td>240</td><td>37</td><td>Short-duration extreme density spikes</td><td>Recovery possible between bursts</td></tr>
+                <tr><td><strong>Technical</strong></td><td>Don't Fight the Music</td><td>200</td><td>37</td><td>Complex rhythmic patterns; precision demands</td><td>Recovery possible after technical phrases</td></tr>
+                <tr><td><strong>Endurance</strong></td><td>Kaijuu ni Naritai</td><td>220</td><td>38</td><td><strong>Sustained high density without structural breaks</strong></td><td><strong>Recovery windows effectively absent</strong></td></tr>
             </tbody>
         </table>
 
-        <div class="analysis-grid reveal">
-            <div class="analysis-card">
-                <h5>⚡ Kaijuu's Collapse Mode</h5>
-                <p>A single missed note in the chorus (0:45–1:20) does not merely break combo—it <strong>destroys rhythm synchronization</strong>. The density leaves no gap for recalibration. Misses compound.</p>
-            </div>
-            <div class="analysis-card">
-                <h5>🔄 Other Charts' Recovery</h5>
-                <p>"Shoushitsu" isolates bursts; players can reset between them. "Don't Fight" separates technical sections with readable patterns. Recovery is designed in. Kaijuu <strong>removes this design element entirely</strong>.</p>
-            </div>
-        </div>
+        <p class="reveal">Kaijuu is the extreme endpoint of the Endurance category. While Burst and Technical charts contain identifiable "reset" moments—brief reductions in density, pattern repetitions that allow recalibration—Kaijuu <strong>sustains near-peak density across ~100 of its 125 seconds</strong>. This is not a matter of degree. It is a categorical difference in design philosophy.</p>
 
         <div class="highlight-box reveal">
-            <p>🔬 Core distinction: Other high-tier charts test <strong>peak performance in isolated windows</strong>. Kaijuu tests <strong>continuous output without recovery intervals</strong>. The difference is not degree of difficulty—it is category of experience.</p>
+            <p>🔬 Hypothesis: A single missed note in Kaijuu's chorus (0:45–1:20) triggers a cascade of timing deviations significantly larger than equivalent misses in Burst or Technical charts, due to the absence of a subsequent low-density window for recalibration. This is a testable prediction.</p>
         </div>
 
-        <!-- ==================== SECTION 2: BECOMING THE MONSTER — COGNITIVE OMISSION ==================== -->
-        <h2 class="reveal">🧠 Becoming the Monster: The Omission of Cognition</h2>
-        <p class="reveal">Previous interpretations default to Jungian shadow. That is metaphor. The concrete definition is physiological.</p>
+        <!-- ==================== SECTION 2: COGNITIVE COLLAPSE — FROM PARSING TO CHUNKING ==================== -->
+        <h2 class="reveal">🧠 Cognitive Collapse: When Parsing Yields to Chunking</h2>
+        <p class="reveal">The claim is not that the brain "shuts off." The claim is that the <strong>mode of processing shifts</strong> from conscious, note-by-note parsing to pre-attentive pattern chunking.</p>
         
         <div class="analysis-grid reveal">
             <div class="analysis-card">
-                <h5>👤 Human (Normal Chart)</h5>
-                <p>Visual input → Pattern recognition (cortex) → Motor planning → Execution. Cognition mediates between perception and action. <strong>There is delay, and there is recovery space.</strong></p>
+                <h5>📖 Parsing Mode (Normal Charts)</h5>
+                <p>Visual input → Identification of individual notes or small clusters → Motor planning → Execution. <strong>Working memory remains engaged.</strong> Mistakes can be consciously corrected because the system has spare capacity to reorient.</p>
             </div>
             <div class="analysis-card">
-                <h5>🦖 Monster (Kaijuu)</h5>
-                <p>Visual input → <strong>Direct motor response</strong>. The density exceeds cortical processing capacity; the brain offloads to cerebellar reflex arcs. <strong>Cognition is bypassed. Delay is eliminated. So is recovery.</strong></p>
+                <h5>🧩 Chunking Mode (Kaijuu)</h5>
+                <p>Density exceeds working memory capacity for individual note processing. The brain offloads to <strong>pattern recognition</strong>—treating streams of notes as unified gestalts. <strong>Conscious correction becomes costly</strong>; re-entering parsing mode mid-stream often causes further misses.</p>
             </div>
         </div>
 
-        <p class="reveal">This is the precise definition: <strong>"Becoming a monster" = the forced omission of cognitive mediation.</strong> The chart's density is not designed to be read. It is designed to <strong>exceed reading capacity</strong>, forcing the player into a pre-cognitive, reactive state. A hero processes. A god transcends. A monster <strong>bypasses</strong>.</p>
+        <p class="reveal">This is the precise, defensible definition: <strong>"Becoming a monster" = the forced transition from parsing to chunking due to sustained density exceeding working memory capacity.</strong> The monster does not think. It recognizes and reacts.</p>
 
         <div class="quote-tweet reveal">
             "It's wrong, it's wrong, I don't want to live in a world like this, but…"<br>
             "It's wrong, it's wrong, yet still, I wish to remain myself."
         </div>
 
-        <p class="reveal">The lyrical contradiction—rejecting the world while clinging to self—mirrors the player's state: <strong>conscious control is abandoned, yet the body persists</strong>. You are no longer "playing." You are witnessing your own motor system operate without you.</p>
+        <p class="reveal">The lyrical contradiction—rejecting the world while clinging to self—mirrors the player's state: <strong>conscious control is abandoned, yet the body persists</strong> in executing learned patterns. You are no longer "playing" in the deliberate sense. You are sustaining a chunked motor program.</p>
 
         <!-- ==================== SECTION 3: SUSTAINED LOAD AS THE KILLER ==================== -->
-        <h2 class="reveal">⏱️ Sustained Load: Why 14.7 taps/sec Matters</h2>
-        <p class="reveal">At 220 BPM, 16th notes arrive at <span class="stat-number" id="tapsPerSec">14.7</span> inputs per second. This number alone is not remarkable—many charts reach similar peaks. The difference is <strong>duration</strong>.</p>
+        <h2 class="reveal">⏱️ Sustained Load: The Difference Between Peak and Plateau</h2>
+        <p class="reveal">At 220 BPM, 16th notes arrive at <span class="stat-number" id="tapsPerSec">14.7</span> inputs per second. Many charts reach similar peaks. The distinguishing factor is <strong>how long that load is maintained</strong>.</p>
 
         <table class="reveal">
             <thead>
-                <tr><th>Chart</th><th>Peak Density</th><th>Sustained Duration at >13 taps/sec</th></tr>
+                <tr><th>Chart</th><th>Category</th><th>Peak Density</th><th>Sustained Duration >13 taps/sec</th></tr>
             </thead>
             <tbody>
-                <tr><td>Kaijuu ni Naritai</td><td>~14.7/sec</td><td><strong>~100 seconds</strong> (nearly entire track)</td></tr>
-                <tr><td>Hatsune Miku no Shoushitsu</td><td>~15+/sec (burst)</td><td><strong>~20-30 seconds</strong> (isolated sections)</td></tr>
-                <tr><td>Don't Fight the Music</td><td>~14/sec</td><td><strong>~40-50 seconds</strong> (interspersed)</td></tr>
+                <tr><td>Kaijuu ni Naritai</td><td>Endurance</td><td>~14.7/sec</td><td><strong>~100 seconds</strong></td></tr>
+                <tr><td>Hatsune Miku no Shoushitsu</td><td>Burst</td><td>~15+/sec (spike)</td><td><strong>~20-30 seconds</strong> (isolated)</td></tr>
+                <tr><td>Don't Fight the Music</td><td>Technical</td><td>~14/sec</td><td><strong>~40-50 seconds</strong> (interspersed)</td></tr>
             </tbody>
         </table>
 
-        <p class="reveal">The human motor system can sustain near-limit output for <strong>brief windows</strong>. Kaijuu forces this output across <strong>80% of its 125-second runtime</strong>. Failure is not a matter of missing a complex pattern. It is the <strong>accumulation of micro-delays in finger recovery</strong>—the gradual desynchronization of the motor loop. This is why players describe the chart as "drowning." There is no surface to breach.</p>
+        <p class="reveal">The human motor system can sustain near-limit output in brief windows. Kaijuu forces this output across <strong>~80% of its total runtime</strong>. Failure is often not a single catastrophic miss, but the <strong>accumulation of micro-delays</strong>—gradual desynchronization that cannot be corrected because the density never drops low enough to allow conscious recalibration.</p>
 
         <div class="highlight-box reveal">
-            <p>💀 Kaijuu does not kill with spikes. It kills with <strong>sustained submersion</strong>. The difference between peak performance and sustained performance is the difference between sprinting and being held underwater.</p>
+            <p>💀 Kaijuu does not kill with spikes. It kills with <strong>sustained submersion</strong>. The player drowns not from a single wave, but from never being allowed to surface.</p>
         </div>
 
-        <!-- ==================== SECTION 4: SAKUZYO'S PHILOSOPHY — THE REMOVAL OF RECOVERY ==================== -->
-        <h2 class="reveal">🔬 Sakuzyo's Design Signature: Removing Escape Routes</h2>
-        <p class="reveal">Sakuzyo's rhythm game catalog—from "Altale" (BPM 83-180) to "Destr0yer" (BPM 205) to "Aleph-0" (BPM 250)—reveals a consistent principle. It is not "making charts harder." It is <strong>systematically removing the player's ability to recover</strong>.</p>
+        <!-- ==================== SECTION 4: SAKUZYO'S SIGNATURE — REMOVING ESCAPE ROUTES ==================== -->
+        <h2 class="reveal">🔬 Sakuzyo's Design Signature: The Systematic Removal of Escape</h2>
+        <p class="reveal">Sakuzyo's body of work—from "Altale" to "Destr0yer" to "Aleph-0"—reveals a consistent principle applied through different concrete mechanisms.</p>
 
         <div class="analysis-grid reveal">
             <div class="analysis-card">
-                <h5>🎹 Altale (deceptive slowness)</h5>
-                <p>Extremely low BPM sections force precision at speeds where <strong>overcorrection is fatal</strong>. Recovery is prevented not by speed but by the absence of rhythmic anchors.</p>
+                <h5>🐢 Altale (BPM 83-180)</h5>
+                <p><strong>Mechanism:</strong> Extremely low BPM sections induce overcorrection. Players accustomed to faster speeds misjudge timing windows, and the slow pace provides no rhythmic momentum to re-anchor. <strong>Escape is blocked by the absence of temporal reference.</strong></p>
             </div>
             <div class="analysis-card">
-                <h5>💥 Destr0yer (trill chaos)</h5>
-                <p>Rapid-fire trills leave no gap between technical demands. <strong>One missed trill cascades into the next</strong>. The chart is a single continuous demand.</p>
+                <h5>💥 Destr0yer (BPM 205)</h5>
+                <p><strong>Mechanism:</strong> Rapid-fire trills arranged in continuous chains. One missed trill disrupts the alternating hand rhythm; the next trill arrives before the player can re-establish the pattern. <strong>Escape is blocked by the elimination of gaps between technical demands.</strong></p>
             </div>
             <div class="analysis-card">
-                <h5>🌀 Aleph-0 (polyrhythm endurance)</h5>
-                <p>Complex rhythmic layering prevents the brain from establishing a stable reference. <strong>Recovery requires cognitive re-anchoring</strong>, which the BPM 250 core denies.</p>
+                <h5>🌀 Aleph-0 (BPM 250)</h5>
+                <p><strong>Mechanism:</strong> Complex polyrhythmic layering prevents the brain from establishing a stable rhythmic reference. The player cannot "find the beat" to recover because multiple competing pulses coexist. <strong>Escape is blocked by the removal of a singular anchor point.</strong></p>
             </div>
             <div class="analysis-card">
-                <h5>🦖 Kaijuu (pure sustained density)</h5>
-                <p>The distillation of the principle. No tempo shifts. No breakdown sections. No polyrhythmic complexity. <strong>Just the removal of all negative space.</strong></p>
+                <h5>🦖 Kaijuu (BPM 220)</h5>
+                <p><strong>Mechanism:</strong> Pure sustained density. No tempo shifts. No polyrhythmic complexity. No technical trickery. <strong>Escape is blocked by the complete absence of negative space.</strong> This is the distillation of the principle.</p>
             </div>
         </div>
 
-        <p class="reveal">Sakuzyo does not design difficulty. He designs <strong>the absence of relief</strong>. "Kaijuu ni Naritai" is the purest expression of this philosophy yet: a chart that asks not for skill, but for <strong>the endurance to remain in an unrecoverable state</strong>.</p>
+        <p class="reveal">Sakuzyo does not design difficulty. He designs <strong>the impossibility of recovery</strong>—and then implements it through different mechanical means. Kaijuu is the purest expression: a chart where the only escape is to <strong>stop playing</strong>.</p>
 
-        <!-- ==================== SECTION 5: SECTIONAL COGNITIVE STATE MAP ==================== -->
-        <h2 class="reveal">🗺️ Sectional Map: Where Cognition Dies</h2>
+        <!-- ==================== SECTION 5: OBJECTION — WHAT ABOUT FULL COMBO PLAYERS? ==================== -->
+        <h2 class="reveal">⚡ Objection: What About Full Combo Players?</h2>
+        <div class="objection-box reveal">
+            <p><strong>Counterargument:</strong> If Kaijuu is "unrecoverable," how do top players achieve Full Combos and All Perfects consistently? Doesn't their existence falsify the entire thesis?</p>
+        </div>
+
+        <p class="reveal"><strong>Response:</strong> No. The thesis does not claim Kaijuu is <strong>impossible</strong> to clear or Full Combo. It claims the chart is designed to <strong>eliminate recovery windows</strong>. Top players do not "recover" in Kaijuu—they <strong>never enter a state requiring recovery</strong>.</p>
+
+        <p class="reveal">Through extensive practice, elite players develop <strong>pre-compiled pattern chunks</strong> that allow them to process the entire chart within working memory limits. They have effectively <strong>expanded their chunking capacity</strong> through deliberate training. The chart's density still exceeds the working memory of typical players; for experts, it sits at the <strong>upper boundary of their trained capacity</strong>. They are not recovering. They are sustaining a fully loaded chunked state from the first note to the last.</p>
+
+        <p class="reveal">This is precisely why the chart feels "different" even to top players: there is no moment where they can <strong>relax</strong> the chunked state. Other Lv.37-38 charts contain sections where even experts can briefly drop back into parsing mode. Kaijuu <strong>demands continuous chunked execution</strong> for its entire duration. The difference is not in peak difficulty—it is in <strong>required sustained cognitive load</strong>.</p>
+
+        <!-- ==================== SECTION 6: SECTIONAL COGNITIVE MAP ==================== -->
+        <h2 class="reveal">🗺️ Sectional Map: The Threshold of Collapse</h2>
         
         <table class="reveal">
             <thead>
-                <tr><th>Section</th><th>Time</th><th>Density</th><th>Cognitive State</th><th>Recovery Possible?</th></tr>
+                <tr><th>Section</th><th>Time</th><th>Density</th><th>Processing Mode (Typical Player)</th><th>Recovery Possible?</th></tr>
             </thead>
             <tbody>
-                <tr><td>Intro</td><td>0:00–0:15</td><td>Moderate</td><td>Conscious reading</td><td>✅ Yes</td></tr>
-                <tr><td>A (Verse)</td><td>0:15–0:45</td><td>Increasing</td><td>Working memory strained</td><td>⚠️ Partial</td></tr>
-                <tr><td>B (Chorus)</td><td>0:45–1:20</td><td>Maximum</td><td><strong>Cognitive collapse → reflex dominant</strong></td><td>❌ No</td></tr>
-                <tr><td>Climax</td><td>1:20–1:50</td><td>Sustained peak</td><td>Flow state / autopilot</td><td>❌ No</td></tr>
-                <tr><td>Outro</td><td>1:50–2:05</td><td>Tapering</td><td>Recovery / realization</td><td>✅ Yes (post-chart)</td></tr>
+                <tr><td>Intro</td><td>0:00–0:15</td><td>Moderate</td><td>Parsing</td><td>✅ Yes</td></tr>
+                <tr><td>A (Verse)</td><td>0:15–0:45</td><td>Increasing</td><td>Parsing under strain</td><td>⚠️ Partial</td></tr>
+                <tr><td>B (Chorus)</td><td>0:45–1:20</td><td>Maximum</td><td><strong>Forced chunking</strong></td><td>❌ No</td></tr>
+                <tr><td>Climax</td><td>1:20–1:50</td><td>Sustained peak</td><td>Chunked flow state</td><td>❌ No</td></tr>
+                <tr><td>Outro</td><td>1:50–2:05</td><td>Tapering</td><td>Return to parsing (post-hoc)</td><td>✅ Yes (after)</td></tr>
             </tbody>
         </table>
 
-        <p class="reveal">The critical threshold is <strong>0:45</strong>. At this moment, density exceeds the brain's capacity for conscious note-by-note processing. The player either <strong>releases cognitive control and enters reflex mode</strong>, or fails immediately. This transition is not optional. It is <strong>enforced by the chart's structure</strong>.</p>
+        <p class="reveal">The critical threshold is <strong>0:45</strong>. At this moment, density exceeds the typical player's working memory capacity for individual note processing. The player either <strong>releases conscious control and relies on chunked patterns</strong>, or fails immediately. This transition is not optional. It is <strong>enforced by the chart's structure</strong>.</p>
 
         <hr class="reveal">
 
-        <h2 class="reveal">✨ Conclusion: The Design of Unrecoverable State</h2>
-        <p class="reveal">"Kaijuu ni Naritai" is not "one of the hardest charts." It is a <strong>different category of experience</strong>. It does not ask players to execute complex patterns under pressure. It asks them to <strong>surrender cognitive control and persist in a state where recovery is impossible</strong>.</p>
-        
-        <p class="reveal">This is Sakuzyo's signature, distilled: <strong>remove the escape routes</strong>. No tempo shifts. No breakdowns. No negative space. Just continuous, unrecoverable demand. The player does not "play" Kaijuu. They <strong>endure</strong> it. And in that endurance, they become exactly what the title describes—not metaphorically, but physiologically.</p>
+        <h2 class="reveal">✨ Conclusion: A Falsifiable Framework</h2>
+        <p class="reveal">"Kaijuu ni Naritai" is not simply "one of the hardest charts." It represents the extreme endpoint of Endurance-type design: a chart where <strong>recovery windows are structurally absent</strong>, forcing a transition from conscious parsing to pre-attentive chunking. This framework makes specific, testable predictions about timing deviation cascades, comparative recovery times, and expert chunking strategies. It is offered not as immutable truth, but as the strongest current model of why this chart feels categorically different—and as an invitation to falsify it with better data.</p>
 
         <div class="comment-invite reveal">
-            <p>💬 If another APPEND Lv.38 chart demonstrates a fundamentally different collapse structure, <strong>present it.</strong></p>
-            <p>This analysis is built to be broken. Where is the flaw?</p>
+            <p>💬 This framework is built to be broken.</p>
+            <p>If you have timing deviation data, expert play analysis, or a counterexample chart that disproves the Endurance category, <strong>present it.</strong></p>
             <span class="btn-like">⚡ Challenge the Framework ⚡</span>
         </div>
 
-        <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Collapse over comfort.</p>
+        <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Falsifiable claims over comfortable assertions.</p>
     </div>
 
     <script>

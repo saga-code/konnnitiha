@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structural Analysis: "folern" & "Kaijuu ni Naritai" | Project SEKAI Deep Dive</title>
+    <title>Structural Analysis: "Kaijuu ni Naritai" — Project SEKAI's Ultimate Pressure Test</title>
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -19,6 +20,7 @@
             padding: 2rem 1rem;
         }
 
+        /* ===== MAIN CONTAINER ===== */
         .blog-container {
             max-width: 780px;
             margin: 0 auto;
@@ -39,6 +41,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
@@ -53,6 +56,7 @@
         .reveal.delay-1 { transition-delay: 0.15s; }
         .reveal.delay-2 { transition-delay: 0.3s; }
 
+        /* ===== TYPOGRAPHY ===== */
         h1 {
             font-size: 2.3rem;
             font-weight: 700;
@@ -104,6 +108,7 @@
             color: #aad0ff;
         }
 
+        /* ===== META ===== */
         .post-meta {
             display: flex;
             gap: 1.8rem;
@@ -120,6 +125,7 @@
             gap: 0.3rem;
         }
 
+        /* ===== BODY TEXT ===== */
         p {
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
@@ -144,6 +150,7 @@
             margin-bottom: 0;
         }
 
+        /* ===== MUSIC DATA CARD ===== */
         .music-data {
             background: #0f1a24;
             border-radius: 18px;
@@ -184,7 +191,7 @@
         .data-label {
             font-weight: 600;
             color: #b0d0ff;
-            width: 140px;
+            width: 150px;
             display: inline-block;
         }
 
@@ -192,6 +199,7 @@
             color: #e3ecf5;
         }
 
+        /* ===== LISTS ===== */
         ul, ol {
             margin: 1.2rem 0 1.8rem 1.8rem;
         }
@@ -257,6 +265,7 @@
             margin: 2.5rem 0;
         }
 
+        /* ===== CTA ===== */
         .comment-invite {
             background: #0f1e2c;
             border-radius: 40px;
@@ -295,21 +304,7 @@
             transform: scale(0.95);
         }
 
-        .section-divider {
-            margin: 3.5rem 0 2rem;
-            text-align: center;
-            color: #6c9fd1;
-            font-size: 1.3rem;
-            letter-spacing: 6px;
-        }
-
-        .section-divider span {
-            background: #16212e;
-            padding: 0.4rem 2rem;
-            border-radius: 40px;
-            border: 1px solid #3d6e9b;
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .blog-container {
                 padding: 1.8rem 1.2rem;
@@ -336,150 +331,92 @@
 <body>
     <div class="blog-container">
         
-        <!-- ==================== SONG 1: folern ==================== -->
-        <h1 class="reveal">🎵 If you think "folern" is just a high-BPM track, you're reducing a structurally complex composition to surface-level speed.</h1>
-        
-        <div class="post-meta reveal">
-            <span>📅 2026.04.20</span>
-            <span>✍️ PJSK Analysis Lab</span>
-            <span>🏷️ #folern #CHUNITHM #Nuyuri #MusicStructure</span>
-        </div>
-
-        <p class="reveal delay-1">Added to Project SEKAI on <strong>January 11, 2024</strong> as part of the "Geki! ChuMai" collaboration, "folern" isn't a track you casually listen to. Nuyuri composed it for SEGA's arcade game CHUNITHM in September 2019, and it's been ported to multiple rhythm games since. The piano-driven composition operates at <strong>BPM 200</strong>—that's roughly 3.33 beats per second. But speed isn't what makes this track interesting. It's what Nuyuri does with that speed.</p>
-        
-        <p class="reveal delay-2">Most players get buried in the note density and miss the structural design entirely. Today, we're fixing that.</p>
-
-        <div class="music-data reveal">
-            <h4>📋 Track Data: "folern" (読み：ふぉれん)</h4>
-            <ul>
-                <li><span class="data-label">Composer / Arranger</span><span class="data-value">Nuyuri (ぬゆり)</span></li>
-                <li><span class="data-label">BPM</span><span class="data-value">200</span></li>
-                <li><span class="data-label">Duration</span><span class="data-value">2:21</span></li>
-                <li><span class="data-label">Added to PJSK</span><span class="data-value">January 11, 2024 (Music Shop / 10 cards)</span></li>
-                <li><span class="data-label">Genre</span><span class="data-value">Other (No Virtual Singer version)</span></li>
-                <li><span class="data-label">Original Appearance</span><span class="data-value">CHUNITHM (September 5, 2019)</span></li>
-                <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.35 / MASTER Lv.32</span></li>
-            </ul>
-        </div>
-
-        <h2 class="reveal">🎧 The Chart: Pattern Recognition Disguised as Chaos</h2>
-        <p class="reveal">Let's start where most analyses stop: the chart itself. The MASTER chart (Lv.32) contains <strong>1,486 notes</strong> packed into 141 seconds. That's an average of 10.5 notes per second. But raw density isn't the point. The chart is characterized by three specific design elements: <strong>visual misdirection, rapid alternating patterns, and sheer note volume</strong>. The combination creates a specific type of difficulty—one where the mechanics themselves are straightforward, but recognition and adaptation take time.</p>
-        
-        <div class="highlight-box reveal">
-            <p>⚡ Chart philosophy: "The actions required are fundamentally simple. The difficulty comes from building pattern recognition through repetition—without developing bad muscle memory." This is Nuyuri's signature: making you practice, not panic.</p>
-        </div>
-
-        <p class="reveal">The APPEND chart at <strong>Lv.35 (1,794 notes)</strong> elevates this further. The note density increases, but more importantly, the alternating patterns become less predictable. This isn't a chart you sight-read. It's a chart you <strong>learn</strong>—through failure, through repetition, through gradual mastery of its internal logic.</p>
-
-        <div class="analysis-grid reveal">
-            <div class="analysis-card">
-                <h5>📊 MASTER Lv.32 (1,486 notes)</h5>
-                <p>Rapid left-right alternating patterns. Visual misdirection through note placement. Simple in concept, demanding in execution. Builds pattern recognition.</p>
-            </div>
-            <div class="analysis-card">
-                <h5>📊 APPEND Lv.35 (1,794 notes)</h5>
-                <p>Higher density + less predictable alternation. Tests one-hand trill endurance and finger independence. Requires mastery, not just reaction.</p>
-            </div>
-        </div>
-
-        <h2 class="reveal">🗣️ The "Voice": Phonetic Architecture Without Semantic Anchors</h2>
-        <p class="reveal">Here's what actually happens in the track: midway through, something that sounds like a human voice emerges. But it's not singing words. It's using <strong>fictional language</strong>—phonetic structures designed to <em>feel</em> like language without carrying meaning. The phrase "Happy to be, turn to refrain" is a phantom. Your brain tries to parse it, finds nothing, and keeps searching.</p>
-        
-        <div class="quote-tweet reveal">
-            "Happy to be, turn to refrain…"<br>
-            — This isn't poetry in the conventional sense. It's <strong>phonetic architecture</strong>—a structure built to evoke emotion without relying on semantic meaning.
-        </div>
-
-        <p class="reveal">This is Nuyuri's weapon. By refusing to give you concrete lyrics, the music itself becomes the primary emotional carrier. You're not listening to a story. You're experiencing pure sonic texture—and your brain, desperate for meaning, projects whatever you're feeling onto the void. The ambiguity isn't a bug. It's the entire mechanism.</p>
-
-        <h2 class="reveal">📖 The Mythology: Sylvius vs. Astraea</h2>
-        <p class="reveal">The jacket art isn't decoration. It's lore. The figure depicted is <strong>Sylvius</strong>, a "musician" of divine lineage. He stands in opposition to <strong>Astraea</strong>—the goddess from "Endmark ni Kibou to Namida wo Soete," another CHUNITHM track. "folern" isn't just a standalone piece. It's a scene from a larger conflict. The tension in the piano? That's the sound of a god fighting. The relentless pace? That's the urgency of war.</p>
-
-        <hr class="reveal">
-
-        <h2 class="reveal">✨ The Verdict on "folern"</h2>
-        <p class="reveal">If you're still treating this as "just another hard chart," you're missing the point. "folern" is a masterclass in ambiguity as a hook, in pattern recognition disguised as chaos, in using what isn't there to make you feel what is. It doesn't explain itself. That's why it works.</p>
-
-
-        <!-- ===== SONG DIVIDER ===== -->
-        <div class="section-divider reveal">
-            <span>◆ Structural Analysis Continues ◆</span>
-        </div>
-
-
-        <!-- ==================== SONG 2: Kaijuu ni Naritai ==================== -->
+        <!-- ==================== TITLE & INTRO ==================== -->
         <h1 class="reveal">🦖 "Kaijuu ni Naritai" Isn't a Song. It's a Pressure Test Disguised as Music.</h1>
         
         <div class="post-meta reveal">
             <span>📅 2026.04.20</span>
-            <span>✍️ PJSK Analysis Lab</span>
+            <span>✍️ PJSK Structural Analysis</span>
             <span>🏷️ #KaijuuNiNaritai #Sakuzyo #APPEND #ChartDesign</span>
         </div>
 
-        <p class="reveal delay-1">Commissioned for the "Project SEKAI Championship 2025" finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" broke records on arrival. Every single difficulty tier—EASY, NORMAL, HARD, EXPERT, APPEND—received a <strong>new maximum level</strong> with this track. That's not coincidence. That's a statement. BPM 220, 2 minutes and 5 seconds of runtime, and a chart design philosophy that Sakuzyo himself spelled out: "Become a monster and destroy the falling notes."</p>
+        <p class="reveal delay-1">Commissioned for the <strong>Project SEKAI Championship 2025</strong> finals and added to the game on <strong>November 23, 2025</strong>, Sakuzyo's "Kaijuu ni Naritai" didn't just break records—it rewrote the definition of what a rhythm game chart can demand. Every single difficulty tier received a <strong>new maximum level</strong> upon release. That's not coincidence. That's a statement of intent. BPM 220. 2 minutes and 5 seconds of relentless assault. And a chart philosophy that Sakuzyo himself made explicit: <strong>"Become a monster and destroy the falling notes."</strong></p>
+        
+        <p class="reveal delay-2">Most players see the level number and assume it's just "the hardest chart." That's surface-level. Today we're breaking down exactly what makes this track a structural masterpiece—and why that matters.</p>
 
+        <!-- ==================== MUSIC DATA ==================== -->
         <div class="music-data reveal">
             <h4>📋 Track Data: "Kaijuu ni Naritai" (I Want to Be a Monster)</h4>
             <ul>
                 <li><span class="data-label">Composer / Arranger</span><span class="data-value">Sakuzyo (削除)</span></li>
+                <li><span class="data-label">Lyrics</span><span class="data-value">Sakuzyo</span></li>
                 <li><span class="data-label">BPM</span><span class="data-value">220</span></li>
                 <li><span class="data-label">Duration</span><span class="data-value">2:05</span></li>
                 <li><span class="data-label">Added to PJSK</span><span class="data-value">November 23, 2025 (Gift Song)</span></li>
-                <li><span class="data-label">Genre</span><span class="data-value">Virtual Singer (Hatsune Miku)</span></li>
+                <li><span class="data-label">Vocal</span><span class="data-value">Hatsune Miku</span></li>
                 <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38 (Current peak)</span></li>
-                <li><span class="data-label">Lyrics</span><span class="data-value">Sakuzyo</span></li>
             </ul>
         </div>
 
-        <h2 class="reveal">📊 The Numbers: What "Highest Difficulty" Actually Means</h2>
-        <p class="reveal">Let's quantify what "record-breaking" looks like on a chart:</p>
+        <!-- ==================== SECTION 1: NUMBERS ==================== -->
+        <h2 class="reveal">📊 The Numbers: Quantifying "Record-Breaking"</h2>
+        <p class="reveal">Let's establish the baseline. When people say this chart is "hard," they usually mean it feels hard. Let's talk about what it <em>actually is</em>.</p>
         
         <div class="analysis-grid reveal">
             <div class="analysis-card">
                 <h5>📊 MASTER Lv.35</h5>
-                <p><strong>1,900 notes</strong> across 125 seconds = <strong>15.2 notes/second</strong> average. BPM 220 = approximately 458 beats across the full track. This is stamina-draining, full-arm territory.</p>
+                <p><strong>1,900 notes</strong> across 125 seconds = <strong>15.2 notes/second</strong> average. BPM 220 translates to approximately 458 beats over the full runtime. This alone is stamina-draining, full-arm territory.</p>
             </div>
             <div class="analysis-card">
                 <h5>📊 APPEND Lv.38</h5>
-                <p><strong>2,800 notes</strong> across 125 seconds = <strong>22.4 notes/second</strong> average. 440 beats. ~6.4 notes per beat. This isn't a rhythm game chart. It's an endurance sport.</p>
+                <p><strong>2,800 notes</strong> across 125 seconds = <strong>22.4 notes/second</strong> average. With 440 beats in the track, that's roughly <strong>6.4 notes per beat.</strong> This is not a chart. It's an endurance sport.</p>
             </div>
         </div>
 
-        <p class="reveal">But numbers alone don't capture what makes this chart brutal. The APPEND design layers multiple difficulty vectors simultaneously: high-speed trills that test finger independence, cross-hand patterns that force spatial recalibration mid-song, and chord streams that drain stamina over time. It's not just "hard." It's <strong>systematic</strong>. Every element is designed to break a different aspect of your technique.</p>
+        <p class="reveal">But raw density is only the foundation. The APPEND chart layers multiple difficulty vectors simultaneously: <strong>high-speed trills</strong> that test finger independence, <strong>cross-hand patterns</strong> that force spatial recalibration mid-song, and <strong>chord streams</strong> that systematically drain stamina. Each element is designed to break a different aspect of your technique. It's not just "hard." It's <strong>systematic.</strong></p>
 
         <div class="highlight-box reveal">
-            <p>⚡ Sakuzyo's design brief: "I poured everything into this track. Players—become monsters and destroy the notes raining down on you." The chart isn't testing you. It's <strong>demanding transformation.</strong></p>
+            <p>⚡ Sakuzyo's own words: "I poured everything into this track. Players—become monsters and destroy the notes raining down on you." The chart isn't testing you. It's <strong>demanding transformation.</strong></p>
         </div>
 
-        <h2 class="reveal">💥 The Contradiction: Why "Being a Monster" Resonates</h2>
-        <p class="reveal">The narrator—voiced by Hatsune Miku—is a being on the edge. "It's wrong, it's wrong, I don't want to live in a world like this, but… / It's wrong, it's wrong, yet still, I wish to remain myself." This isn't a character arc. It's ambivalence crystallized. The desire to destroy coexists with the refusal to disappear. That contradiction—wanting to leave a scar on a world that ignored you, while clinging to identity—is what makes the track land.</p>
+        <!-- ==================== SECTION 2: THE CONTRADICTION ==================== -->
+        <h2 class="reveal">💥 The Contradiction: Why "Being a Monster" Cuts Deep</h2>
+        <p class="reveal">The narrator—voiced by Hatsune Miku—isn't telling a tidy story. She's confessing from the edge of collapse.</p>
         
         <div class="quote-tweet reveal">
             "It's wrong, it's wrong, I don't want to live in a world like this, but…"<br>
             "It's wrong, it's wrong, yet still, I wish to remain myself."
         </div>
 
-        <p class="reveal">This is Jungian Shadow work set to 220 BPM. The "monster" isn't about power. It's about acknowledging the part of yourself that wants to roar—the repressed aggression, the desire to be seen, the ugliness we bury to function. Sakuzyo gave that shadow a voice and a chart that forces you to embody it.</p>
+        <p class="reveal">This is ambivalence crystallized. The desire to destroy coexists with the refusal to disappear. "I want to be a monster" isn't about power fantasy. It's about the desperate wish to leave a scar on a world that would otherwise erase you. The narrator hates the world, hates herself, yet clings to identity with bleeding fingers. That contradiction—that <em>tension</em>—is what makes the track resonate beyond the arcade cabinet.</p>
 
-        <h2 class="reveal">⚙️ Structural Analysis: BPM 220 as Narrative Device</h2>
-        <p class="reveal">The tempo isn't arbitrary. BPM 220 sits at the upper edge of what human fingers can process as "rhythm" rather than "noise." It's fast enough to feel urgent, dangerous, on the verge of collapse—but just slow enough to remain playable. This is the musical equivalent of a monster barely contained. The composition uses <strong>dense piano arpeggios, distorted bass, and rapid-fire percussion</strong> to build a wall of sound that mirrors the narrator's internal state: overwhelming, chaotic, and straining against its own limits.</p>
+        <!-- ==================== SECTION 3: JUNGIAN SHADOW ==================== -->
+        <h2 class="reveal">🧠 Jungian Shadow Work at 220 BPM</h2>
+        <p class="reveal">From a psychological perspective, this is textbook Shadow projection. The "monster" represents everything we repress to function in society: raw aggression, the need to be acknowledged, the parts of ourselves we're taught are too ugly to show. Sakuzyo gave that shadow a voice—and a BPM that forces your body to <em>inhabit</em> it. When you play the APPEND chart, you're not just tapping notes. You're temporarily becoming the monster, channeling that repressed energy through your fingertips. The exhaustion isn't frustration. It's catharsis.</p>
+
+        <!-- ==================== SECTION 4: STRUCTURAL ANALYSIS ==================== -->
+        <h2 class="reveal">⚙️ Structural Breakdown: BPM 220 as Narrative Device</h2>
+        <p class="reveal">The tempo isn't arbitrary. BPM 220 sits at the upper edge of what human perception can process as "rhythm" rather than "noise." It's fast enough to feel urgent, dangerous, perpetually on the verge of collapse—but just slow enough to remain playable. This is the musical equivalent of a monster barely contained.</p>
+        
+        <p class="reveal">The composition layers <strong>dense piano arpeggios, distorted bass frequencies, and rapid-fire percussion</strong> into a wall of sound that mirrors the narrator's internal state: overwhelming, chaotic, and straining against its own structural limits. And the chart? It doesn't just accompany that chaos. It <strong>forces you to survive it.</strong> Every trill, every cross-hand pattern, every chord stream is a demand: <em>keep up, or get crushed.</em></p>
 
         <hr class="reveal">
 
+        <!-- ==================== CONCLUSION ==================== -->
         <h2 class="reveal">✨ Conclusion: The Scar Remains</h2>
-        <p class="reveal">"Kaijuu ni Naritai" won't fix you. It won't make you stronger. What it does—through its chart design, its tempo, its lyrics—is stand next to you in the dark and validate the part of you that wants to destroy something. And for a track that demands <strong>2,800 notes</strong> of your fingers, that's more than enough.</p>
+        <p class="reveal">"Kaijuu ni Naritai" won't fix you. It won't make you stronger. What it does—through its chart design, its tempo, its lyrical ambivalence—is stand next to you in the dark and validate the part of you that wants to roar. For 2 minutes and 5 seconds, it gives you permission to be the monster. And for a track that demands <strong>2,800 notes</strong> from your fingers, that's more than enough.</p>
 
-
-        <!-- ===== GLOBAL CTA ===== -->
+        <!-- ==================== CTA ==================== -->
         <div class="comment-invite reveal">
-            <p>💬 If your interpretation is better, <strong>break this one.</strong></p>
-            <p>I didn't write this for agreement. I wrote it to be dismantled. Where's the flaw?</p>
+            <p>💬 If your interpretation is sharper, <strong>break this one.</strong></p>
+            <p>I didn't write this for applause. I wrote it to be dismantled. Where's the flaw?</p>
             <span class="btn-like">⚡ Challenge This Analysis ⚡</span>
         </div>
 
         <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Facts over feelings.</p>
     </div>
 
+    <!-- ===== SCROLL REVEAL SCRIPT ===== -->
     <script>
         (function() {
             const elementsToReveal = document.querySelectorAll('.reveal');

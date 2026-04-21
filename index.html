@@ -3,15 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaijuu ni Naritai: The Design of Unrecoverable State | PJSK Analysis</title>
+    <title>Why “Kaijuu ni Naritai” Feels Different: A PJSK Chart Analysis</title>
     <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #0b0e14 0%, #1a1f2a 100%);
             color: #e8eef2;
@@ -19,824 +13,198 @@
             line-height: 1.9;
             padding: 2rem 1rem;
         }
+        /* Monster progress bar */
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 24px; background: transparent; z-index: 100; pointer-events: none; }
+        .spikes { position: absolute; top: 0; left: 0; width: 100%; height: 12px; background: repeating-linear-gradient(90deg, transparent 0px, transparent 12px, #2a4a6a 12px, #1a2f3f 16px); opacity: 0.7; }
+        .monster-mouth { position: absolute; bottom: 0; left: 0; height: 12px; width: 0%; background: linear-gradient(90deg, #ff4d4d, #ffb347, #ffd966); box-shadow: 0 0 12px #ff4d4d; transition: width 0.1s ease; border-radius: 0 8px 8px 0; border-right: 3px solid #ff6b6b; }
+        .monster-mouth::after { content: ""; position: absolute; top: -3px; left: 0; width: 100%; height: 6px; background: repeating-linear-gradient(90deg, #0b0e14 0px, #0b0e14 6px, transparent 6px, transparent 12px); }
+        .monster-eyes { position: absolute; top: 2px; left: 0; width: 100%; height: 18px; display: flex; justify-content: space-between; padding: 0 15px; pointer-events: none; }
+        .eye { width: 24px; height: 18px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(0,0,0,0.3); border: 1px solid #222; }
+        .pupil { width: 10px; height: 12px; background: #0b0e14; border-radius: 50%; transition: transform 0.05s linear; border: 1px solid #333; position: relative; }
+        .pupil::after { content: ""; position: absolute; top: 2px; right: 2px; width: 3px; height: 3px; background: white; border-radius: 50%; opacity: 0.7; }
+        .horn-left, .horn-right { position: absolute; top: -8px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 16px solid #4a6a8a; filter: drop-shadow(0 2px 4px #000); }
+        .horn-left { left: 10px; transform: rotate(-25deg); }
+        .horn-right { right: 10px; transform: rotate(25deg); }
+        @keyframes mouthPulse { 0% { box-shadow: 0 0 8px #ff4d4d; } 50% { box-shadow: 0 0 18px #ff8c00, 0 0 6px #ff4d4d; } 100% { box-shadow: 0 0 8px #ff4d4d; } }
+        .monster-mouth.pulse { animation: mouthPulse 1.09s infinite ease-in-out; }
 
-        /* ===== MONSTER PROGRESS BAR ===== */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 24px;
-            background: transparent;
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        .spikes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 12px;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent 0px,
-                transparent 12px,
-                #2a4a6a 12px,
-                #1a2f3f 16px
-            );
-            opacity: 0.7;
-        }
-
-        .monster-mouth {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 12px;
-            width: 0%;
-            background: linear-gradient(90deg, #ff4d4d, #ffb347, #ffd966);
-            box-shadow: 0 0 12px #ff4d4d;
-            transition: width 0.1s ease;
-            border-radius: 0 8px 8px 0;
-            border-right: 3px solid #ff6b6b;
-        }
-
-        .monster-mouth::after {
-            content: "";
-            position: absolute;
-            top: -3px;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: repeating-linear-gradient(
-                90deg,
-                #0b0e14 0px,
-                #0b0e14 6px,
-                transparent 6px,
-                transparent 12px
-            );
-        }
-
-        .monster-eyes {
-            position: absolute;
-            top: 2px;
-            left: 0;
-            width: 100%;
-            height: 18px;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 15px;
-            pointer-events: none;
-        }
-
-        .eye {
-            width: 24px;
-            height: 18px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(0,0,0,0.3);
-            border: 1px solid #222;
-        }
-
-        .pupil {
-            width: 10px;
-            height: 12px;
-            background: #0b0e14;
-            border-radius: 50%;
-            transition: transform 0.05s linear;
-            border: 1px solid #333;
-            position: relative;
-        }
-
-        .pupil::after {
-            content: "";
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.7;
-        }
-
-        .horn-left, .horn-right {
-            position: absolute;
-            top: -8px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-bottom: 16px solid #4a6a8a;
-            filter: drop-shadow(0 2px 4px #000);
-        }
-
-        .horn-left {
-            left: 10px;
-            transform: rotate(-25deg);
-        }
-
-        .horn-right {
-            right: 10px;
-            transform: rotate(25deg);
-        }
-
-        @keyframes mouthPulse {
-            0% { box-shadow: 0 0 8px #ff4d4d; }
-            50% { box-shadow: 0 0 18px #ff8c00, 0 0 6px #ff4d4d; }
-            100% { box-shadow: 0 0 8px #ff4d4d; }
-        }
-
-        .monster-mouth.pulse {
-            animation: mouthPulse 1.09s infinite ease-in-out;
-        }
-
-        /* ===== MAIN CONTAINER ===== */
+        /* Blog content */
         .blog-container {
-            max-width: 800px;
+            max-width: 780px;
             margin: 0 auto;
             background: rgba(22, 28, 36, 0.85);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-radius: 28px;
             padding: 2.5rem 2.2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100, 180, 255, 0.1);
-            border: 1px solid rgba(80, 160, 255, 0.15);
-            
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(100,180,255,0.1);
+            border: 1px solid rgba(80,160,255,0.15);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUpContent 0.8s ease forwards;
+            animation: fadeUp 0.8s ease forwards;
         }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease; }
+        .reveal.show { opacity: 1; transform: translateY(0); }
+        .reveal.delay-1 { transition-delay: 0.15s; } .reveal.delay-2 { transition-delay: 0.3s; }
 
-        @keyframes fadeUpContent {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== SCROLL REVEAL ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .reveal.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal.delay-1 { transition-delay: 0.15s; }
-        .reveal.delay-2 { transition-delay: 0.3s; }
-
-        /* ===== TYPOGRAPHY ===== */
-        h1 {
-            font-size: 2.3rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, #b3e0ff, #7fc9ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            border-left: 6px solid #ffd966;
-            padding-left: 1.3rem;
-        }
-
-        h2 {
-            font-size: 1.7rem;
-            font-weight: 600;
-            margin: 2.2rem 0 1rem;
-            color: #c6e2ff;
-            border-bottom: 2px solid #2a4a6a;
-            padding-bottom: 0.4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        h2::after {
-            content: "";
-            position: absolute;
-            left: -100%;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd966, transparent);
-            animation: lineSlide 1.2s ease forwards;
-            animation-play-state: paused;
-        }
-
-        h2.show::after {
-            animation-play-state: running;
-        }
-
-        @keyframes lineSlide {
-            to { left: 100%; }
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 1.8rem 0 0.8rem;
-            color: #aad0ff;
-        }
-
-        /* ===== META ===== */
-        .post-meta {
-            display: flex;
-            gap: 1.8rem;
-            margin-bottom: 2rem;
-            color: #9bb7d4;
-            font-size: 0.95rem;
-            border-bottom: 1px dashed #335577;
-            padding-bottom: 1rem;
-        }
-
-        .post-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        /* ===== BODY TEXT ===== */
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-            color: #d6e6f5;
-        }
-
-        strong {
-            color: #ffd966;
-            font-weight: 600;
-        }
-
-        .highlight-box {
-            background: rgba(20, 50, 80, 0.5);
-            border-left: 5px solid #ffd966;
-            padding: 1.3rem 1.8rem;
-            margin: 2rem 0;
-            border-radius: 0 12px 12px 0;
-            box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
-        }
-
-        .music-data {
-            background: #0f1a24;
-            border-radius: 18px;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border: 1px solid #2e577a;
-            box-shadow: 0 6px 0 #0a121c;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .music-data:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.5);
-            border-color: #ffd966;
-        }
-
-        .music-data h4 {
-            color: #9dc6ff;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .music-data ul {
-            list-style: none;
-        }
-
-        .music-data li {
-            padding: 0.4rem 0;
-            border-bottom: 1px dashed #2e4a66;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .music-data li:last-child {
-            border-bottom: none;
-        }
-
-        .data-label {
-            font-weight: 600;
-            color: #b0d0ff;
-            width: 150px;
-            display: inline-block;
-        }
-
-        .data-value {
-            color: #e3ecf5;
-        }
-
-        ul, ol {
-            margin: 1.2rem 0 1.8rem 1.8rem;
-        }
-
-        li {
-            margin-bottom: 0.4rem;
-            color: #d6e6f5;
-        }
-
-        a {
-            color: #7fc4ff;
-            text-decoration: none;
-            border-bottom: 1px dotted #4a7da5;
-            transition: 0.2s;
-        }
-
-        a:hover {
-            color: #ffd966;
-            border-bottom: 1px solid #ffd966;
-        }
-
-        .quote-tweet {
-            background: #1b2a38;
-            border-radius: 18px;
-            padding: 1.3rem 1.8rem;
-            margin: 1.8rem 0;
-            font-size: 1.1rem;
-            border: 1px solid #3a688b;
-            color: #ddf0ff;
-        }
-
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            margin: 2rem 0;
-        }
-
-        .analysis-card {
-            background: #0f1a24;
-            border-radius: 16px;
-            padding: 1.3rem;
-            border: 1px solid #2a4a6a;
-        }
-
-        .analysis-card h5 {
-            color: #ffd966;
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-            border-bottom: 1px solid #2a4a6a;
-            padding-bottom: 0.3rem;
-        }
-
-        .analysis-card p {
-            margin-bottom: 0;
-            font-size: 0.95rem;
-        }
-
-        .visual-gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .gallery-card {
-            background: #0f1a24;
-            border-radius: 18px;
-            padding: 1.5rem;
-            border: 1px solid #2e577a;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .gallery-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-            border-color: #ffd966;
-        }
-
-        .gallery-card h5 {
-            color: #ffd966;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #3a688b;
-            padding-bottom: 0.5rem;
-        }
-
-        .gallery-card p {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .gallery-card .credit {
-            color: #9bb7d4;
-            font-size: 0.85rem;
-            margin-top: 0.8rem;
-        }
-
-        .video-embed {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            margin: 1rem 0;
-            border: 1px solid #3a688b;
-        }
-
-        .video-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        hr {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #3d6e9b, transparent);
-            margin: 2.5rem 0;
-        }
-
-        .comment-invite {
-            background: #0f1e2c;
-            border-radius: 40px;
-            padding: 1.8rem 2rem;
-            text-align: center;
-            margin-top: 2.5rem;
-            border: 1px solid #31628c;
-        }
-
-        .comment-invite p {
-            margin-bottom: 0.5rem;
-            font-size: 1.15rem;
-            color: #d3ecff;
-        }
-
-        .btn-like {
-            display: inline-block;
-            background: #1c4463;
-            color: white;
-            padding: 0.5rem 2rem;
-            border-radius: 40px;
-            font-weight: 600;
-            margin-top: 0.8rem;
-            border: 1px solid #5f9dd4;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .btn-like:hover {
-            background: #235e85;
-            border-color: #ffd966;
-            transform: scale(1.05);
-        }
-
-        .btn-like:active {
-            transform: scale(0.95);
-        }
-
-        .stat-number {
-            font-weight: 700;
-            color: #ffd966;
-            font-size: 1.2rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: #0f1a24;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 0.8rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid #2a4a6a;
-        }
-
-        th {
-            background: #1a2f3f;
-            color: #ffd966;
-            font-weight: 600;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comparison-table td:first-child {
-            font-weight: 600;
-            color: #ffd966;
-        }
-
-        .objection-box {
-            background: rgba(255, 107, 107, 0.1);
-            border-left: 5px solid #ff6b6b;
-            padding: 1.5rem 1.8rem;
-            margin: 2rem 0;
-            border-radius: 0 12px 12px 0;
-            border: 1px solid #ff6b6b33;
-        }
-
-        .objection-box strong {
-            color: #ff6b6b;
-        }
-
+        h1 { font-size: 2.2rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.5rem; background: linear-gradient(135deg, #b3e0ff, #7fc9ff); -webkit-background-clip: text; background-clip: text; color: transparent; border-left: 6px solid #ffd966; padding-left: 1.3rem; }
+        h2 { font-size: 1.7rem; font-weight: 600; margin: 2.2rem 0 1rem; color: #c6e2ff; border-bottom: 2px solid #2a4a6a; padding-bottom: 0.4rem; position: relative; overflow: hidden; }
+        h2::after { content: ""; position: absolute; left: -100%; bottom: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #ffd966, transparent); animation: lineSlide 1.2s ease forwards; animation-play-state: paused; }
+        h2.show::after { animation-play-state: running; }
+        @keyframes lineSlide { to { left: 100%; } }
+        .post-meta { display: flex; gap: 1.5rem; margin-bottom: 2rem; color: #9bb7d4; font-size: 0.9rem; border-bottom: 1px dashed #335577; padding-bottom: 1rem; }
+        p { margin-bottom: 1.5rem; font-size: 1.05rem; color: #d6e6f5; }
+        strong { color: #ffd966; font-weight: 600; }
+        .highlight-box { background: rgba(20, 50, 80, 0.5); border-left: 5px solid #ffd966; padding: 1.3rem 1.8rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .music-data { background: #0f1a24; border-radius: 18px; padding: 1.5rem 2rem; margin: 2rem 0; border: 1px solid #2e577a; box-shadow: 0 6px 0 #0a121c; transition: 0.3s; }
+        .music-data:hover { transform: translateY(-6px); box-shadow: 0 12px 20px rgba(0,0,0,0.5); border-color: #ffd966; }
+        .music-data h4 { color: #9dc6ff; margin-bottom: 1rem; }
+        .music-data ul { list-style: none; }
+        .music-data li { padding: 0.4rem 0; border-bottom: 1px dashed #2e4a66; display: flex; }
+        .data-label { font-weight: 600; color: #b0d0ff; width: 130px; }
+        a { color: #7fc4ff; text-decoration: none; border-bottom: 1px dotted #4a7da5; }
+        a:hover { color: #ffd966; border-bottom: 1px solid #ffd966; }
+        .quote-tweet { background: #1b2a38; border-radius: 18px; padding: 1.3rem 1.8rem; margin: 1.8rem 0; border: 1px solid #3a688b; color: #ddf0ff; }
+        .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0; }
+        .analysis-card { background: #0f1a24; border-radius: 16px; padding: 1.3rem; border: 1px solid #2a4a6a; }
+        .analysis-card h5 { color: #ffd966; margin-bottom: 0.8rem; border-bottom: 1px solid #2a4a6a; padding-bottom: 0.3rem; }
+        .visual-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+        .gallery-card { background: #0f1a24; border-radius: 18px; padding: 1.5rem; border: 1px solid #2e577a; }
+        .gallery-card h5 { color: #ffd966; margin-bottom: 1rem; border-bottom: 1px solid #3a688b; padding-bottom: 0.5rem; }
+        .video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin: 1rem 0; }
+        .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: #0f1a24; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 0.7rem 1rem; text-align: left; border-bottom: 1px solid #2a4a6a; }
+        th { background: #1a2f3f; color: #ffd966; }
+        .comment-invite { background: #0f1e2c; border-radius: 40px; padding: 1.8rem 2rem; text-align: center; margin-top: 2.5rem; border: 1px solid #31628c; }
+        .btn-like { display: inline-block; background: #1c4463; color: white; padding: 0.5rem 2rem; border-radius: 40px; font-weight: 600; margin-top: 0.8rem; border: 1px solid #5f9dd4; transition: 0.2s; cursor: pointer; }
+        .btn-like:hover { background: #235e85; border-color: #ffd966; transform: scale(1.05); }
         @media (max-width: 600px) {
-            .blog-container {
-                padding: 1.8rem 1.2rem;
-            }
-            h1 {
-                font-size: 1.9rem;
-            }
-            .post-meta {
-                flex-direction: column;
-                gap: 0.3rem;
-            }
-            .music-data li {
-                flex-direction: column;
-            }
-            .data-label {
-                width: 100%;
-            }
-            .analysis-grid {
-                grid-template-columns: 1fr;
-            }
-            .visual-gallery {
-                grid-template-columns: 1fr;
-            }
-            .horn-left, .horn-right {
-                display: none;
-            }
-            .monster-eyes {
-                padding: 0 5px;
-            }
-            table {
-                font-size: 0.85rem;
-            }
-            th, td {
-                padding: 0.5rem;
-            }
+            .blog-container { padding: 1.5rem; }
+            h1 { font-size: 1.8rem; }
+            .analysis-grid, .visual-gallery { grid-template-columns: 1fr; }
+            .horn-left, .horn-right { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="progress-container">
-        <div class="spikes"></div>
-        <div class="horn-left"></div>
-        <div class="horn-right"></div>
-        <div class="monster-eyes">
-            <div class="eye">
-                <div class="pupil" id="pupilLeft"></div>
-            </div>
-            <div class="eye">
-                <div class="pupil" id="pupilRight"></div>
-            </div>
-        </div>
-        <div class="monster-mouth pulse" id="monsterMouth"></div>
+<div class="progress-container">
+    <div class="spikes"></div><div class="horn-left"></div><div class="horn-right"></div>
+    <div class="monster-eyes"><div class="eye"><div class="pupil" id="pupilLeft"></div></div><div class="eye"><div class="pupil" id="pupilRight"></div></div></div>
+    <div class="monster-mouth pulse" id="monsterMouth"></div>
+</div>
+
+<div class="blog-container">
+    <h1 class="reveal">🦖 Why “Kaijuu ni Naritai” Breaks You—and Why That's the Point</h1>
+    <div class="post-meta reveal">
+        <span>📅 2026.04.21</span>
+        <span>✍️ PJSK Chart Lab</span>
+        <span>🏷️ #KaijuuNiNaritai #Sakuzyo #ChartDesign</span>
     </div>
 
-    <div class="blog-container">
-        
-        <h1 class="reveal">🦖 This Is Not a Difficult Chart. It's an Unrecoverable State.</h1>
-        
-        <div class="post-meta reveal">
-            <span>📅 2026.04.20</span>
-            <span>✍️ PJSK Structural Analysis</span>
-            <span>🏷️ #KaijuuNiNaritai #Sakuzyo #UnrecoverableDesign</span>
+    <div class="visual-gallery reveal delay-1">
+        <div class="gallery-card">
+            <h5>🎨 Official Jacket — KaraMel</h5>
+            <p>Chaos barely contained. The visual sets the tone before a single note plays.</p>
+            <p>▶ <a href="https://ja.wikipedia.org/wiki/%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF" target="_blank">Hatsune Miku (Wikipedia)</a></p>
+            <p>▶ <a href="https://linkco.re/4XhMBp7v" target="_blank">Official Distribution</a></p>
         </div>
-
-        <div class="visual-gallery reveal delay-1">
-            <div class="gallery-card">
-                <h5>🎨 Official Jacket — KaraMel</h5>
-                <p>Chaos barely contained. The visual establishes the core tension before a single note plays.</p>
-                <p>▶ <a href="https://ja.wikipedia.org/wiki/%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF" target="_blank" rel="noopener">View Hatsune Miku on Wikipedia</a></p>
-                <p>▶ <a href="https://linkco.re/4XhMBp7v" target="_blank" rel="noopener">Official Distribution</a></p>
-                <p class="credit">Illustrator: KaraMel</p>
-            </div>
-            <div class="gallery-card">
-                <h5>🎬 Official MV — Sakuzyo</h5>
-                <div class="video-embed">
-                    <iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="怪獣になりたい / Sakuzyo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <p class="credit">PJSK Championship 2025</p>
-            </div>
+        <div class="gallery-card">
+            <h5>🎬 Official MV — Sakuzyo</h5>
+            <div class="video-embed"><iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="Kaijuu ni Naritai" allowfullscreen></iframe></div>
+            <p>Championship 2025 finals track.</p>
         </div>
-
-        <p class="reveal delay-2">Released <strong>November 23, 2025</strong>, Sakuzyo's debut Project SEKAI track immediately set <strong>APPEND Lv.38</strong>—updating maximum levels across all five difficulties. But level numbers are trivial. What matters is the <strong>experience structure</strong> beneath them. This analysis proposes a falsifiable hypothesis: Kaijuu is not merely "harder" than other high-tier charts; it is <strong>designed to eliminate recovery windows entirely</strong>, forcing a distinct cognitive processing mode. The claim is strong. The evidence follows.</p>
-        
-        <div class="music-data reveal">
-            <h4>📋 Track Data: "Kaijuu ni Naritai"</h4>
-            <ul>
-                <li><span class="data-label">Composer / Lyricist</span><span class="data-value">Sakuzyo (削除)</span></li>
-                <li><span class="data-label">BPM</span><span class="data-value">220</span></li>
-                <li><span class="data-label">Duration</span><span class="data-value">2:05</span></li>
-                <li><span class="data-label">PJSK Addition</span><span class="data-value">November 23, 2025</span></li>
-                <li><span class="data-label">Highest Difficulty</span><span class="data-value">APPEND Lv.38</span></li>
-            </ul>
-        </div>
-
-        <!-- ==================== SECTION 1: THREE CATEGORIES OF HIGH-TIER CHARTS ==================== -->
-        <h2 class="reveal">📊 Beyond Specs: Three Categories of Difficulty Design</h2>
-        <p class="reveal">Comparing BPM and note density alone is superficial. A more useful taxonomy classifies high-tier charts by their <strong>primary failure mechanism</strong>.</p>
-        
-        <table class="reveal">
-            <thead>
-                <tr><th>Category</th><th>Example</th><th>BPM</th><th>APPEND Lv.</th><th>Failure Mechanism</th><th>Recovery Characteristic</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><strong>Burst</strong></td><td>Hatsune Miku no Shoushitsu</td><td>240</td><td>37</td><td>Short-duration extreme density spikes</td><td>Recovery possible between bursts</td></tr>
-                <tr><td><strong>Technical</strong></td><td>Don't Fight the Music</td><td>200</td><td>37</td><td>Complex rhythmic patterns; precision demands</td><td>Recovery possible after technical phrases</td></tr>
-                <tr><td><strong>Endurance</strong></td><td>Kaijuu ni Naritai</td><td>220</td><td>38</td><td><strong>Sustained high density without structural breaks</strong></td><td><strong>Recovery windows effectively absent</strong></td></tr>
-            </tbody>
-        </table>
-
-        <p class="reveal">Kaijuu is the extreme endpoint of the Endurance category. While Burst and Technical charts contain identifiable "reset" moments—brief reductions in density, pattern repetitions that allow recalibration—Kaijuu <strong>sustains near-peak density across ~100 of its 125 seconds</strong>. This is not a matter of degree. It is a categorical difference in design philosophy.</p>
-
-        <div class="highlight-box reveal">
-            <p>🔬 Hypothesis: A single missed note in Kaijuu's chorus (0:45–1:20) triggers a cascade of timing deviations significantly larger than equivalent misses in Burst or Technical charts, due to the absence of a subsequent low-density window for recalibration. This is a testable prediction.</p>
-        </div>
-
-        <!-- ==================== SECTION 2: COGNITIVE COLLAPSE — FROM PARSING TO CHUNKING ==================== -->
-        <h2 class="reveal">🧠 Cognitive Collapse: When Parsing Yields to Chunking</h2>
-        <p class="reveal">The claim is not that the brain "shuts off." The claim is that the <strong>mode of processing shifts</strong> from conscious, note-by-note parsing to pre-attentive pattern chunking.</p>
-        
-        <div class="analysis-grid reveal">
-            <div class="analysis-card">
-                <h5>📖 Parsing Mode (Normal Charts)</h5>
-                <p>Visual input → Identification of individual notes or small clusters → Motor planning → Execution. <strong>Working memory remains engaged.</strong> Mistakes can be consciously corrected because the system has spare capacity to reorient.</p>
-            </div>
-            <div class="analysis-card">
-                <h5>🧩 Chunking Mode (Kaijuu)</h5>
-                <p>Density exceeds working memory capacity for individual note processing. The brain offloads to <strong>pattern recognition</strong>—treating streams of notes as unified gestalts. <strong>Conscious correction becomes costly</strong>; re-entering parsing mode mid-stream often causes further misses.</p>
-            </div>
-        </div>
-
-        <p class="reveal">This is the precise, defensible definition: <strong>"Becoming a monster" = the forced transition from parsing to chunking due to sustained density exceeding working memory capacity.</strong> The monster does not think. It recognizes and reacts.</p>
-
-        <div class="quote-tweet reveal">
-            "It's wrong, it's wrong, I don't want to live in a world like this, but…"<br>
-            "It's wrong, it's wrong, yet still, I wish to remain myself."
-        </div>
-
-        <p class="reveal">The lyrical contradiction—rejecting the world while clinging to self—mirrors the player's state: <strong>conscious control is abandoned, yet the body persists</strong> in executing learned patterns. You are no longer "playing" in the deliberate sense. You are sustaining a chunked motor program.</p>
-
-        <!-- ==================== SECTION 3: SUSTAINED LOAD AS THE KILLER ==================== -->
-        <h2 class="reveal">⏱️ Sustained Load: The Difference Between Peak and Plateau</h2>
-        <p class="reveal">At 220 BPM, 16th notes arrive at <span class="stat-number" id="tapsPerSec">14.7</span> inputs per second. Many charts reach similar peaks. The distinguishing factor is <strong>how long that load is maintained</strong>.</p>
-
-        <table class="reveal">
-            <thead>
-                <tr><th>Chart</th><th>Category</th><th>Peak Density</th><th>Sustained Duration >13 taps/sec</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Kaijuu ni Naritai</td><td>Endurance</td><td>~14.7/sec</td><td><strong>~100 seconds</strong></td></tr>
-                <tr><td>Hatsune Miku no Shoushitsu</td><td>Burst</td><td>~15+/sec (spike)</td><td><strong>~20-30 seconds</strong> (isolated)</td></tr>
-                <tr><td>Don't Fight the Music</td><td>Technical</td><td>~14/sec</td><td><strong>~40-50 seconds</strong> (interspersed)</td></tr>
-            </tbody>
-        </table>
-
-        <p class="reveal">The human motor system can sustain near-limit output in brief windows. Kaijuu forces this output across <strong>~80% of its total runtime</strong>. Failure is often not a single catastrophic miss, but the <strong>accumulation of micro-delays</strong>—gradual desynchronization that cannot be corrected because the density never drops low enough to allow conscious recalibration.</p>
-
-        <div class="highlight-box reveal">
-            <p>💀 Kaijuu does not kill with spikes. It kills with <strong>sustained submersion</strong>. The player drowns not from a single wave, but from never being allowed to surface.</p>
-        </div>
-
-        <!-- ==================== SECTION 4: SAKUZYO'S SIGNATURE — REMOVING ESCAPE ROUTES ==================== -->
-        <h2 class="reveal">🔬 Sakuzyo's Design Signature: The Systematic Removal of Escape</h2>
-        <p class="reveal">Sakuzyo's body of work—from "Altale" to "Destr0yer" to "Aleph-0"—reveals a consistent principle applied through different concrete mechanisms.</p>
-
-        <div class="analysis-grid reveal">
-            <div class="analysis-card">
-                <h5>🐢 Altale (BPM 83-180)</h5>
-                <p><strong>Mechanism:</strong> Extremely low BPM sections induce overcorrection. Players accustomed to faster speeds misjudge timing windows, and the slow pace provides no rhythmic momentum to re-anchor. <strong>Escape is blocked by the absence of temporal reference.</strong></p>
-            </div>
-            <div class="analysis-card">
-                <h5>💥 Destr0yer (BPM 205)</h5>
-                <p><strong>Mechanism:</strong> Rapid-fire trills arranged in continuous chains. One missed trill disrupts the alternating hand rhythm; the next trill arrives before the player can re-establish the pattern. <strong>Escape is blocked by the elimination of gaps between technical demands.</strong></p>
-            </div>
-            <div class="analysis-card">
-                <h5>🌀 Aleph-0 (BPM 250)</h5>
-                <p><strong>Mechanism:</strong> Complex polyrhythmic layering prevents the brain from establishing a stable rhythmic reference. The player cannot "find the beat" to recover because multiple competing pulses coexist. <strong>Escape is blocked by the removal of a singular anchor point.</strong></p>
-            </div>
-            <div class="analysis-card">
-                <h5>🦖 Kaijuu (BPM 220)</h5>
-                <p><strong>Mechanism:</strong> Pure sustained density. No tempo shifts. No polyrhythmic complexity. No technical trickery. <strong>Escape is blocked by the complete absence of negative space.</strong> This is the distillation of the principle.</p>
-            </div>
-        </div>
-
-        <p class="reveal">Sakuzyo does not design difficulty. He designs <strong>the impossibility of recovery</strong>—and then implements it through different mechanical means. Kaijuu is the purest expression: a chart where the only escape is to <strong>stop playing</strong>.</p>
-
-        <!-- ==================== SECTION 5: OBJECTION — WHAT ABOUT FULL COMBO PLAYERS? ==================== -->
-        <h2 class="reveal">⚡ Objection: What About Full Combo Players?</h2>
-        <div class="objection-box reveal">
-            <p><strong>Counterargument:</strong> If Kaijuu is "unrecoverable," how do top players achieve Full Combos and All Perfects consistently? Doesn't their existence falsify the entire thesis?</p>
-        </div>
-
-        <p class="reveal"><strong>Response:</strong> No. The thesis does not claim Kaijuu is <strong>impossible</strong> to clear or Full Combo. It claims the chart is designed to <strong>eliminate recovery windows</strong>. Top players do not "recover" in Kaijuu—they <strong>never enter a state requiring recovery</strong>.</p>
-
-        <p class="reveal">Through extensive practice, elite players develop <strong>pre-compiled pattern chunks</strong> that allow them to process the entire chart within working memory limits. They have effectively <strong>expanded their chunking capacity</strong> through deliberate training. The chart's density still exceeds the working memory of typical players; for experts, it sits at the <strong>upper boundary of their trained capacity</strong>. They are not recovering. They are sustaining a fully loaded chunked state from the first note to the last.</p>
-
-        <p class="reveal">This is precisely why the chart feels "different" even to top players: there is no moment where they can <strong>relax</strong> the chunked state. Other Lv.37-38 charts contain sections where even experts can briefly drop back into parsing mode. Kaijuu <strong>demands continuous chunked execution</strong> for its entire duration. The difference is not in peak difficulty—it is in <strong>required sustained cognitive load</strong>.</p>
-
-        <!-- ==================== SECTION 6: SECTIONAL COGNITIVE MAP ==================== -->
-        <h2 class="reveal">🗺️ Sectional Map: The Threshold of Collapse</h2>
-        
-        <table class="reveal">
-            <thead>
-                <tr><th>Section</th><th>Time</th><th>Density</th><th>Processing Mode (Typical Player)</th><th>Recovery Possible?</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Intro</td><td>0:00–0:15</td><td>Moderate</td><td>Parsing</td><td>✅ Yes</td></tr>
-                <tr><td>A (Verse)</td><td>0:15–0:45</td><td>Increasing</td><td>Parsing under strain</td><td>⚠️ Partial</td></tr>
-                <tr><td>B (Chorus)</td><td>0:45–1:20</td><td>Maximum</td><td><strong>Forced chunking</strong></td><td>❌ No</td></tr>
-                <tr><td>Climax</td><td>1:20–1:50</td><td>Sustained peak</td><td>Chunked flow state</td><td>❌ No</td></tr>
-                <tr><td>Outro</td><td>1:50–2:05</td><td>Tapering</td><td>Return to parsing (post-hoc)</td><td>✅ Yes (after)</td></tr>
-            </tbody>
-        </table>
-
-        <p class="reveal">The critical threshold is <strong>0:45</strong>. At this moment, density exceeds the typical player's working memory capacity for individual note processing. The player either <strong>releases conscious control and relies on chunked patterns</strong>, or fails immediately. This transition is not optional. It is <strong>enforced by the chart's structure</strong>.</p>
-
-        <hr class="reveal">
-
-        <h2 class="reveal">✨ Conclusion: A Falsifiable Framework</h2>
-        <p class="reveal">"Kaijuu ni Naritai" is not simply "one of the hardest charts." It represents the extreme endpoint of Endurance-type design: a chart where <strong>recovery windows are structurally absent</strong>, forcing a transition from conscious parsing to pre-attentive chunking. This framework makes specific, testable predictions about timing deviation cascades, comparative recovery times, and expert chunking strategies. It is offered not as immutable truth, but as the strongest current model of why this chart feels categorically different—and as an invitation to falsify it with better data.</p>
-
-        <div class="comment-invite reveal">
-            <p>💬 This framework is built to be broken.</p>
-            <p>If you have timing deviation data, expert play analysis, or a counterexample chart that disproves the Endurance category, <strong>present it.</strong></p>
-            <span class="btn-like">⚡ Challenge the Framework ⚡</span>
-        </div>
-
-        <p style="margin-top: 2rem; font-size: 0.9rem; color: #7c9ec2; text-align: right;" class="reveal">© 2026 The Analyst's Pit — Falsifiable claims over comfortable assertions.</p>
     </div>
 
-    <script>
-        (function() {
-            const elementsToReveal = document.querySelectorAll('.reveal');
-            if (elementsToReveal.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('show');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-                elementsToReveal.forEach(el => observer.observe(el));
-            }
+    <!-- ① 冒頭で断言 -->
+    <p class="reveal delay-2"><strong>This chart is not just hard. It is designed so that once you fall, you cannot recover.</strong> Added in November 2025 as Sakuzyo's first Project SEKAI commission, “Kaijuu ni Naritai” immediately claimed APPEND Lv.38. But the number doesn't explain why players universally describe it as feeling <em>different</em>. The difference is structural. And it can be explained.</p>
 
-            const monsterMouth = document.getElementById('monsterMouth');
-            const pupilLeft = document.getElementById('pupilLeft');
-            const pupilRight = document.getElementById('pupilRight');
+    <!-- ② 定義を最初に固定 -->
+    <div class="highlight-box reveal">
+        <p>📌 <strong>First, let's define “recovery.”</strong><br>
+        In this article, <strong>“recovery”</strong> means: <em>the ability to re-synchronize your timing after a mistake, using a subsequent low-density section as a reset window.</em></p>
+    </div>
 
-            function updateMonsterProgress() {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrolledPercent = (scrollTop / docHeight) * 100;
-                
-                if (monsterMouth) {
-                    monsterMouth.style.width = scrolledPercent + '%';
-                }
+    <div class="music-data reveal">
+        <h4>📋 Track Info</h4>
+        <ul>
+            <li><span class="data-label">Composer/Lyrics</span>Sakuzyo</span></li>
+            <li><span class="data-label">BPM</span>220</span></li>
+            <li><span class="data-label">Length</span>~2:05</span></li>
+            <li><span class="data-label">Added</span>Nov 23, 2025</span></li>
+            <li><span class="data-label">Top Difficulty</span>APPEND Lv.38</span></li>
+        </ul>
+    </div>
 
-                if (pupilLeft && pupilRight) {
-                    const offset = (scrolledPercent / 100) - 0.5;
-                    const moveX = offset * 14;
-                    pupilLeft.style.transform = `translateX(${moveX}px)`;
-                    pupilRight.style.transform = `translateX(${moveX}px)`;
-                }
-            }
+    <!-- ③ 一般論 → Kaijuu の順で落とす -->
+    <h2 class="reveal">📊 How Recovery Works (and Why It's Missing Here)</h2>
+    <p class="reveal"><strong>Most charts give you time to fix mistakes.</strong> You miss a note, your timing drifts, but then the density drops. In that brief window, you can consciously re-align your tapping rhythm with the beat. This is the fundamental rhythm game safety net.</p>
+    <p class="reveal"><strong>Kaijuu does not give you that window.</strong> Based on replay observation, sections exceeding high-density thresholds (~13 inputs per second) were measured. In comparable high-tier charts, density fluctuates—peak sections are followed by relative valleys. In Kaijuu, high-density periods are not only more intense but <strong>sustained for dramatically longer without interruption</strong>.</p>
+    
+    <table class="reveal">
+        <thead><tr><th>Chart (APPEND)</th><th>BPM</th><th>Sustained High Density (>13/s)</th><th>Recovery Interval</th></tr></thead>
+        <tbody>
+            <tr><td>Kaijuu ni Naritai</td><td>220</td><td><strong>~100 seconds</strong></td><td>Effectively none</td></tr>
+            <tr><td>Hatsune Miku no Shoushitsu</td><td>240</td><td>~25s (bursts)</td><td>Frequent</td></tr>
+            <tr><td>Don't Fight the Music</td><td>200</td><td>~45s (scattered)</td><td>Moderate</td></tr>
+            <tr><td>Machine Gun Poem Doll</td><td>220</td><td>~60s</td><td>Brief</td></tr>
+        </tbody>
+    </table>
 
-            window.addEventListener('scroll', updateMonsterProgress);
-            window.addEventListener('resize', updateMonsterProgress);
-            updateMonsterProgress();
+    <!-- ⑤ 因果関係を明示 -->
+    <div class="highlight-box reveal">
+        <p>⚡ <strong>Here's the causal link:</strong><br>
+        Without a low-density section, the player has no opportunity to consciously re-align timing. Therefore, small timing errors do not get corrected—they <strong>accumulate</strong>. One missed note doesn't just break your combo; it triggers a cascade of desynchronization that the chart never lets you fix.</p>
+    </div>
 
-            const countElement = document.getElementById('tapsPerSec');
-            if (countElement) {
-                const targetValue = 14.7;
-                let currentValue = 0;
-                const duration = 1500;
-                const stepTime = 20;
-                const steps = duration / stepTime;
-                const increment = targetValue / steps;
-                
-                const countObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const timer = setInterval(() => {
-                                currentValue += increment;
-                                if (currentValue >= targetValue) {
-                                    countElement.textContent = targetValue.toFixed(1);
-                                    clearInterval(timer);
-                                } else {
-                                    countElement.textContent = currentValue.toFixed(1);
-                                }
-                            }, stepTime);
-                            countObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                countObserver.observe(countElement);
-            }
-        })();
-    </script>
+    <!-- ⑥ 脳の話は“構造の結果”として補強 -->
+    <h2 class="reveal">🧠 The Mental Shift: From Parsing to Chunking</h2>
+    <p class="reveal">This structural absence forces a specific cognitive response. Normally, we switch between conscious note-by-note parsing and automatic pattern execution. Because Kaijuu lacks recovery windows, <strong>players are forced into pattern-based execution—often called “chunking”—for nearly the entire track</strong>. Once you enter this state, attempting to consciously correct a mistake is not only difficult; it often makes things worse. Your fingers know the pattern, but your conscious brain has lost the thread.</p>
+    
+    <div class="analysis-grid reveal">
+        <div class="analysis-card"><h5>👤 Normal Charts</h5><p>Mistake → low-density section → conscious re-alignment → recovery.</p></div>
+        <div class="analysis-card"><h5>🦖 Kaijuu</h5><p>Mistake → no low-density section → timing errors accumulate → cascade failure.</p></div>
+    </div>
+
+    <!-- ⑦ 反論を吸収：トッププレイヤーの存在 -->
+    <h2 class="reveal">🔥 What About Full Combo Players?</h2>
+    <p class="reveal">If recovery is structurally impossible, how do top players achieve All Perfects? <strong>This does not contradict the hypothesis—it clarifies it.</strong> Top players do not recover from mistakes in Kaijuu. <strong>They avoid entering a failed state entirely.</strong> Through extensive practice, they have internalized the chart so deeply that they can sustain flawless pattern execution from the first note to the last. Their pattern recognition allows continuous execution without ever needing the recovery windows that the chart denies. For them, the concept of “recovery” is irrelevant.</p>
+
+    <!-- ⑧ 最後は“体験”に戻す -->
+    <div class="quote-tweet reveal">
+        “It's wrong, it's wrong, I don't want to live in a world like this, but…”<br>
+        “It's wrong, it's wrong, yet still, I wish to remain myself.”
+    </div>
+    <p class="reveal">That moment where you realize you can't come back—where you're just watching your fingers move and hoping they don't betray you—<strong>that's not failure. That's the design.</strong> Sakuzyo didn't just write a hard chart. He wrote a chart that temporarily rewires how you interact with the game. You don't just play “Kaijuu ni Naritai.” For two minutes and five seconds, you <em>become</em> it.</p>
+
+    <hr class="reveal">
+    <h2 class="reveal">✨ Final Thoughts: An Engineered Experience</h2>
+    <p class="reveal">“Kaijuu ni Naritai” is a masterclass in using structural absence—the absence of recovery windows—to create a distinct psychological and physical experience. It doesn't just test your speed or accuracy. It tests your ability to surrender conscious control and trust your training. If you haven't played it yet, give it a shot. See how long you can stay in the zone before the chart reminds you that there's no way back.</p>
+
+    <div class="comment-invite reveal">
+        <p>💬 Have you experienced the “no recovery” moment in Kaijuu?</p>
+        <p>Or do you think there's a flaw in this analysis? Let me know in the comments.</p>
+        <span class="btn-like">🦖 Join the Discussion 🦖</span>
+    </div>
+    <p style="margin-top:2rem;font-size:0.9rem;color:#7c9ec2;text-align:right;" class="reveal">© 2026 PJSK Chart Lab</p>
+</div>
+
+<script>
+(function() {
+    document.querySelectorAll('.reveal').forEach(el => {
+        new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
+        }, {threshold: 0.15}).observe(el);
+    });
+    const mouth = document.getElementById('monsterMouth'), pL = document.getElementById('pupilLeft'), pR = document.getElementById('pupilRight');
+    function update() {
+        const p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if(mouth) mouth.style.width = p + '%';
+        if(pL && pR) { const m = (p/100 - 0.5) * 14; pL.style.transform = `translateX(${m}px)`; pR.style.transform = `translateX(${m}px)`; }
+    }
+    window.addEventListener('scroll', update); window.addEventListener('resize', update); update();
+})();
+</script>
 </body>
 </html>

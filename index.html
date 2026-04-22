@@ -144,16 +144,67 @@
 
         hr { border: none; height: 2px; background: linear-gradient(90deg, transparent, #ffb347, transparent); margin: 3rem 0; }
 
+        /* 📑 目次 (Table of Contents) */
+        .toc-container {
+            background: rgba(15, 26, 36, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 2.5rem;
+            border: 1px solid #ffb347;
+            box-shadow: 0 8px 0 #0a121c;
+        }
+        .toc-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffd966;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem 1.5rem;
+        }
+        .toc-item {
+            list-style: none;
+        }
+        .toc-link {
+            color: #c6e2ff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted transparent;
+        }
+        .toc-link i {
+            color: #ffb347;
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+        }
+        .toc-link:hover {
+            color: #ffd966;
+            border-bottom: 1px dotted #ffb347;
+            transform: translateX(5px);
+        }
+
         @media (max-width: 600px) {
             .blog-container { padding: 1.5rem 1rem; }
             h1 { font-size: 1.8rem; }
-            .stat-grid, .gallery { grid-template-columns: 1fr; }
+            .stat-grid, .gallery, .toc-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvasパーティクル背景 -->
+    <!-- すごい演出①: Canvasパーティクル背景 -->
     <canvas id="kaijuu-canvas"></canvas>
 
     <!-- MONSTER PROGRESS BAR -->
@@ -176,6 +227,21 @@
         <span><i class="far fa-clock"></i> 2 mins that feel like an hour</span>
     </div>
 
+    <!-- 📑 目次 (Table of Contents) -->
+    <div class="toc-container reveal">
+        <div class="toc-title"><i class="fas fa-list-ul"></i> 目次 / Jump to Section</div>
+        <ul class="toc-grid">
+            <li class="toc-item"><a href="#first-death" class="toc-link"><i class="fas fa-skull"></i> The 45-Second Wall</a></li>
+            <li class="toc-item"><a href="#gameplay-videos" class="toc-link"><i class="fas fa-video"></i> See the Carnage</a></li>
+            <li class="toc-item"><a href="#pro-tips" class="toc-link"><i class="fas fa-lightbulb"></i> Pro Tips</a></li>
+            <li class="toc-item"><a href="#brutal-math" class="toc-link"><i class="fas fa-chart-bar"></i> The Brutal Math</a></li>
+            <li class="toc-item"><a href="#sakuzyo" class="toc-link"><i class="fas fa-user-ninja"></i> Sakuzyo: Genius or Sadist?</a></li>
+            <li class="toc-item"><a href="#breakthrough" class="toc-link"><i class="fas fa-heart"></i> Becoming the Monster</a></li>
+            <li class="toc-item"><a href="#madness" class="toc-link"><i class="fas fa-fire"></i> Beyond Clearing</a></li>
+            <li class="toc-item"><a href="#final-rampage" class="toc-link"><i class="fas fa-flag-checkered"></i> Join the Rampage</a></li>
+        </ul>
+    </div>
+
     <!-- OFFICIAL MV (HOOK) -->
     <div class="reveal tilt-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
         <div class="glare"></div>
@@ -187,13 +253,8 @@
         </div>
     </div>
 
-    <!-- PEAK EMOTION CTA #1 -->
-    <div style="text-align: center; margin: 2rem 0;" class="reveal">
-        <a href="#" class="btn"><i class="fab fa-twitter"></i> I Died at 0:45 — You?</a>
-    </div>
-
     <!-- MY FIRST DEATH (WITH RAGE) -->
-    <h2 class="reveal"><i class="fas fa-skull"></i> My First Encounter: The 45-Second Wall</h2>
+    <h2 class="reveal" id="first-death"><i class="fas fa-skull"></i> My First Encounter: The 45-Second Wall</h2>
     <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
         <div class="glare"></div>
         <div class="content">
@@ -202,10 +263,10 @@
         </div>
     </div>
     
-    
+    <!-- 🔥 クソ意見: 配置考えたやつ頭おかしい -->
     <div class="rage-box reveal">
         <i class="fas fa-angry"></i>
-        <div class="jp">“Whoever came up with this layout is crazy” — A cry from the heart</div>
+        <div class="jp">「この配置考えたやつ頭おかしい」 — 心の叫び</div>
         <p><strong>Whoever charted this is clinically insane.</strong> There is no "learning curve." There is only a brick wall at 0:45 and a sadistic laugh track in the background. This isn't difficulty. This is a war crime against thumbs.</p>
     </div>
 
@@ -214,7 +275,7 @@
     </div>
 
     <!-- VISUAL PROOF: GAMEPLAY GALLERY -->
-    <h2 class="reveal"><i class="fas fa-video"></i> See the Carnage for Yourself</h2>
+    <h2 class="reveal" id="gameplay-videos"><i class="fas fa-video"></i> See the Carnage for Yourself</h2>
     <div class="gallery">
         <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
             <div class="glare"></div>
@@ -235,10 +296,10 @@
     </div>
 
     <!-- PRO TIPS SECTION -->
+    <h2 class="reveal" id="pro-tips"><i class="fas fa-lightbulb"></i> Pro Tips: How to Actually Clear This (Eventually)</h2>
     <div class="tip-box reveal tilt-card" style="padding: 0; background: transparent; box-shadow: none;">
         <div class="glare"></div>
         <div class="content" style="padding: 2rem 2.2rem;">
-            <h3><i class="fas fa-lightbulb"></i> Pro Tips: How to Actually Clear This (Eventually)</h3>
             <p>After 30+ failed attempts and finally scraping a clear, here's the survival kit you need. Forget your usual settings—this chart demands adaptation.</p>
             <p><strong>1. Speed Settings (Critical):</strong> You might think slowing down helps. It doesn't. Crank your note speed to <strong>10.8 – 11.2</strong>. At lower speeds, the notes clump together and become an unreadable mess. Higher speed spreads them out, giving your brain a split-second longer to process the trill patterns. Trust me on this—going from 10.5 to 11.0 was the single biggest factor in me clearing the chorus.</p>
             <p><strong>2. The 0:45 Trap (Right Hand Stamina Check):</strong> The chorus starts with a brutal right-hand trill combined with left-hand flicks. The natural instinct is to tense up both hands. <strong>Resist that.</strong> Consciously relax your left hand. It only needs to hit every other beat. Your right hand is doing the heavy lifting. If your left hand is tense, you'll over-flick and break your combo. Focus all your energy on keeping that right-hand trill smooth.</p>
@@ -247,13 +308,8 @@
         </div>
     </div>
 
-    <!-- PEAK EMOTION CTA #2 -->
-    <div style="text-align: center; margin: 2rem 0;" class="reveal">
-        <a href="#" class="btn secondary"><i class="fas fa-comment"></i> Got a better tip? I need all the help I can get.</a>
-    </div>
-
     <!-- THE NUMBERS (WITH BALANCE CRITIQUE) -->
-    <h2 class="reveal"><i class="fas fa-chart-bar"></i> The Brutal Math: Why Your Brain Quits</h2>
+    <h2 class="reveal" id="brutal-math"><i class="fas fa-chart-bar"></i> The Brutal Math: Why Your Brain Quits</h2>
     <div class="stat-grid">
         <div class="stat-card reveal tilt-card" style="padding: 1.8rem;">
             <div class="glare"></div>
@@ -270,17 +326,17 @@
     </div>
     <p class="reveal">It's not just "fast." It's <strong>unrelenting</strong>. Most high-level charts (even Lv.37) have "valleys"—a few seconds where the note density drops so you can breathe and re-sync your rhythm. Kaijuu doesn't believe in valleys. It believes in drowning you.</p>
     
-
+    <!-- 🔥 クソ意見: バランス崩壊してる -->
     <div class="rage-box reveal">
         <i class="fas fa-exclamation-triangle"></i>
-        <div class="jp">“Honestly, the balance is completely off” — An objective fact</div>
+        <div class="jp">「正直バランス崩壊してる」 — 客観的事実</div>
         <p><strong>Honestly, this chart is broken.</strong> It's not "hard but fair." It's a stat check that forces you to abandon conscious thought entirely. If your muscle memory isn't perfect, you're dead. There's no middle ground. That's not balance—that's a filter for superhuman cyborgs.</p>
     </div>
 
     <p class="reveal">Compare this to "Hatsune Miku no Shoushitsu" (BPM 240). That chart has bursts of speed, but it <em>lets you go</em> between them. "Kaijuu" grabs you at 0:45 and doesn't let go until the song ends. One missed note doesn't just break your combo. It creates a timing deviation that you <strong>cannot correct</strong> because there's no low-density section to recalibrate. You just spiral.</p>
 
     <!-- SAKUZYO SECTION WITH BACKHANDED COMPLIMENT -->
-    <h2 class="reveal"><i class="fas fa-user-ninja"></i> Sakuzyo: A Genius Who Hates Fingers</h2>
+    <h2 class="reveal" id="sakuzyo"><i class="fas fa-user-ninja"></i> Sakuzyo: A Genius Who Hates Fingers</h2>
     <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
         <div class="glare"></div>
         <div class="content">
@@ -289,7 +345,7 @@
     </div>
 
     <!-- BREAKTHROUGH MOMENT (EXPANDED) -->
-    <h2 class="reveal"><i class="fas fa-heart"></i> The Moment I "Became" the Monster</h2>
+    <h2 class="reveal" id="breakthrough"><i class="fas fa-heart"></i> The Moment I "Became" the Monster</h2>
     <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
         <div class="glare"></div>
         <div class="content">
@@ -305,14 +361,14 @@
     <p class="punch reveal">You don't play Kaijuu. You become it.</p>
 
     <!-- MORE CHAOS GALLERY -->
-    <h2 class="reveal"><i class="fas fa-fire"></i> The Absolute Madness Beyond Clearing</h2>
+    <h2 class="reveal" id="madness"><i class="fas fa-fire"></i> The Absolute Madness Beyond Clearing</h2>
     <div class="gallery">
         <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
             <div class="glare"></div>
             <div class="content">
                 <h3 style="margin-top:0;"><i class="fas fa-eye-slash"></i> Invisible Notes?!</h3>
-                <div class="video-wrapper"><iframe src="https://youtu.be/Hrnx2mXdjuA?si=2bW6gna-ITS_rfqS" title="Invisible AP" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
-                <p>Just when you thought you'd seen it all. Someone achieved an <strong>ALL PERFECT on APPEND Lv.38 WITH INVISIBLE NOTES.</strong> This is the true "Monster" form. We're just playing in their world.</p>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Hrnx2mXdjuA" title="Max Speed Madness" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>Just when you thought you'd seen it all. Someone cleared this <strong>at absolute maximum note speed</strong>. This is the true "Monster" form. We're just playing in their world.</p>
             </div>
         </div>
         <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
@@ -327,22 +383,16 @@
 
     <hr class="reveal">
 
-    <h2 class="reveal"><i class="fas fa-flag-checkered"></i> Ready to Join the Rampage?</h2>
+    <h2 class="reveal" id="final-rampage"><i class="fas fa-flag-checkered"></i> Ready to Join the Rampage?</h2>
     <p class="reveal">"Kaijuu ni Naritai" is more than a chart. It's a rite of passage. It pushes you past the limits of conscious thought and into a pure, reactive flow state. It will break your fingers and your spirit, but if you stick with it, you'll find a part of your rhythm game brain you didn't know existed.</p>
     <p class="reveal">Have you tried it yet? How far did you get before the monster ate you? Or have you tamed the beast?</p>
-
-    <!-- FINAL CTA (EDGY) -->
-    <div style="text-align: center; margin: 3rem 0 1rem;" class="reveal">
-        <a href="#" class="btn"><i class="fab fa-twitter"></i> Share Your Suffering</a>
-        <a href="#" class="btn secondary"><i class="fas fa-skull"></i> Join the Broken Finger Club</a>
-    </div>
 
     <p style="text-align: center; color: #9bb7d4; margin-top: 3rem;" class="reveal">© 2026 PJSK Survivor Chronicles — Embrace the monster within. Or don't. I'm not your mom.</p>
 </div>
 
 <script>
     (function() {
-        // ----- パーティクル背景 (BPM連動 + マウス連動) -----
+        // ----- すごい演出①: パーティクル背景 (BPM連動 + マウス連動) -----
         const canvas = document.getElementById('kaijuu-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -414,7 +464,7 @@
         initCanvas();
         drawParticles();
 
-        // ----- : カードチルト＆グレア -----
+        // ----- すごい演出②: カードチルト＆グレア -----
         const cards = document.querySelectorAll('.tilt-card');
         cards.forEach(card => {
             const glare = card.querySelector('.glare');
@@ -441,7 +491,7 @@
             });
         });
 
-        // ----- : スクロールで怪獣の目が光る & 咆哮 -----
+        // ----- すごい演出③: スクロールで怪獣の目が光る & 咆哮 -----
         const eyeLeft = document.getElementById('eyeLeft');
         const eyeRight = document.getElementById('eyeRight');
         const mouth = document.getElementById('monsterMouth');
@@ -455,7 +505,7 @@
             
             if (mouth) mouth.style.width = (progress * 100) + '%';
             
-            // 目が光る (スクロールが進むほど動く)
+            // 目が光る (スクロールが進むほど赤く)
             const intensity = Math.min(progress * 1.5, 1);
             if (eyeLeft) eyeLeft.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;
             if (eyeRight) eyeRight.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;
@@ -477,6 +527,20 @@
             entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
         }, { threshold: 0.15 });
         reveals.forEach(el => observer.observe(el));
+
+        // 目次リンクのスムーススクロール
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
     })();
 </script>
 </body>

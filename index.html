@@ -153,7 +153,7 @@
 </head>
 <body>
 
-    <!-- すごい演出①: Canvasパーティクル背景 -->
+    <!-- Canvasパーティクル背景 -->
     <canvas id="kaijuu-canvas"></canvas>
 
     <!-- MONSTER PROGRESS BAR -->
@@ -202,10 +202,10 @@
         </div>
     </div>
     
-    <!-- 🔥 クソ意見: 配置考えたやつ頭おかしい -->
+    
     <div class="rage-box reveal">
         <i class="fas fa-angry"></i>
-        <div class="jp">「この配置考えたやつ頭おかしい」 — 心の叫び</div>
+        <div class="jp">“Whoever came up with this layout is crazy” — A cry from the heart</div>
         <p><strong>Whoever charted this is clinically insane.</strong> There is no "learning curve." There is only a brick wall at 0:45 and a sadistic laugh track in the background. This isn't difficulty. This is a war crime against thumbs.</p>
     </div>
 
@@ -270,10 +270,10 @@
     </div>
     <p class="reveal">It's not just "fast." It's <strong>unrelenting</strong>. Most high-level charts (even Lv.37) have "valleys"—a few seconds where the note density drops so you can breathe and re-sync your rhythm. Kaijuu doesn't believe in valleys. It believes in drowning you.</p>
     
-    <!-- 🔥 クソ意見: バランス崩壊してる -->
+
     <div class="rage-box reveal">
         <i class="fas fa-exclamation-triangle"></i>
-        <div class="jp">「正直バランス崩壊してる」 — 客観的事実</div>
+        <div class="jp">“Honestly, the balance is completely off” — An objective fact</div>
         <p><strong>Honestly, this chart is broken.</strong> It's not "hard but fair." It's a stat check that forces you to abandon conscious thought entirely. If your muscle memory isn't perfect, you're dead. There's no middle ground. That's not balance—that's a filter for superhuman cyborgs.</p>
     </div>
 
@@ -311,7 +311,7 @@
             <div class="glare"></div>
             <div class="content">
                 <h3 style="margin-top:0;"><i class="fas fa-eye-slash"></i> Invisible Notes?!</h3>
-                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Ppz6aMUVCMw" title="Invisible AP" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/watch?v=Hrnx2mXdjuA&list=RDHrnx2mXdjuA&start_radio=1&pp=ygUi5oCq542j44Gr44Gq44KK44Gf44GEIOOCteODieODl-ODqaAHAQ%3D%3D" title="Invisible AP" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
                 <p>Just when you thought you'd seen it all. Someone achieved an <strong>ALL PERFECT on APPEND Lv.38 WITH INVISIBLE NOTES.</strong> This is the true "Monster" form. We're just playing in their world.</p>
             </div>
         </div>
@@ -342,7 +342,7 @@
 
 <script>
     (function() {
-        // ----- すごい演出①: パーティクル背景 (BPM連動 + マウス連動) -----
+        // ----- パーティクル背景 (BPM連動 + マウス連動) -----
         const canvas = document.getElementById('kaijuu-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -414,7 +414,7 @@
         initCanvas();
         drawParticles();
 
-        // ----- すごい演出②: カードチルト＆グレア -----
+        // ----- : カードチルト＆グレア -----
         const cards = document.querySelectorAll('.tilt-card');
         cards.forEach(card => {
             const glare = card.querySelector('.glare');
@@ -441,7 +441,7 @@
             });
         });
 
-        // ----- すごい演出③: スクロールで怪獣の目が光る & 咆哮 -----
+        // ----- : スクロールで怪獣の目が光る & 咆哮 -----
         const eyeLeft = document.getElementById('eyeLeft');
         const eyeRight = document.getElementById('eyeRight');
         const mouth = document.getElementById('monsterMouth');
@@ -455,7 +455,7 @@
             
             if (mouth) mouth.style.width = (progress * 100) + '%';
             
-            // 目が光る (スクロールが進むほど赤く)
+            // 目が光る (スクロールが進むほど動く)
             const intensity = Math.min(progress * 1.5, 1);
             if (eyeLeft) eyeLeft.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;
             if (eyeRight) eyeRight.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;

@@ -333,7 +333,548 @@
         <p><strong>Honestly, this chart is broken.</strong> It's not "hard but fair." It's a stat check that forces you to abandon conscious thought entirely. If your muscle memory isn't perfect, you're dead. There's no middle ground. That's not balance—that's a filter for superhuman cyborgs.</p>
     </div>
 
+    <p class="reveal">Compare this<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦖 Project SEKAI "Kaijuu ni Naritai" APPEND Lv.38 Guide &amp; My Survival Story</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0b0e14; 
+            color: #e8eef2; 
+            font-family: 'Helvetica Neue', 'Segoe UI', 'Hiragino Kaku Gothic ProN', sans-serif; 
+            line-height: 1.8; 
+            padding: 2rem 1rem; 
+            overflow-x: hidden;
+        }
+
+        /* ----- Canvas Particle Background (BPM synced) ----- */
+        #kaijuu-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* ----- Tilt Card Styles ----- */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s ease;
+            position: relative;
+            border-radius: 24px;
+            background: #0f1a24;
+            border: 1px solid #2e577a;
+            box-shadow: 0 8px 0 #0a121c;
+        }
+        .tilt-card .glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 5;
+        }
+        .tilt-card:hover .glare {
+            opacity: 1;
+        }
+        .tilt-card .content {
+            position: relative;
+            z-index: 2;
+            transform: translateZ(20px);
+        }
+
+        /* Monster Bar */
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 28px; background: transparent; z-index: 100; pointer-events: none; }
+        .spikes { position: absolute; top: 0; left: 0; width: 100%; height: 14px; background: repeating-linear-gradient(90deg, transparent 0px, transparent 12px, #2a4a6a 12px, #1a2f3f 16px); opacity: 0.8; }
+        .monster-mouth { position: absolute; bottom: 0; left: 0; height: 14px; width: 0%; background: linear-gradient(90deg, #ff4d4d, #ffb347, #ffd966); box-shadow: 0 0 20px #ff4d4d; transition: width 0.1s ease; border-radius: 0 12px 12px 0; border-right: 4px solid #ff6b6b; }
+        .monster-mouth::after { content: ""; position: absolute; top: -4px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(90deg, #0b0e14 0px, #0b0e14 6px, transparent 6px, transparent 12px); }
+        .monster-eyes { position: absolute; top: 2px; left: 0; width: 100%; height: 22px; display: flex; justify-content: space-between; padding: 0 15px; pointer-events: none; }
+        .eye { width: 28px; height: 20px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px #ff4d4d; border: 1px solid #222; transition: box-shadow 0.2s; }
+        .pupil { width: 12px; height: 14px; background: #0b0e14; border-radius: 50%; transition: transform 0.05s linear; border: 1px solid #333; position: relative; }
+        .pupil::after { content: ""; position: absolute; top: 2px; right: 2px; width: 4px; height: 4px; background: white; border-radius: 50%; opacity: 0.8; }
+        .horn-left, .horn-right { position: absolute; top: -10px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 20px solid #4a6a8a; filter: drop-shadow(0 4px 6px #000); }
+        .horn-left { left: 15px; transform: rotate(-25deg); } .horn-right { right: 15px; transform: rotate(25deg); }
+        @keyframes mouthPulse { 0% { box-shadow: 0 0 15px #ff4d4d; } 50% { box-shadow: 0 0 30px #ff8c00, 0 0 10px #ff4d4d; } 100% { box-shadow: 0 0 15px #ff4d4d; } }
+        .monster-mouth.pulse { animation: mouthPulse 1.09s infinite ease-in-out; }
+
+        /* Main Container */
+        .blog-container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: rgba(22, 28, 36, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 2.5rem 2.2rem;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(255, 200, 0, 0.15);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards;
+        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.9, 0.1, 1); }
+        .reveal.show { opacity: 1; transform: translateY(0); }
+
+        h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.3; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ffe6a6, #ffb347); -webkit-background-clip: text; background-clip: text; color: transparent; border-left: 8px solid #ff4d4d; padding-left: 1.5rem; text-shadow: 0 0 30px rgba(255, 100, 0, 0.5); }
+        h2 { font-size: 2rem; font-weight: 700; margin: 3rem 0 1.2rem; color: #ffecb3; border-bottom: 2px solid #ff6b6b; padding-bottom: 0.5rem; display: inline-block; }
+        h2 i { color: #ff4d4d; margin-right: 15px; }
+        h3 { font-size: 1.5rem; margin: 1.8rem 0 0.8rem; color: #ffd966; }
+        .post-meta { display: flex; gap: 2rem; margin-bottom: 2rem; color: #b0c7db; font-size: 1rem; border-bottom: 1px dashed #ffb347; padding-bottom: 1rem; }
+        p { margin-bottom: 1.4rem; font-size: 1.1rem; color: #e6f0ff; }
+        strong { color: #ffb347; font-weight: 800; }
+        .punch { font-size: 1.5rem; font-weight: 800; color: #ffd966; margin: 2rem 0; text-align: center; text-shadow: 0 0 20px #ff4d4d; }
+
+        /* Rage Box for spicy opinions */
+        .rage-box {
+            background: rgba(180, 30, 30, 0.25);
+            border-left: 8px solid #ff4d4d;
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        .rage-box i { color: #ff4d4d; margin-right: 15px; }
+        .rage-box .quote { font-size: 1.3rem; color: #ffb3b3; margin-bottom: 0.5rem; }
+
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin: 1.5rem 0; border: 2px solid #ffb347; box-shadow: 0 0 30px rgba(255, 100, 0, 0.3); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .tweet-quote { background: rgba(20, 30, 45, 0.8); backdrop-filter: blur(5px); border-radius: 20px; padding: 1.5rem 2rem; margin: 2rem 0; border-left: 8px solid #1da1f2; color: #e0f0ff; font-style: italic; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0; }
+        .stat-card { background: rgba(15, 26, 36, 0.9); border-radius: 24px; padding: 1.8rem; border: 1px solid #ffb347; text-align: center; backdrop-filter: blur(8px); }
+        .stat-card i { font-size: 2.5rem; color: #ffd966; margin-bottom: 0.8rem; }
+        .stat-card h3 { font-size: 2.5rem; color: #ffd966; margin: 0; }
+        
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2.5rem 0; }
+        .gallery-item { background: rgba(15, 26, 36, 0.9); border-radius: 24px; padding: 1.5rem; border: 1px solid #2e577a; backdrop-filter: blur(8px); }
+
+        .tip-box { background: linear-gradient(145deg, #1e2f40, #0f1a24); border-radius: 30px; padding: 2rem 2.2rem; margin: 2.5rem 0; border: 1px solid #ffb347; box-shadow: 0 15px 0 #0a121c; }
+        .tip-box h3 { margin-top: 0; color: #ffb347; }
+
+        hr { border: none; height: 2px; background: linear-gradient(90deg, transparent, #ffb347, transparent); margin: 3rem 0; }
+
+        /* Table of Contents */
+        .toc-container {
+            background: rgba(15, 26, 36, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 2.5rem;
+            border: 1px solid #ffb347;
+            box-shadow: 0 8px 0 #0a121c;
+        }
+        .toc-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffd966;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem 1.5rem;
+        }
+        .toc-item {
+            list-style: none;
+        }
+        .toc-link {
+            color: #c6e2ff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted transparent;
+        }
+        .toc-link i {
+            color: #ffb347;
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+        }
+        .toc-link:hover {
+            color: #ffd966;
+            border-bottom: 1px dotted #ffb347;
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 600px) {
+            .blog-container { padding: 1.5rem 1rem; }
+            h1 { font-size: 1.8rem; }
+            .stat-grid, .gallery, .toc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Awesome Effect #1: Canvas Particle Background -->
+    <canvas id="kaijuu-canvas"></canvas>
+
+    <!-- MONSTER PROGRESS BAR -->
+    <div class="progress-container">
+        <div class="spikes"></div><div class="horn-left"></div><div class="horn-right"></div>
+        <div class="monster-eyes">
+            <div class="eye" id="eyeLeft"><div class="pupil" id="pupilLeft"></div></div>
+            <div class="eye" id="eyeRight"><div class="pupil" id="pupilRight"></div></div>
+        </div>
+        <div class="monster-mouth pulse" id="monsterMouth"></div>
+    </div>
+
+<div class="blog-container">
+    
+    <!-- TITLE -->
+    <h1 class="reveal">🦖 Project SEKAI "Kaijuu ni Naritai" APPEND Lv.38 Guide: How to Clear the Hardest Song &amp; My Survival Story</h1>
+    <div class="post-meta reveal">
+        <span><i class="far fa-calendar-alt"></i> 2026.04.22</span>
+        <span><i class="far fa-user"></i> PJSK Survivor</span>
+        <span><i class="far fa-clock"></i> 2 mins that feel like an hour</span>
+    </div>
+
+    <!-- Table of Contents (All English) -->
+    <div class="toc-container reveal">
+        <div class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents</div>
+        <ul class="toc-grid">
+            <li class="toc-item"><a href="#first-death" class="toc-link"><i class="fas fa-skull"></i> The 45-Second Wall</a></li>
+            <li class="toc-item"><a href="#gameplay-videos" class="toc-link"><i class="fas fa-video"></i> See the Carnage</a></li>
+            <li class="toc-item"><a href="#pro-tips" class="toc-link"><i class="fas fa-lightbulb"></i> Pro Tips</a></li>
+            <li class="toc-item"><a href="#brutal-math" class="toc-link"><i class="fas fa-chart-bar"></i> The Brutal Math</a></li>
+            <li class="toc-item"><a href="#sakuzyo" class="toc-link"><i class="fas fa-user-ninja"></i> Sakuzyo: Genius or Sadist?</a></li>
+            <li class="toc-item"><a href="#breakthrough" class="toc-link"><i class="fas fa-heart"></i> Becoming the Monster</a></li>
+            <li class="toc-item"><a href="#madness" class="toc-link"><i class="fas fa-fire"></i> Beyond Clearing</a></li>
+            <li class="toc-item"><a href="#final-rampage" class="toc-link"><i class="fas fa-flag-checkered"></i> Join the Rampage</a></li>
+        </ul>
+    </div>
+
+    <!-- OFFICIAL MV (HOOK) -->
+    <div class="reveal tilt-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+        <div class="glare"></div>
+        <div class="content">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/TbakFPc4ZTw" title="Kaijuu ni Naritai MV" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <p>Let's get one thing straight: This is not a song. It is a <strong>declaration of war</strong> against your fingers. Composed by the legendary <strong>Sakuzyo</strong> for the Project SEKAI Championship 2025 finals, "Kaijuu ni Naritai" (I Want to Be a Monster) was added to the game on <strong>November 23, 2025</strong>. It didn't just break the difficulty ceiling—it vaporized it, standing alone as the first <strong>APPEND Lv.38</strong> chart in the game's history. If you're reading this, you've probably already been eaten by it. Let's talk about why.</p>
+        </div>
+    </div>
+
+    <!-- MY FIRST DEATH (WITH RAGE) -->
+    <h2 class="reveal" id="first-death"><i class="fas fa-skull"></i> My First Encounter: The 45-Second Wall</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
+        <div class="glare"></div>
+        <div class="content">
+            <p><strong>I opened the gift box, saw "APPEND 38," and laughed.</strong> "How bad could it be? I've cleared Lv.37 charts before." I hit start. The filtered kick drum pulsed. The synth rose ominously. For the first 15 seconds, I was cruising. "This is fine," I thought. I was hitting every note. My confidence was building.</p>
+            <p>Then the piano arpeggios kicked in. Suddenly, the note density doubled. My right hand was frantically tapping a rapid trill while my left hand was being dragged across the screen for cross-hand flicks. I didn't just miss a note. <strong>My brain completely ejected from my body.</strong> I was watching my fingers flail like they belonged to someone else. The life bar? Gone in three seconds. The "GAME OVER" screen felt less like a notification and more like a personal insult.</p>
+        </div>
+    </div>
+    
+    <!-- SPICY OPINION: Whoever charted this is insane -->
+    <div class="rage-box reveal">
+        <i class="fas fa-angry"></i>
+        <div class="quote">"Whoever charted this is clinically insane." — My inner voice</div>
+        <p><strong>There is no "learning curve."</strong> There is only a brick wall at 0:45 and a sadistic laugh track in the background. This isn't difficulty. This is a war crime against thumbs.</p>
+    </div>
+
+    <div class="tweet-quote reveal">
+        <i class="fab fa-twitter"></i> "I tried Kaijuu APPEND. My thumbs are crying. I think I saw my ancestors for a second. 0/10 would recommend to my fingers. #ProjectSEKAI" <br>— <strong>Actual reaction from players</strong>
+    </div>
+
+    <!-- VISUAL PROOF: GAMEPLAY GALLERY -->
+    <h2 class="reveal" id="gameplay-videos"><i class="fas fa-video"></i> See the Carnage for Yourself</h2>
+    <div class="gallery">
+        <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <h3 style="margin-top:0;"><i class="fas fa-dragon"></i> Official APPEND Gameplay</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/yGhITw62B1w" title="Official Gameplay" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>Watch the 0:45 mark. The density spikes and <strong>never comes back down.</strong> There is no "easy part" to recover in. This is the wall where most players (myself included) meet their maker.</p>
+            </div>
+        </div>
+        <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <h3 style="margin-top:0;"><i class="fas fa-crown"></i> The "God" Player (ALL PERFECT)</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/C_GRKRwO6gI" title="AP Play" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>This is what <strong>2,800+ notes</strong> of pure, unbroken muscle memory looks like. Notice how they never look flustered. Their fingers just *know*. This is the final form.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRO TIPS SECTION -->
+    <h2 class="reveal" id="pro-tips"><i class="fas fa-lightbulb"></i> Pro Tips: How to Actually Clear This (Eventually)</h2>
+    <div class="tip-box reveal tilt-card" style="padding: 0; background: transparent; box-shadow: none;">
+        <div class="glare"></div>
+        <div class="content" style="padding: 2rem 2.2rem;">
+            <p>After 30+ failed attempts and finally scraping a clear, here's the survival kit you need. Forget your usual settings—this chart demands adaptation.</p>
+            <p><strong>1. Speed Settings (Critical):</strong> You might think slowing down helps. It doesn't. Crank your note speed to <strong>10.8 – 11.2</strong>. At lower speeds, the notes clump together and become an unreadable mess. Higher speed spreads them out, giving your brain a split-second longer to process the trill patterns. Trust me on this—going from 10.5 to 11.0 was the single biggest factor in me clearing the chorus.</p>
+            <p><strong>2. The 0:45 Trap (Right Hand Stamina Check):</strong> The chorus starts with a brutal right-hand trill combined with left-hand flicks. The natural instinct is to tense up both hands. <strong>Resist that.</strong> Consciously relax your left hand. It only needs to hit every other beat. Your right hand is doing the heavy lifting. If your left hand is tense, you'll over-flick and break your combo. Focus all your energy on keeping that right-hand trill smooth.</p>
+            <p><strong>3. Finger Placement (Thumbs vs. Fingers):</strong> If you're a thumb player, I salute your courage, but you're playing on hard mode. This chart was designed for multi-finger play. Use <strong>index and middle fingers on both hands (4-finger style)</strong>. Thumbs simply cannot sustain the 14.7 taps/second for two minutes straight without cramping. If you must use thumbs, stretch them frequently between attempts.</p>
+            <p><strong>4. Mental Reset (The "Flow State" Hack):</strong> Don't look at your combo counter. Don't look at the "GREAT" judgments. <strong>Stare at the exact center of the judgment line.</strong> Let your peripheral vision catch the notes. This forces your brain to switch from "conscious parsing" (which is too slow) to "pattern chunking" (which is automatic). It sounds like woo-woo meditation, but it's the only way to survive the 1:20-1:50 climax.</p>
+        </div>
+    </div>
+
+    <!-- THE NUMBERS (WITH BALANCE CRITIQUE) -->
+    <h2 class="reveal" id="brutal-math"><i class="fas fa-chart-bar"></i> The Brutal Math: Why Your Brain Quits</h2>
+    <div class="stat-grid">
+        <div class="stat-card reveal tilt-card" style="padding: 1.8rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <i class="fas fa-tachometer-alt"></i><h3>220</h3><p>BPM</p><small>~14.7 taps/sec peak</small>
+            </div>
+        </div>
+        <div class="stat-card reveal tilt-card" style="padding: 1.8rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <i class="fas fa-hourglass-half"></i><h3>~100s</h3><p>High Density Sustained</p><small>Zero recovery windows</small>
+            </div>
+        </div>
+    </div>
+    <p class="reveal">It's not just "fast." It's <strong>unrelenting</strong>. Most high-level charts (even Lv.37) have "valleys"—a few seconds where the note density drops so you can breathe and re-sync your rhythm. Kaijuu doesn't believe in valleys. It believes in drowning you.</p>
+    
+    <!-- SPICY OPINION: This chart is broken -->
+    <div class="rage-box reveal">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="quote">"Honestly, this chart is broken." — Objective fact</div>
+        <p><strong>It's not "hard but fair."</strong> It's a stat check that forces you to abandon conscious thought entirely. If your muscle memory isn't perfect, you're dead. There's no middle ground. That's not balance—that's a filter for superhuman cyborgs.</p>
+    </div>
+
     <p class="reveal">Compare this to "Hatsune Miku no Shoushitsu" (BPM 240). That chart has bursts of speed, but it <em>lets you go</em> between them. "Kaijuu" grabs you at 0:45 and doesn't let go until the song ends. One missed note doesn't just break your combo. It creates a timing deviation that you <strong>cannot correct</strong> because there's no low-density section to recalibrate. You just spiral.</p>
+
+    <!-- SAKUZYO SECTION WITH BACKHANDED COMPLIMENT -->
+    <h2 class="reveal" id="sakuzyo"><i class="fas fa-user-ninja"></i> Sakuzyo: A Genius Who Hates Fingers</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
+        <div class="glare"></div>
+        <div class="content">
+            <p>Born in 1994, Sakuzyo is undeniably a legend. Tracks like "Altale" and "Destr0yer" have defined rhythm game difficulty for years. But with "Kaijuu ni Naritai," he's done something special: he's created a chart that feels <strong>personally vindictive</strong>. He described the track as a challenge to "become a monster." Translation: "I want to see how many people break their screens trying to AP this." He's a genius. But he clearly has no concept of human finger limitations. Or maybe he does, and he just doesn't care. Respect. But also, damn you.</p>
+        </div>
+    </div>
+
+    <!-- BREAKTHROUGH MOMENT (EXPANDED) -->
+    <h2 class="reveal" id="breakthrough"><i class="fas fa-heart"></i> The Moment I "Became" the Monster</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
+        <div class="glare"></div>
+        <div class="content">
+            <p>Attempt #31. I'd memorized the tips. I'd cranked my speed to 11.0. I'd stretched my fingers. The intro passed. The verse strained my working memory. Then the chorus hit—the 0:45 wall. And something weird happened. <strong>I wasn't thinking anymore.</strong> My eyes glazed over. My inner monologue just... stopped. There was no "right hand here, left hand there." There was only the rhythm. My fingers were moving on pure instinct, rampaging through the trills like they weren't even there.</p>
+            <p>I cleared the chorus. Then the even denser climax. I didn't Full Combo. I got a handful of "GREATs" and even a "GOOD." But I <strong>survived</strong>. The final notes faded, and I just stared at the "STAGE CLEAR" screen, my heart pounding, my forearms burning. That's when I finally understood the title. I wasn't playing the chart. For two minutes and five seconds, <strong>I was the kaijuu.</strong> It was exhausting, exhilarating, and unlike any rhythm game experience I've ever had.</p>
+        </div>
+    </div>
+    
+    <div class="tweet-quote reveal">
+        <i class="fab fa-twitter"></i> "Cleared Kaijuu APPEND. I can't feel my arms. My thumbs are numb. 10/10 would become monster again tomorrow." <br>— <strong>Me, immediately after the run</strong>
+    </div>
+    
+    <p class="punch reveal">You don't play Kaijuu. You become it.</p>
+
+    <!-- MORE CHAOS GALLERY -->
+    <h2 class="reveal" id="madness"><i class="fas fa-fire"></i> The Absolute Madness Beyond Clearing</h2>
+    <div class="gallery">
+        <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <h3 style="margin-top:0;"><i class="fas fa-eye-slash"></i> Maximum Speed Madness</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Hrnx2mXdjuA" title="Max Speed Madness" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>Just when you thought you'd seen it all. Someone cleared this <strong>at absolute maximum note speed</strong>. This is the true "Monster" form. We're just playing in their world.</p>
+            </div>
+        </div>
+        <div class="gallery-item reveal tilt-card" style="padding: 1.5rem;">
+            <div class="glare"></div>
+            <div class="content">
+                <h3 style="margin-top:0;"><i class="fas fa-trophy"></i> Championship 2025 Finals</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/vJs60qRpXgo" title="Championship Chart View" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>This was the final boss track that decided the 2025 champion. Imagine having your entire competitive career rest on clearing <em>this</em>. The pressure alone could crush a person.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="reveal">
+
+    <h2 class="reveal" id="final-rampage"><i class="fas fa-flag-checkered"></i> Ready to Join the Rampage?</h2>
+    <p class="reveal">"Kaijuu ni Naritai" is more than a chart. It's a rite of passage. It pushes you past the limits of conscious thought and into a pure, reactive flow state. It will break your fingers and your spirit, but if you stick with it, you'll find a part of your rhythm game brain you didn't know existed.</p>
+    <p class="reveal">Have you tried it yet? How far did you get before the monster ate you? Or have you tamed the beast?</p>
+
+    <p style="text-align: center; color: #9bb7d4; margin-top: 3rem;" class="reveal">© 2026 PJSK Survivor Chronicles — Embrace the monster within. Or don't. I'm not your mom.</p>
+</div>
+
+<script>
+    (function() {
+        // ----- Awesome Effect #1: Particle Background (BPM synced + mouse interaction) -----
+        const canvas = document.getElementById('kaijuu-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const PARTICLE_COUNT = 120;
+        let mouseX = 0, mouseY = 0;
+        let pulsePhase = 0;
+
+        function initCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 3 + 1,
+                    baseSize: Math.random() * 3 + 1,
+                    color: `rgba(255, ${150 + Math.random() * 105}, ${50 + Math.random() * 100}, ${0.3 + Math.random() * 0.4})`
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // BPM 220 ≈ 272ms period. Add pulsing effect
+            pulsePhase = (Date.now() % 1090) / 1090; // 1.09s cycle (approx BPM 220)
+            const pulseScale = 1 + Math.sin(pulsePhase * Math.PI * 2) * 0.15;
+            
+            // Mouse influence (creates flow from center)
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const mouseInfluenceX = (mouseX - centerX) / centerX * 0.8;
+            const mouseInfluenceY = (mouseY - centerY) / centerY * 0.8;
+
+            particles.forEach(p => {
+                // Move slowly + mouse influence
+                p.x += p.vx + mouseInfluenceX * 0.1;
+                p.y += p.vy + mouseInfluenceY * 0.1;
+                
+                // Bounce at boundaries
+                if (p.x < 0 || p.x > width) p.vx *= -0.9;
+                if (p.y < 0 || p.y > height) p.vy *= -0.9;
+                
+                // Damping
+                p.vx *= 0.99;
+                p.vy *= 0.99;
+                
+                // Draw with pulsing size
+                const size = p.baseSize * pulseScale;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = '#ff6b6b';
+                ctx.shadowBlur = 15 * pulseScale;
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', () => { initCanvas(); });
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        initCanvas();
+        drawParticles();
+
+        // ----- Awesome Effect #2: Card Tilt & Glare -----
+        const cards = document.querySelectorAll('.tilt-card');
+        cards.forEach(card => {
+            const glare = card.querySelector('.glare');
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                
+                if (glare) {
+                    const glareX = (x / rect.width) * 100;
+                    const glareY = (y / rect.height) * 100;
+                    glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 200, 100, 0.1) 50%, transparent 80%)`;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+                if (glare) glare.style.background = '';
+            });
+        });
+
+        // ----- Awesome Effect #3: Monster Eyes Glow & Roar on Scroll -----
+        const eyeLeft = document.getElementById('eyeLeft');
+        const eyeRight = document.getElementById('eyeRight');
+        const mouth = document.getElementById('monsterMouth');
+        const pL = document.getElementById('pupilLeft');
+        const pR = document.getElementById('pupilRight');
+        
+        function updateMonster() {
+            const scrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollY / maxScroll;
+            
+            if (mouth) mouth.style.width = (progress * 100) + '%';
+            
+            // Eyes glow redder as you scroll
+            const intensity = Math.min(progress * 1.5, 1);
+            if (eyeLeft) eyeLeft.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;
+            if (eyeRight) eyeRight.style.boxShadow = `0 0 ${20 + intensity * 30}px #ff4d4d`;
+            
+            // Pupil movement
+            if (pL && pR) {
+                const moveX = (progress - 0.5) * 20;
+                pL.style.transform = `translateX(${moveX}px)`;
+                pR.style.transform = `translateX(${moveX}px)`;
+            }
+        }
+        window.addEventListener('scroll', updateMonster);
+        window.addEventListener('resize', updateMonster);
+        updateMonster();
+
+        // ----- Scroll Reveal Animation -----
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => observer.observe(el));
+
+        // Smooth scroll for table of contents links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html> to "Hatsune Miku no Shoushitsu" (BPM 240). That chart has bursts of speed, but it <em>lets you go</em> between them. "Kaijuu" grabs you at 0:45 and doesn't let go until the song ends. One missed note doesn't just break your combo. It creates a timing deviation that you <strong>cannot correct</strong> because there's no low-density section to recalibrate. You just spiral.</p>
 
     <!-- SAKUZYO SECTION WITH BACKHANDED COMPLIMENT -->
     <h2 class="reveal" id="sakuzyo"><i class="fas fa-user-ninja"></i> Sakuzyo: A Genius Who Hates Fingers</h2>

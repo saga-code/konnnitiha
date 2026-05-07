@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>👑</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Project SEKAI "Jouou (嬢王)" APPEND Lv.37 Guide – Queen’s Gauntlet & My Ascension</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0b0e14; 
+            color: #e8eef2; 
+            font-family: 'Helvetica Neue', 'Segoe UI', 'Hiragino Kaku Gothic ProN', sans-serif; 
+            line-height: 1.8; 
+            padding: 2rem 1rem; 
+            overflow-x: hidden;
+        }
+        #joou-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.45;
+        }
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.12s ease;
+            position: relative;
+            border-radius: 28px;
+            background: #0f1a24;
+            border: 1px solid #b886ff;
+            box-shadow: 0 8px 0 #0a121c;
+        }
+        .tilt-card .glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 220, 150, 0.3) 0%, rgba(255, 100, 200, 0.05) 70%);
+            z-index: 5;
+        }
+        .tilt-card:hover .glare { opacity: 1; }
+        .tilt-card .content {
+            position: relative;
+            z-index: 2;
+            transform: translateZ(20px);
+        }
+        .double-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            z-index: 20;
+            position: relative;
+        }
+        .king-link, .kaijuu-link {
+            background: linear-gradient(135deg, #1f2a44, #0f172a);
+            border: 1px solid #ffb86b;
+            border-radius: 60px;
+            padding: 0.8rem 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #ffdd99;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #0a0e1a;
+            backdrop-filter: blur(4px);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        .king-link:hover, .kaijuu-link:hover {
+            transform: translateY(-3px);
+            background: #2a3a60;
+            border-color: #ffaa44;
+            color: #fff0c0;
+            box-shadow: 0 8px 0 #0a0e1a;
+        }
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 28px; background: transparent; z-index: 100; pointer-events: none; }
+        .spikes { position: absolute; top: 0; left: 0; width: 100%; height: 14px; background: repeating-linear-gradient(90deg, transparent 0px, transparent 12px, #8a2be2 12px, #4a1c70 16px); opacity: 0.8; }
+        .monster-mouth { position: absolute; bottom: 0; left: 0; height: 14px; width: 0%; background: linear-gradient(90deg, #c06cff, #ff99cc, #ffd966); box-shadow: 0 0 20px #c06cff; transition: width 0.08s ease; border-radius: 0 12px 12px 0; border-right: 4px solid #e5aaff; }
+        .monster-mouth::after { content: ""; position: absolute; top: -4px; left: 0; width: 100%; height: 8px; background: repeating-linear-gradient(90deg, #0b0e14 0px, #0b0e14 6px, transparent 6px, transparent 12px); }
+        .monster-eyes { position: absolute; top: 2px; left: 0; width: 100%; height: 22px; display: flex; justify-content: space-between; padding: 0 15px; pointer-events: none; }
+        .eye { width: 28px; height: 20px; background: #f0e6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px #b77eff; border: 1px solid #4a2c6e; transition: box-shadow 0.2s; }
+        .pupil { width: 12px; height: 14px; background: #0b0e14; border-radius: 50%; transition: transform 0.05s linear; border: 1px solid #4a2c6e; position: relative; }
+        .pupil::after { content: ""; position: absolute; top: 2px; right: 2px; width: 4px; height: 4px; background: white; border-radius: 50%; opacity: 0.8; }
+        .horn-left, .horn-right { position: absolute; top: -10px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 20px solid #b282f0; filter: drop-shadow(0 4px 6px #000); }
+        .horn-left { left: 15px; transform: rotate(-25deg); } .horn-right { right: 15px; transform: rotate(25deg); }
+        @keyframes mouthPulse { 0% { box-shadow: 0 0 15px #c06cff; } 50% { box-shadow: 0 0 30px #ff99cc, 0 0 10px #c06cff; } 100% { box-shadow: 0 0 15px #c06cff; } }
+        .monster-mouth.pulse { animation: mouthPulse 1.2s infinite ease-in-out; }
+        .blog-container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: rgba(22, 28, 36, 0.8);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 48px;
+            padding: 2.5rem 2.2rem;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(200, 130, 255, 0.3);
+            border: 1px solid rgba(200, 130, 255, 0.25);
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.9s ease forwards;
+        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.7s cubic-bezier(0.2, 0.9, 0.1, 1); }
+        .reveal.show { opacity: 1; transform: translateY(0); }
+        h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ffddbb, #ff99dd, #bf7eff); -webkit-background-clip: text; background-clip: text; color: transparent; border-left: 8px solid #e76dff; padding-left: 1.5rem; text-shadow: 0 0 20px rgba(191, 126, 255, 0.6); }
+        h2 { font-size: 2rem; font-weight: 700; margin: 2.8rem 0 1.2rem; color: #ffecb3; border-bottom: 2px solid #c680ff; padding-bottom: 0.5rem; display: inline-block; }
+        h2 i { color: #e76dff; margin-right: 15px; }
+        h3 { font-size: 1.5rem; margin: 1.8rem 0 0.8rem; color: #ffd966; }
+        .post-meta { display: flex; gap: 2rem; margin-bottom: 2rem; color: #b0c7db; font-size: 1rem; border-bottom: 1px dashed #c680ff; padding-bottom: 1rem; }
+        p { margin-bottom: 1.4rem; font-size: 1.1rem; color: #e6f0ff; }
+        strong { color: #ffb347; font-weight: 800; }
+        .punch { font-size: 1.5rem; font-weight: 800; color: #ffd966; margin: 2rem 0; text-align: center; text-shadow: 0 0 20px #e76dff; }
+        .rage-box {
+            background: rgba(156, 60, 200, 0.25);
+            border-left: 8px solid #e76dff;
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 30px rgba(200, 0, 255, 0.2);
+            font-weight: bold;
+        }
+        .rage-box i { color: #e76dff; margin-right: 15px; }
+        .rage-box .quote { font-size: 1.3rem; color: #ffccee; margin-bottom: 0.5rem; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; margin: 1.5rem 0; border: 2px solid #cf9eff; box-shadow: 0 0 30px rgba(200, 100, 255, 0.4); }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .tweet-quote { background: rgba(30, 20, 55, 0.85); backdrop-filter: blur(5px); border-radius: 20px; padding: 1.5rem 2rem; margin: 2rem 0; border-left: 8px solid #1da1f2; color: #e0f0ff; font-style: italic; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0; }
+        .stat-card { background: rgba(15, 26, 36, 0.9); border-radius: 24px; padding: 1.8rem; border: 1px solid #cf9eff; text-align: center; backdrop-filter: blur(8px); }
+        .stat-card i { font-size: 2.5rem; color: #ffd966; margin-bottom: 0.8rem; }
+        .stat-card h3 { font-size: 2.5rem; color: #ffd966; margin: 0; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2.5rem 0; }
+        .gallery-item { background: rgba(15, 26, 36, 0.9); border-radius: 24px; padding: 1.5rem; border: 1px solid #7e57c2; backdrop-filter: blur(8px); }
+        .tip-box { background: linear-gradient(145deg, #1e2f40, #0f1a24); border-radius: 30px; padding: 2rem 2.2rem; margin: 2.5rem 0; border: 1px solid #cf9eff; box-shadow: 0 15px 0 #0a121c; }
+        .tip-box h3 { margin-top: 0; color: #ffb347; }
+        hr { border: none; height: 2px; background: linear-gradient(90deg, transparent, #cf9eff, transparent); margin: 3rem 0; }
+        .toc-container {
+            background: rgba(15, 26, 36, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0 2.5rem;
+            border: 1px solid #cf9eff;
+            box-shadow: 0 8px 0 #0a121c;
+        }
+        .toc-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffd966;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem 1.5rem;
+        }
+        .toc-item { list-style: none; }
+        .toc-link {
+            color: #c6e2ff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted transparent;
+        }
+        .toc-link i { color: #e76dff; font-size: 0.9rem; width: 20px; text-align: center; }
+        .toc-link:hover { color: #ffd966; border-bottom: 1px dotted #cf9eff; transform: translateX(5px); }
+        @media (max-width: 600px) {
+            .blog-container { padding: 1.5rem 1rem; }
+            h1 { font-size: 1.8rem; }
+            .stat-grid, .gallery, .toc-grid { grid-template-columns: 1fr; }
+        }
+        .credit-badge {
+            font-size: 0.9rem;
+            background: #1e1a2f;
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="joou-canvas"></canvas>
+
+    <div class="progress-container">
+        <div class="spikes"></div><div class="horn-left"></div><div class="horn-right"></div>
+        <div class="monster-eyes">
+            <div class="eye" id="eyeLeft"><div class="pupil" id="pupilLeft"></div></div>
+            <div class="eye" id="eyeRight"><div class="pupil" id="pupilRight"></div></div>
+        </div>
+        <div class="monster-mouth pulse" id="monsterMouth"></div>
+    </div>
+
+<div class="blog-container">
+    <div class="double-nav">
+        <a href="#" class="kaijuu-link" id="kaijuuLink"><i class="fas fa-dragon"></i> 🦖 "Kaijuu ni Naritai" Lv.38 Guide</a>
+        <a href="#" class="king-link" id="joouSelfLink"><i class="fas fa-crown"></i> 👑 嬢王 APPEND Lv.37 (current)</a>
+    </div>
+
+    <div class="credit-badge reveal"><i class="fas fa-music"></i> Composer: Hachiouji-P (八王子P) | Vocal: Hatsune Miku | SEKAI ver. feat. MEIKO</div>
+    <h1 class="reveal">👑 Project SEKAI "嬢王" (Jouou) APPEND Lv.37 Guide – The Queen’s Gauntlet & My Ascension</h1>
+    <div class="post-meta reveal">
+        <span><i class="far fa-calendar-alt"></i> April 28, 2026</span>
+        <span><i class="far fa-user"></i> The Throne Exile</span>
+        <span><i class="far fa-clock"></i> 2 minutes of royal punishment</span>
+    </div>
+
+    <div class="toc-container reveal">
+        <div class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents – Throne Room</div>
+        <ul class="toc-grid">
+            <li class="toc-item"><a href="#first-sting" class="toc-link"><i class="fas fa-skull"></i> The Queen’s First Sting</a></li>
+            <li class="toc-item"><a href="#hachiouji" class="toc-link"><i class="fas fa-user-astronaut"></i> Hachiouji-P × Miku: Royal Sadists</a></li>
+            <li class="toc-item"><a href="#gameplay-videos" class="toc-link"><i class="fas fa-video"></i> Massacre Playbacks</a></li>
+            <li class="toc-item"><a href="#pro-tips" class="toc-link"><i class="fas fa-gem"></i> Crown Jewels: Survival Tips</a></li>
+            <li class="toc-item"><a href="#brutal-math" class="toc-link"><i class="fas fa-chart-line"></i> The Brutal Mathematics</a></li>
+            <li class="toc-item"><a href="#breakthrough" class="toc-link"><i class="fas fa-crown"></i> The Night I Became Queen</a></li>
+            <li class="toc-item"><a href="#final-rave" class="toc-link"><i class="fas fa-flag-checkered"></i> Join the Rampage</a></li>
+        </ul>
+    </div>
+
+    <div class="reveal tilt-card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
+        <div class="glare"></div>
+        <div class="content">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/videoseries?list=PLB4A3B0C2B3F4E5D6" title="Jouou Hachiouji-P original" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <p>The song <strong>“嬢王” (Jouou)</strong> – composed by the legendary <strong>Hachiouji-P (八王子P)</strong>, voiced by the eternal diva <strong>Hatsune Miku</strong>. An electro‑queen anthem that sounds like a luxurious ballroom invitation. But the APPEND chart (Lv.37) added to Project SEKAI in December 2025? It’s an <strong>execution chamber wrapped in velvet</strong>. While “Kaijuu ni Naritai” is raw destruction, “嬢王” is a precision poison needle. I died 35 times before I could even bow to the throne. This is my chronicle.</p>
+        </div>
+    </div>
+
+    <h2 class="reveal" id="first-sting"><i class="fas fa-skull"></i> The Queen’s First Sting – Elegant Trap at 0:38</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem; margin-bottom: 2rem;">
+        <div class="glare"></div>
+        <div class="content">
+            <p><strong>"Lv.37? I conquered Kaijuu, this will be a tea party."</strong> I want to slap past me. The intro slides are calm, almost teasing. At 0:28 the bass distorts; at exactly <strong>0:38</strong> a hellish staircase of 16th notes + alternating hand flicks slams into my fingers. My right hand trembles, my left hand is dragged across the screen like a ragdoll. The health bar evaporates. And then the real torture begins at <strong>1:10 – the “Throne Room”</strong>: 4-note bursts stacked with vertical jacks, surpassing human reaction speed. No one survives first contact with 嬢王.</p>
+        </div>
+    </div>
+    
+    <div class="rage-box reveal">
+        <i class="fas fa-angry"></i>
+        <div class="quote">"Hachiouji-P, do you even have human hands?" – My middle finger, crying</div>
+        <p>Kaijuu is raw power; 嬢王 is relentless accuracy. ~2450 notes with almost zero recovery. Thumb players: switch to four fingers immediately. This chart doesn't forgive – it judges.</p>
+    </div>
+
+    <div class="tweet-quote reveal">
+        <i class="fab fa-twitter"></i> "Tried 嬢王 APPEND. 0:38 staircase made me question my life choices. Miku sings elegantly while my hands bleed. #ProjectSEKAI" <br>— <strong>Scream from the community</strong>
+    </div>
+
+    <h2 class="reveal" id="hachiouji"><i class="fas fa-user-astronaut"></i> Hachiouji-P: The King of EDM Who Hates Your Fingers</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem;">
+        <div class="glare"></div>
+        <div class="content">
+            <p><strong>Hachiouji-P (八王子P)</strong> – the master behind vocaloid EDM classics like “Sweet Devil” and “Electric Love”. With <strong>“嬢王” (Jouou)</strong>, he crafted a track that distorts Miku’s voice into a defiant queen's roar, layered over crushing basslines. The lyrics boast an untouchable female sovereign. And the Project SEKAI charting team translated that into <strong>a suffocating, claustrophobic note pattern</strong>. If Sakuzyo gave us a rampaging monster, Hachiouji-P gave us a velvet‑gloved executioner. Respect, but also: why.</p>
+        </div>
+    </div>
+
+    <h2 class="reveal" id="gameplay-videos"><i class="fas fa-video"></i> Royal Carnage – Witness the Massacre</h2>
+    <div class="gallery">
+        <div class="gallery-item reveal tilt-card">
+            <div class="content">
+                <h3><i class="fas fa-brain"></i> My First Clear (Barely alive)</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/4l5I8I8q0cI" title="Jouou append clear attempt" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>At 0:38 I panic. At 1:10 my brain disconnects. But fingers keep moving by instinct. STAGE CLEAR flashes – I'm shaking.</p>
+            </div>
+        </div>
+        <div class="gallery-item reveal tilt-card">
+            <div class="content">
+                <h3><i class="fas fa-crown"></i> The Queen’s AP (Absolute Perfection)</h3>
+                <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/6PdFkMYYf2A" title="Jouou AP play" frameborder="0" allowfullscreen loading="lazy"></iframe></div>
+                <p>Every single note PERFECT. This player has ascended beyond humanity. Pure muscle memory, zero hesitation.</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="reveal" id="pro-tips"><i class="fas fa-gem"></i> Crown Jewels: How to Actually Survive 嬢王</h2>
+    <div class="tip-box reveal tilt-card">
+        <div class="content">
+            <p><strong>1. Speed setting: 10.6 – 10.9</strong> (slightly lower than Kaijuu). You need clarity for the staircase flicks.</p>
+            <p><strong>2. The 0:38 “Queen’s Staircase”:</strong> Let your right hand go into autopilot. Focus your eyes on the left hand’s slide pattern. Chunk the staircase into “up → diagonal” groups mentally.</p>
+            <p><strong>3. 1:10 Throne Room (4-note bursts + jacks):</strong> Sync both hands perfectly. Count the downbeats aloud – if you drift here, you'll never recover.</p>
+            <p><strong>4. Disable MV / Simple mode.</strong> The glittering visuals are gorgeous but they stab your concentration.</p>
+            <p><strong>5. Wrist care:</strong> 嬢王 forces wide wrist motion. Stretch before every session. Ice after 5 attempts. Tendonitis is real.</p>
+        </div>
+    </div>
+
+    <h2 class="reveal" id="brutal-math"><i class="fas fa-chart-line"></i> The Brutal Math: Numbers Don't Lie</h2>
+    <div class="stat-grid">
+        <div class="stat-card reveal tilt-card"><div class="content"><i class="fas fa-tachometer-alt"></i><h3>174</h3><p>BPM</p><small>but 16th-note density = effective 348</small></div></div>
+        <div class="stat-card reveal tilt-card"><div class="content"><i class="fas fa-hand-peace"></i><h3>14.5</h3><p>notes/second (peak)</p><small>staircases + flicks combined</small></div></div>
+    </div>
+    <p class="reveal">Although the BPM is 174, there are almost no real rest sections. Every beat is filled with multi-finger patterns. The chart demands marathon endurance – the “breathing” sections still force one hand to keep a trill alive. That’s the malicious genius of 嬢王.</p>
+    
+    <div class="rage-box reveal">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="quote">"Difficulty rating fraud: if this is Lv.37, all previous Lv.37 are Lv.34."</div>
+        <p>Sega called it “the pinnacle of technique”. Translation: “we hate your fingers, but in an elegant way”. Compared to Kaijuu, 嬢王 demands more rhythmic precision – which makes it even more frustrating when you fail.</p>
+    </div>
+
+    <h2 class="reveal" id="breakthrough"><i class="fas fa-crown"></i> The Night I Became Queen – Attempt #36</h2>
+    <div class="reveal tilt-card" style="padding: 1.8rem;">
+        <div class="content">
+            <p>Attempt 36. Speed at 10.8. Iced my wrists, took a deep breath. The intro faded. The Queen’s staircase arrived – but this time I didn't tense up. My left hand glided automatically. Then the Throne Room at 1:10: for the first time, I <strong>felt the rhythm core</strong>. All notes felt delayed, yet my fingers tracked them perfectly. The final double jacks, then the golden letters: "STAGE CLEAR". A calm, regal euphoria. Not the savage roar of Kaijuu, but the quiet satisfaction of wearing the crown. Elegant violence.</p>
+        </div>
+    </div>
+
+    <div class="tweet-quote reveal">
+        <i class="fab fa-twitter"></i> "Cleared 嬢王 APPEND. My wrists hurt but I feel like a queen. Thank you Hachiouji-P… but also I don't forgive you. #ProjectSEKAI" <br>— <strong>Me, stepping onto the throne</strong>
+    </div>
+    
+    <p class="punch reveal">The shining throne is built on blood and sweat.</p>
+
+    <hr class="reveal">
+
+    <h2 class="reveal" id="final-rave"><i class="fas fa-flag-checkered"></i> Ready to Join the Royal Rampage?</h2>
+    <p class="reveal">“嬢王” is not just a speed test. It challenges your rhythmic precision, hand independence, and mental fortitude. And above all, the <strong>Hachiouji-P × Hatsune Miku</strong> chemistry makes you click “retry” like a spell. If Kaijuu is primal instinct, 嬢王 is a battle for pride. Will you sit on the throne?</p>
+    <p class="reveal">The sister guide awaits – face the monster or stay with the queen.</p>
+    
+    <div style="display: flex; justify-content: center; gap: 1.5rem; margin: 2rem 0 1rem;">
+        <a href="#" id="kaijuuBtn" class="king-link"><i class="fas fa-dragon"></i> Go to "Kaijuu ni Naritai" Lv.38 Guide</a>
+        <a href="#" id="scrollTopBtn" class="king-link"><i class="fas fa-arrow-up"></i> Back to Throne</a>
+    </div>
+
+    <p style="text-align: center; color: #9bb7d4; margin-top: 3rem;" class="reveal">© 2026 Hachiouji-P / Hatsune Miku — 嬢王 (Jouou) will keep testing your fingers. Are you the queen, or just prey?</p>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('joou-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const PARTICLE_COUNT = 140;
+        let mouseX = 0, mouseY = 0;
+        let pulsePhase = 0;
+
+        function initCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.25,
+                    vy: (Math.random() - 0.5) * 0.25,
+                    size: Math.random() * 3.5 + 1,
+                    baseSize: Math.random() * 3.5 + 1,
+                    color: `rgba(200, ${100 + Math.random() * 100}, 255, ${0.25 + Math.random() * 0.4})`
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            pulsePhase = (Date.now() % 1100) / 1100;
+            const pulseScale = 1 + Math.sin(pulsePhase * Math.PI * 2) * 0.2;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            const mouseInfluenceX = (mouseX - centerX) / centerX * 0.6;
+            const mouseInfluenceY = (mouseY - centerY) / centerY * 0.6;
+
+            particles.forEach(p => {
+                p.x += p.vx + mouseInfluenceX * 0.08;
+                p.y += p.vy + mouseInfluenceY * 0.08;
+                if (p.x < 0 || p.x > width) p.vx *= -0.95;
+                if (p.y < 0 || p.y > height) p.vy *= -0.95;
+                p.vx *= 0.99;
+                p.vy *= 0.99;
+                const size = p.baseSize * pulseScale;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = '#cc88ff';
+                ctx.shadowBlur = 12 * pulseScale;
+                ctx.fill();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', () => { initCanvas(); });
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        initCanvas();
+        drawParticles();
+
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            const glare = card.querySelector('.glare');
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 12;
+                const rotateY = (centerX - x) / 12;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+                if (glare) {
+                    const glareX = (x / rect.width) * 100;
+                    const glareY = (y / rect.height) * 100;
+                    glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 230, 180, 0.35) 0%, rgba(200, 120, 255, 0.1) 60%, transparent 90%)`;
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+                if (glare) glare.style.background = '';
+            });
+        });
+
+        const eyeLeft = document.getElementById('eyeLeft');
+        const eyeRight = document.getElementById('eyeRight');
+        const mouth = document.getElementById('monsterMouth');
+        const pL = document.getElementById('pupilLeft');
+        const pR = document.getElementById('pupilRight');
+
+        function updateMonster() {
+            const scrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+            if (mouth) mouth.style.width = (progress * 100) + '%';
+            const intensity = Math.min(progress * 1.4, 1);
+            if (eyeLeft) eyeLeft.style.boxShadow = `0 0 ${15 + intensity * 35}px #b77eff`;
+            if (eyeRight) eyeRight.style.boxShadow = `0 0 ${15 + intensity * 35}px #b77eff`;
+            if (pL && pR) {
+                const moveX = (progress - 0.5) * 18;
+                pL.style.transform = `translateX(${moveX}px)`;
+                pR.style.transform = `translateX(${moveX}px)`;
+            }
+        }
+        window.addEventListener('scroll', updateMonster);
+        window.addEventListener('resize', updateMonster);
+        updateMonster();
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            new IntersectionObserver((entries, obs) => {
+                entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
+            }, { threshold: 0.15 }).observe(el);
+        });
+
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const kaijuuLink = document.getElementById('kaijuuLink');
+        const kaijuuBtn = document.getElementById('kaijuuBtn');
+        const goToKaijuu = () => {
+            window.location.href = 'kaijuu-survival-guide.html';
+        };
+        if (kaijuuLink) kaijuuLink.addEventListener('click', (e) => { e.preventDefault(); goToKaijuu(); });
+        if (kaijuuBtn) kaijuuBtn.addEventListener('click', (e) => { e.preventDefault(); goToKaijuu(); });
+        document.getElementById('scrollTopBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+</script>
+</body>
+</html>
